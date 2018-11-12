@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>设置</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+
+        .account-install-page .details .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="book_details.html">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">设置</h2>
+    </div>
+
+    <div class="content">
+        <div class="account-install-page">
+            <div class="box">
+                <h6>基本设置</h6>
+                <div class="con">
+                    <div class="details">
+                        <div class="text">
+                            <h2>消息推送</h2>
+                            <p>关闭后，可以禁止消息栏通知提醒</p>
+                        </div>
+                        <select name="switch" id="switch" data-role="slider">
+                            <option value="on"></option>
+                            <option value="off"></option>
+                        </select>
+                    </div>
+                    <div class="details">
+                        <div class="text">
+                            <h2>自动订阅管理</h2>
+                            <p>开启后，可以自动订阅下一章</p>
+                        </div>
+                        <select name="switch" id="switch" data-role="slider">
+                            <option value="on"></option>
+                            <option value="off" selected></option>
+                        </select>
+                    </div>
+                    <div class="details">
+                        <a href="#">
+                            <div class="text">
+                                <h2>自动订阅管理</h2>
+                                <p>开启后，可以自动订阅下一章</p>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div class="text">
+                            <h2>仅在WIFI环境下下载图片</h2>
+                        </div>
+                        <select name="switch" id="switch" data-role="slider">
+                            <option value="on"></option>
+                            <option value="off" selected></option>
+                        </select>
+                    </div>
+                    <div class="details">
+                        <div class="text">
+                            <h2>清除缓存</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <h6>关于今点</h6>
+                <div class="con">
+                    <div class="details">
+                        <a href="#">
+                            <div class="text">
+                                <h2>版本更新</h2>
+                                <p>当前已是最新版本</p>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="con">
+                    <div class="details">
+                        <a href="#">
+                            <div class="text">
+                                <h2>免责声明</h2>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button>切换账号</button>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getAppSetting();
+    }else{
+        //TODO 跳转到登录页面
+    }
+
+
+    function getAppSetting(){
+        var params = '["{}"]';
+        myHttp.ajax({
+            url: urls.getAppSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                console.log(res);
+                if (res.statusCode == 200) {
+
+                } else if(res.statusCode == 110003) {
+                    //TODO 跳转到登录页面
+                }
+            }
+        });
+
+
+    }
+
+</script>
+</body>
+</html>

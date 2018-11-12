@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>小说锁章</title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        #pageone {
+            background-image: url("../images/book_bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 0 0.25rem;
+            overflow: hidden;
+            text-shadow: none;
+        }
+
+        .Topre input.ui-slider-input {
+            left: 0;
+        }
+
+        .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .read-fixed > div {
+            background-color: #000000;
+        }
+
+        .read-fixed > div > h2 {
+            color: #aeaeae;
+        }
+
+        .read-fixed > div .box h3 {
+            color: #aeaeae;
+        }
+
+        .read-fixed > div > h1 {
+            color: #aeaeae;
+        }
+        .ui-checkbox, .ui-radio{
+            height:1rem;
+            line-height:1rem;
+            margin:0;
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            align-items: center;
+        }
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+            position:static;
+            top:0;
+            left:0;
+            text-align:right;
+        }
+        .mui-checkbox input[type=checkbox]:before{
+            display:block;
+            font-size:0.5rem;
+            line-height:0.9rem;
+        }
+        .mui-checkbox{
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            align-items: center;
+            height:1rem;
+        }
+        .mui-checkbox span{
+            font-size:0.24rem;
+            color:#6f562d;
+        }
+    </style>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div class="page-name">
+        <p id="bookName">《将军快回来》</p>
+        <p id="chapterName1">第一章</p>
+    </div>
+    <div class="page_text" style="overflow: auto;">
+        <h2 id="chapterName">第一章</h2>
+        <p>四瑾时代以来，天下四分，东南西北四瑾国连年征战，灾祸不断，各地国土上的百姓们皆是饱受着战火的煎熬，日日都是提心吊胆，家中常备细软钱财，时刻准备着奔流…<em>我要吐槽</em><span>5</span></p>
+    </div>
+    <div class="lock">
+        <p>——  码字不易，请购买后阅读 ——</p>
+        <div class="money">
+            <p><span>本章价格：</span><span><em>10</em>今元宝</span></p>
+            <p><span>可用余额：</span><span><em>0</em>今元宝</span></p>
+            <button type="button">余额不足，立即充值</button>
+            <div class="mui-input-row mui-checkbox">
+                <input name="checkbox" value="Item 1" type="checkbox">
+                <span>自动购买下一章</span>
+            </div>
+        </div>
+    </div>
+    <div class="page-fix">
+        <span>10.0%</span>
+        <div class="time">
+            <span>20:03</span>
+            <p><em style="width: 10%;"></em></p>
+        </div>
+    </div>
+
+
+    <!--设置窗口-->
+    <div class="read-set-top">
+        <div class="Back">
+            <img src="../images/read-set.png"/>
+        </div>
+        <div class="func">
+            <img src="../images/read-set01.png" class="download"/>
+            <img src="../images/read-set02.png" class="mess"/>
+            <img src="../images/read-set03.png" class="bookmark"/>
+            <img src="../images/read-set04.png" class="set"/>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li>
+                    <img src="../images/read-set09.png"/>
+                    <p>更新提醒开启</p>
+                </li>
+                <li>
+                    <img src="../images/read-set10.png"/>
+                    <p>自动订阅下一章</p>
+                </li>
+                <li>
+                    <img src="../images/read-set11.png"/>
+                    <p>分享</p>
+                </li>
+                <li>
+                    <img src="../images/read-set12.png"/>
+                    <p>举报本章</p>
+                </li>
+            </ul>
+            <span></span>
+        </div>
+    </div>
+
+
+    <!--底部窗口-->
+
+    <div class="read-set-b">
+
+        <div class="swiper-pre">
+            <span>上一章</span>
+            <div class="Topre">
+                <input type="range" name="slider-1" id="slider-1" min="0" max="100" value="50" data-hightlight="true"
+                       data-popup-enabled="true">
+            </div>
+            <span>下一章</span>
+        </div>
+        <div class="menu">
+            <div class="box">
+                <img src="../images/read-set08.png"/>
+                <p>目录</p>
+            </div>
+            <div class="box">
+                <img src="../images/read-set07.png"/>
+                <p>夜间</p>
+            </div>
+            <div class="box B-set">
+                <img src="../images/read-set06.png"/>
+                <p>设置</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--更多设置-->
+    <div class="read-move">
+        <div class="read-light">
+            <div class="box">
+                <img src="../images/light01.png"/>
+                <div class="Topre">
+                    <input type="range" name="slider-1" id="slider-1" min="0" max="100" value="50">
+                </div>
+                <img src="../images/light01.png"/>
+            </div>
+            <span>系统亮度</span>
+        </div>
+        <div class="color">
+            <span></span>
+            <span></span>
+            <span class="mui-icon mui-icon-checkmarkempty"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="change-font">
+            <div class="box">
+                <button>A-</button>
+                <span>16</span>
+                <button>A+</button>
+            </div>
+            <button class="system-font">系统字体 ></button>
+        </div>
+        <div class="last-menu">
+            <div class="box">
+                <img src="../images/read-set08.png"/>
+                <p>目录</p>
+            </div>
+            <div class="box">
+                <img src="../images/read-see.png"/>
+                <p>护眼模式</p>
+            </div>
+            <div class="box">
+                <img src="../images/read-set04.png"/>
+                <p>更多</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="read-fixed">
+
+        <!--设置字体样式-->
+        <div id="system-font">
+            <h2>选择字体</h2>
+            <div class="box">
+                <h3>系统字体</h3>
+                <h3>黑体</h3>
+            </div>
+            <h1>取消</h1>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true, //启用右滑关闭功能
+    });
+    /**滑块**/
+
+    /**获取body的整个高度**/
+    $(function () {
+        $(document.body).height($(window).height());
+        var H = $("#pageone").height() / 3;
+        /**长按字段**/
+        $(".page_text p").on("taphold", function () {
+            $(this).toggleClass("on").siblings().removeClass("on")
+        })
+
+        /**点击上中下触发事件**/
+        var flag = true
+        $(document.body).click(function (e) {
+            var e = e || event;
+            if (e.pageY <= H) {
+                console.log("上一页")
+            } else if (e.pageY < H * 2) {
+                if (flag) {
+                    $(".read-set-top").css("display", "block").css("display", "flex");
+                    $(".read-set-b").css("display", "block")
+                } else {
+                    $(".read-set-top").css("display", "none");
+                    $(".read-set-b").css("display", "none");
+                }
+                $(".read-move").css("display", "none")
+                flag = !flag;
+            } else {
+                console.log('下一页')
+            }
+        })
+        var showe = true;
+        $(".read-set-top .func .set").click(function () {
+            if (showe) {
+                $(".read-set-top .menu").css("display", "block");
+            } else {
+                $(".read-set-top .menu").css("display", "none");
+            }
+            showe = !showe;
+        })
+
+
+        /**点击设置**/
+        $(".read-set-b .menu .box.B-set").click(function (e) {
+            console.log("a")
+            var e = e || event;
+            e.stopPropagation();
+            $(".read-set-top").css("display", "none");
+            $(".read-set-b").css("display", "none");
+
+            $(".read-move").css("display", "block")
+        })
+
+
+        /**获取值**/
+        $(".read-set-b").on("click", ".ui-slider-track .ui-btn.ui-slider-handle", function () {
+            console.log("a")
+        })
+
+
+        /**弹出选择字体样式**/
+        $(".system-font").click(function () {
+            $(".read-move").css("display", "none");
+            flag = !flag;
+            $(".read-fixed").stop().fadeIn();
+            $("#system-font").addClass("active");
+        })
+
+        /**选择字体样式**/
+        $("#system-font h3").click(function () {
+            var text = $(this).html();
+            if (text == '系统字体') {
+                $(document.body).css("font-family", "微软雅黑");
+            } else {
+                $(document.body).css("font-family", text);
+            }
+            $(".read-fixed").stop().fadeOut();
+            $("#font-family").removeClass("active");
+        })
+
+        /**点击取消**/
+        $("#system-font>h1").click(function () {
+            $("#system-font").removeClass("active");
+            $(".read-fixed").stop().fadeOut();
+        })
+
+
+        /**修改阅读的设置值**/
+        function Set(Fontsize, Linespace, Fontfamily, Backcolor, Nightmode) {
+            // 设置字体大小
+            if (Fontsize) {
+                switch (Fontsize) {
+                    case 1:
+                        $(".page_text p").css("font-size", "12px");
+                        break;
+                    case 2:
+                        $(".page_text p").css("font-size", "14px");
+                        break;
+                    case 3:
+                        $(".page_text p").css("font-size", "16px");
+                        break;
+                    case 4:
+                        $(".page_text p").css("font-size", "20px");
+                        break;
+                }
+            }
+
+
+            //设置字体的行高
+            if (Linespace) {
+                switch (Linespace) {
+                    case 1:
+                        $(".page_text p").css("line-height", "22px");
+                        break;
+                    case 2:
+                        $(".page_text p").css("line-height", "24px");
+                        break;
+                    case 3:
+                        $(".page_text p").css("line-height", "26px");
+                        break;
+                    case 4:
+                        $(".page_text p").css("line-height", "30px");
+                        break;
+                }
+            }
+
+            //设置字体
+            if (Fontfamily) {
+                $(".page_text p").css("font-family", Fontfamily);
+            }
+
+            //设置背景颜色
+            if (Backcolor) {
+                $("#pageone").css({"background-image": "none", "background-color": Backcolor});
+            }
+
+            //设置夜间模式
+            if (Nightmode) {
+                $("#pageone").css({"background-image": "none", "background-color": "#1b1b1b"});
+                $(".page_text p").css("color", "#5e5e5e");
+            }
+        }
+
+        //Set(2,4,"黑体","#fff",false)
+
+    })
+</script>
+<script>
+
+
+    var id = getQueryString(winurl, 'id');
+
+    if(accessToken){
+        getReadInfo();
+    }else{
+        NATIVE.toLogin();
+    }
+
+
+    //获取app设置
+    function getReadInfo(){
+        var params = '["{bookId:'+id+'}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getReadInfo.path,
+//            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var record = res.data;
+                        $('#bookName').text("《"+record['bookName']+"》");
+                        $('#chapterName').text(record['chapterName']);
+                        $('#chapterName1').text(record['chapterName']);
+                        $('.page_text').append(record['content']);
+                    }
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+
+
+</script>
+</body>
+</html>

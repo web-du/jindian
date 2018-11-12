@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>今点排行</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .mui-bar {
+            background-color: #e15149;
+        }
+
+        .mui-bar-nav.mui-bar .mui-icon {
+            color: #FFFFFF;
+        }
+
+        .mui-title {
+            color: #FFFFFF;
+        }
+
+        .mui-bar .mui-btn-link {
+            color: #FFFFFF;
+        }
+
+        .mui-segmented-control .mui-control-item {
+            width: 100%;
+        }
+
+        .mui-row.mui-fullscreen > [class*="mui-col-"] {
+            height: 100%;
+        }
+
+        .mui-col-xs-3,
+        .mui-control-content {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .mui-segmented-control .mui-control-item {
+            line-height: 50px;
+            width: 100%;
+        }
+
+        .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+            background-color: #fff;
+        }
+
+        .swiper-pagination-bullet {
+            font-size: 0.28rem;
+            color: #333;
+            width: 1.38rem;
+            height: 0.58rem;
+            margin: 0 !important;
+            border-radius: 0.3rem;
+            line-height: 0.58rem;
+            background-color: #f0f0f0;
+            opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active {
+            color: #fff;
+            background-color: #e15149;
+        }
+
+        .swiper-container {
+            padding-top: 1.35rem;
+        }
+
+        .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+            top: 0.25rem !important;
+        }
+        .mui-content{
+            padding-top:0.8rem;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:NATIVE.closeWinView();">
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">排行</h2>
+</div>
+<div class="mui-content mui-row mui-fullscreen index-class">
+    <div class="mui-col-xs-3">
+        <div id="segmentedControls"
+             class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+            <a class="mui-control-item mui-active" href="#content1">男生</a>
+            <a class="mui-control-item" href="#content2">女生</a>
+        </div>
+    </div>
+    <div id="segmentedControlContents" class="mui-col-xs-9 Book-rank">
+        <div id="content1" class="mui-control-content mui-active">
+            <div class="rank-nav">
+                <ul>
+                    <li subType-value="week" class="now">周榜</li>
+                    <li subType-value="month">月榜</li>
+                    <li subType-value="total">总榜</li>
+                </ul>
+            </div>
+            <div class="index-free">
+                <div class="free-box">
+                    <!--<div class="box">-->
+                        <!--<a href="#">-->
+                            <!--<div class="img">-->
+                                <!--<img src="../images/index-img09.jpg"/>-->
+                            <!--</div>-->
+                            <!--<div class="details">-->
+                                <!--<div class="name">-->
+                                    <!--<p>我的手机有美女</p>-->
+                                    <!--<span>连载中</span>-->
+                                <!--</div>-->
+                                <!--<div class="show">-->
+                                    <!--<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="pageid" value="1">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    var isLastRecord = false;
+
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    var controls = document.getElementById("segmentedControls");
+    var contents = document.getElementById("segmentedControlContents");
+    var html = [];
+    var Tabber = ["收藏版", "完结榜", "订阅榜", "点击榜", "打赏榜", "新书榜", "字数榜"];
+    var Rank = ["周榜", "月榜", "总榜"];
+    var i = 1,
+        j = 1,
+        m = 8, //左侧选项卡数量+1
+        n = 15; //每个选项卡列表数量+1
+    for (; i < m; i++) {
+        html.push('<a class="mui-control-item" type-value="'+i+'" onclick="selectType()">' + Tabber[i - 1] + '</a>');
+    }
+    controls.innerHTML = html.join('');
+    html = [];
+    //默认选中第一个
+    controls.querySelector('.mui-control-item').classList.add('mui-active');
+    contents.querySelector('.mui-control-content').classList.add('mui-active');
+
+    $(function () {
+        $(".Book-rank .rank-nav ul li").click(function () {
+            $(this).addClass('now').siblings().removeClass('now')
+            var params = '["{pageNumber:1,type:'+getType()+',subType:\''+getSubType()+'\'}"]';
+            isLastRecord = false;
+            showContent(params,true);
+        })
+    })
+</script>
+<script>
+
+    var isFirstPage = getQueryString(winurl,'isFirstPage');
+    if(isFirstPage == 1){
+        $('.Goback').attr('href','javascript:void(0);');
+        $('.Goback').click(function(){
+            NATIVE.closeWinView();
+        });
+    }
+
+
+    //初始加载第一页
+    var params = '["{type:1,subType:\'week\'}"]';
+    showContent(params,true);
+
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage($('.index-free')[0], { delay: 1000, marginBottom: 0 }, function (offset) {
+        console.log(offset);
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:'+next+',type:'+getType()+',subType:\''+getSubType()+'\'}"]';
+            showContent(params,false);
+        }
+    });
+
+
+
+    //获取评论内容加载
+    function showContent(params,flag){
+        if(isLastRecord){
+            return false;
+        }
+        $('.loading').show();        myHttp({
+            url: urls.getRankList.path,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if(res.statusCode==200){
+                    if(flag){
+                        $('.free-box').html('');
+                        $('.index-free').scrollTop(0);
+                    }
+                    var detail = res.data;
+                    if(detail && detail.length>0){
+                        for(var i in detail){
+                            var record = detail[i];
+                            var contenthtml = '<div class="box">' +
+                                '        <a href="javascript:locationUrl(\'book_details.html?id='+record['id']+'\',true)">' +
+                                '         <div class="img">' +
+                                '          <img src="'+record['coverUrl']+'">' +
+                                '         </div>' +
+                                '         <div class="details">' +
+                                '          <div class="name">'+
+                                '           <p>'+record['name']+'</p>';
+                            if(record['serialState']=='已完结'){
+                                contenthtml+='<span class="over">完结</span>';
+                            }else{
+                                contenthtml+='<span>连载中</span>';
+                            }
+                                contenthtml+='</div>' +
+                                '          <div class="show">' +
+                                '              <span>'+record['authorPenName']+'</span><span>'+record['categoryName']+'</span>' +
+                                '              <span>'+record['formatWordCount']+'</span><span>'+record['formatClickCount']+'点击</span>' +
+                                '          </div>' +
+                                '         </div>' +
+                                '        </a>' +
+                                '       </div>';
+                            $('.free-box').append(contenthtml);
+                        }
+                    }else{
+                        isLastRecord = true; myAlert('没有更多数据了');
+                    }
+                }
+            },
+            error: function (res) {
+                //console.log(res);
+            }
+        });
+
+    }
+
+
+    function getType(){
+        var type = '1';
+        $("#segmentedControls a").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('mui-active')){
+                type = $(this).attr('type-value');
+            }
+        });
+        return type;
+    }
+
+    function getSubType(){
+        var subType = 'week';
+        $(".rank-nav li").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                subType = $(this).attr('subType-value');
+            }
+        });
+        return subType;
+    }
+
+    function selectType(){
+        var params = '["{pageNumber:1,type:'+getType()+',subType:\''+getSubType()+'\'}"]';
+        isLastRecord = false;
+        showContent(params,true);
+    }
+
+
+</script>
+</body>
+</html>

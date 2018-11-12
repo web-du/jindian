@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>今点分类</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="mui-icon mui-icon-back" href="javascript:window.history.back();" ></a>
+    <div class="tab channel">
+        <span channel-value="男频" class="now" onclick="$('.category1').parent().parent().show();$('.category2').parent().parent().hide()">男生</span>
+        <span channel-value="女频" onclick="$('.category2').parent().parent().show();$('.category1').parent().parent().hide()">女生</span>
+    </div>
+</div>
+<div class="content">
+    <div class="index-details-box">
+        <div class="class-details">
+            <div class="swiper-container swiper1">
+                <div class="swiper-wrapper category1">
+                    <div class="swiper-slide">
+                        <span category-id="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-details" style="display: none">
+            <div class="swiper-container swiper1">
+                <div class="swiper-wrapper category2">
+                    <div class="swiper-slide">
+                        <span category-id="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-details">
+            <div class="swiper-container swiper2">
+                <div class="swiper-wrapper orderBy">
+                    <div class="swiper-slide">
+                        <span orderBy-value="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div><div class="class-details">
+            <div class="swiper-container swiper3">
+                <div class="swiper-wrapper wordCount">
+                    <div class="swiper-slide">
+                        <span wordCount-value="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-details">
+            <div class="swiper-container swiper4">
+                <div class="swiper-wrapper updateTime">
+                    <div class="swiper-slide">
+                        <span updateTime-value="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="class-details">
+            <div class="swiper-container swiper5">
+                <div class="swiper-wrapper serialState">
+                    <div class="swiper-slide">
+                        <span serialState-value="" class="now">不限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="line">
+</div>
+
+<div class="class-details-box">
+    <!--<div class="box">-->
+    <!--<a href="#">-->
+    <!--<div class="img">-->
+    <!--<img src="../images/01-all-img01.jpg"/>-->
+    <!--</div>-->
+    <!--<div class="details">-->
+    <!--<div class="name">-->
+    <!--<h3>我的手机有美女</h3><span>连载中</span>-->
+    <!--</div>-->
+    <!--<p><span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span></p>-->
+    <!--<h4>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线等啦啦啦阿拉啦啦马拉卡纳的逻辑</h4>-->
+    <!--</div>-->
+    <!--</a>-->
+    <!--</div>-->
+</div>
+</div>
+<input type="hidden" id="pageid" value="1">
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+    /**头部导航swiper组**/
+    var swiper = ["swiper1", "swiper2", "swiper3", "swiper4", "swiper5", "swiper6"]
+    for (var i = 1; i < 6; i++) {
+        swiper[i - 1] = new Swiper('.swiper' + i, {
+            observer: true,
+            observeParents: true,
+            slidesPerView: "auto",
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+    mui(".swiper-container").on('tap', '.swiper-slide', function () {
+        var num = this.parentNode.getElementsByClassName('swiper-slide').length;
+        for (var i = 0; i < num; i++) {
+            this.parentNode.getElementsByClassName('swiper-slide')[i].getElementsByTagName('span')[0].classList.remove("now");
+        }
+        var Span = this.getElementsByTagName('span')[0].classList.add("now");
+        setParams();
+    })
+
+
+    /**头部tab切换**/
+    $(".myheader .tab span").click(function () {
+        var index = $(this).index()
+        $(this).addClass("now").siblings().removeClass("now");
+        setParams();
+    })
+</script>
+<script>
+    //获取书籍分类
+    getCategoryAndTag();
+    //获取筛选条件
+    getIndexSearchParams();
+
+
+    var channel = '男频';
+    var pageNumber = 1;
+    var isLastRecord = false;//判断是否还要加载
+    var params1 = "{'pageNumber':" + pageNumber + ",'pageSize':10,channel:'"+channel+"'}";
+    var params = new Array();
+    params.push(params1);
+    params = JSON.stringify(params);
+    showContent(params,false);
+
+
+    //获取书籍分类
+    function getCategoryAndTag() {
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getCategoryAndTag.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var categoryAndTags = res.data;
+                    for (var i in categoryAndTags) {
+                        var tempCategoryList = categoryAndTags[i].categorys;
+                        if (tempCategoryList && tempCategoryList.length > 0) {
+                            if (categoryAndTags[i].type == '男频') {
+                                for (var k in tempCategoryList) {
+                                    var category = tempCategoryList[k];
+                                    var categoryhtml = '<div class="swiper-slide"><span category-id="' + category['id'] + '">' + category['name'] + '</span></div>';
+                                    $('.category1').append(categoryhtml);
+                                }
+                            } else if (categoryAndTags[i].type == '女频') {
+                                for (var k in tempCategoryList) {
+                                    var category = tempCategoryList[k];
+                                    var categoryhtml = '<div class="swiper-slide"><span category-id="' + category['id'] + '">' + category['name'] + '</span></div>';
+                                    $('.category2').append(categoryhtml);
+                                }
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getIndexSearchParams() {
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getIndexSearchParams.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var tempParams = res.data;
+                    //筛选排序赋值
+                    for (var i in tempParams.orderBy) {
+                        if (tempParams.orderBy[i]) {
+                            var orderByhtml = '<div class="swiper-slide"><span orderBy-value="' + tempParams.orderBy[i] + '" >' + i + '</span></div>';
+                            $('.orderBy').append(orderByhtml);
+                        }
+                    }
+                    //筛选字数赋值
+                    for (var i in tempParams.wordCount) {
+                        if (tempParams.wordCount[i]) {
+                            var wordCounthtml = '<div class="swiper-slide"><span wordCount-value="' + tempParams.wordCount[i] + '" >' + i + '</span></div>';
+                            $('.wordCount').append(wordCounthtml);
+                        }
+                    }
+                    //筛选更新时间赋值
+                    for (var i in tempParams.updateTime) {
+                        if (tempParams.updateTime[i]) {
+                            var updateTimehtml = '<div class="swiper-slide"><span updateTime-value="' + tempParams.updateTime[i] + '" >' + i + '</span></div>';
+                            $('.updateTime').append(updateTimehtml);
+                        }
+                    }
+                    //筛选连载状态赋值
+                    for (var i in tempParams.serialState) {
+                        if (tempParams.serialState[i]) {
+                            var serialStatehtml = '<div class="swiper-slide"><span serialState-value="' + tempParams.serialState[i] + '" >' + i + '</span></div>';
+                            $('.serialState').append(serialStatehtml);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    //获取书籍列表加载
+    function showContent(params,flag) {
+        if (isLastRecord) {
+            return false;
+        }
+        myHttp({
+            url: urls.getSearchList.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if(flag){
+                        $('.class-details-box').html('');
+                    }
+                    if (res.data && res.data.length > 0) {
+                        for (var i = 0; i < res.data.length; i++) {
+                            var record = res.data[i];
+                            var contenthtml = '<div class="box">' +
+                                '    <a href="book_details.html?id='+record['id']+'">' +
+                                '    <div class="img">' +
+                                '     <img src="' + record['coverUrl'] + '">' +
+                                '    </div>' +
+                                '    <div class="details">' +
+                                '     <div class="name">' +
+                                '      <h3>' + record['name'] + '</h3>';
+                            if (record['serialState'] == '连载中') {
+                                contenthtml += '<span>连载中</span>';
+                            } else {
+                                contenthtml += '<span class="over">已完结</span>';
+                            }
+                            contenthtml += '</div>' +
+                                '     <p>' +
+                                '		<span>' + record['authorPenName'] + '</span>' +
+                                '		<span>' + record['categoryName'] + '</span>' +
+                                '		<span>' + record['formatWordCount'] + '</span>' +
+                                '		<span>' + record['formatClickCount'] + '</span>' +
+                                '	  </p>' +
+                                '     <h4>' + record['summary'] + '</h4>' +
+                                '    </div>' +
+                                '    </a>' +
+                                '   </div>'
+                            $('.class-details-box').append(contenthtml);
+                        }
+                    } else {
+                        isLastRecord = true;
+                    }
+                }else{
+                    $('.class-details-box').append(contenthtml);
+                }
+            }
+        });
+    }
+
+
+    function setParams(){
+        var channel = '男频';
+        var pageNumber = 1;
+        var categoryId = ''; //分类id：接口取值
+        var wordCount = ''; //字数条件：接口取值
+        var serialState = ''; //连载状态：连载中/已完结
+        var updateTime = '';//更新时间：-3，-7，-15，-30
+        var orderBy = ''; //排序：字数/点击/收藏/订阅
+
+        $(".channel span").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                channel = $(this).attr('channel-value');
+            }
+        });$(".orderBy span").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                orderBy = $(this).attr('orderBy-value');
+            }
+        });
+        $(".wordCount span").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                wordCount = $(this).attr('wordCount-value');
+            }
+        });
+        $(".serialState span").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                serialState = $(this).attr('serialState-value');
+            }
+        });
+        $(".updateTime span").each(function(e){
+            var e = e || event;
+            if($(this).hasClass('now')){
+                updateTime = $(this).attr('updateTime-value');
+            }
+        });
+
+        if(channel == '男频'){
+            $(".category1 span").each(function(e){
+                var e = e || event;
+                if($(this).hasClass('now')){
+                    categoryId = $(this).attr('category-id');
+                }
+            });
+        }else{
+            $(".category2 span").each(function(e){
+                var e = e || event;
+                if($(this).hasClass('now')){
+                    categoryId = $(this).attr('category-id');
+                }
+            });
+        }
+
+
+        var params1 = "{'pageNumber':" + pageNumber + ",'pageSize':10,'categoryId':'" + categoryId + "','wordCount':'" + wordCount + "','orderBy':'" + orderBy + "','serialState':'" + serialState + "','updateTime':'" + updateTime + "'}";
+        var params = new Array();
+        params.push(params1);
+        params = JSON.stringify(params);
+        showContent(params,true);
+    }
+
+
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, {delay: 1000, marginBottom: 0}, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next = Number(page) + 1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:' + next + ',pageSize:10,bookId:' + id + '}"]';
+            showContent(params,false);
+        }
+    });
+
+
+</script>
+</body>
+</html>

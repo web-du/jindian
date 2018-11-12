@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>会员中心</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div date-role="page">
+    <div class="myheader">
+        <a class="Goback" href="book_details.html">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">会员中心</h2>
+        <a href="#" class="account-mess">
+            <img src="../images/installl-ques.png"/>
+        </a>
+    </div>
+    <div class="myheader-bg">
+        <div class="member-img">
+            <img src="../images/account-img03.png"/>
+            <div class="box">
+                <h2>贤菲宝</h2>
+                <p><span>LV0</span><span>125积分</span></p>
+            </div>
+        </div>
+        <button><a href="#">赚积分</a></button>
+    </div>
+    <div class="member-page">
+        <div class="my-grade">
+            <div class="integral">
+                <h2>我的等级</h2>
+                <p>还差125积分到达LV1</p>
+            </div>
+            <div class="progress">
+                <em style="width: 50%;"></em>
+            </div>
+            <div class="real">
+                <span>LV0</span>
+                <span>LV1</span>
+            </div>
+        </div>
+        <div class="privilege">
+            <div class="box">
+                <img src="../images/member-img01.png"/>
+                <div class="title">
+                    <h2>充值特权</h2>
+                    <p>无</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="../images/member-img02.png"/>
+                <div class="title">
+                    <h2>订阅特权</h2>
+                    <p>享9.3折</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="../images/member-img03.png"/>
+                <div class="title">
+                    <h2>头像特权</h2>
+                    <p>无</p>
+                </div>
+            </div>
+            <div class="box">
+                <img src="../images/member-img04.png"/>
+                <div class="title">
+                    <h2>签到特权</h2>
+                    <p>无</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if (accessToken) {
+        getAccountInfo();
+    } else {
+        //TODO 跳转到登录页面
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

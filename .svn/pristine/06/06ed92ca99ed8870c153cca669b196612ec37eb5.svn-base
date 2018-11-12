@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>小说第一章</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        #pageone {
+            background-image: url("../images/book_bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            padding: 0 0.25rem;
+            overflow: hidden;
+            text-shadow: none;
+        }
+
+        .Topre input.ui-slider-input {
+            left: 0;
+            display: none;
+        }
+
+        .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .read-fixed > div {
+            background-color: #000000;
+        }
+
+        .read-fixed > div > h2 {
+            color: #aeaeae;
+        }
+
+        .read-fixed > div .box h3 {
+            color: #aeaeae;
+        }
+
+        .read-fixed > div > h1 {
+            color: #aeaeae;
+        }
+        .mui-icon{
+            line-height:1.2;
+        }
+
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+            position:static;
+            top:0;
+            left:0;
+            text-align:right;
+            display:block;
+        }
+        .mui-checkbox input[type=checkbox]:before{
+            display:block;
+            font-size:0.5rem;
+            line-height:0.75rem;
+            height:0.9rem;
+        }
+        .mui-checkbox{
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            align-items: center;
+            height:1rem;
+        }
+        .mui-checkbox span{
+            font-size:0.24rem;
+            color:#6f562d;
+        }
+        .swiper{
+            position:fixed;
+            width:100%;
+            height:8rem;
+            z-index:100;
+            left:0;
+            top:0.8rem;
+        }
+        .ui-checkbox, .ui-radio{
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+    <div class="page-name">
+        <p id="bookName"></p>
+        <p id="chapterName1">第一章</p>
+    </div>
+    <div class="page_text" style="overflow: auto;">
+        <div >
+            <h2 id="chapterName">第一章</h2>
+        </div>
+        <div id="page_content">
+
+        </div>
+
+
+        <div class="lock" style="display: none;">
+            <p>——  码字不易，请购买后阅读 ——</p>
+            <div class="money">
+                <p><span>本章价格：</span><span><em class="thisprice">10</em>今元宝</span></p>
+                <p><span>可用余额：</span><span><em class="myBalance">0</em>今元宝</span></p>
+                <button type="button" class=" ui-btn ui-shadow ui-corner-all" id="toNext">余额不足，立即充值</button>
+                <div class="mui-input-row mui-checkbox" id="autoBuyDiv">
+                    <input name="checkbox" value="Item 1" type="checkbox" id="updateAutoSub">
+                    <span>自动购买下一章</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-fix">
+        <span id="readPercent">0%</span>
+        <div class="time">
+            <span>20:03</span>
+            <!--<p><em style="width: 10%;"></em></p>-->
+        </div>
+    </div>
+
+
+    <!--设置窗口-->
+    <div class="read-set-top">
+        <div class="Back" onclick="window.history.back();">
+            <img src="../images/read-set.png"/>
+        </div>
+        <div class="func">
+            <!--<img src="../images/read-set01.png" class="download"/>-->
+            <img src="../images/read-set02.png" class="mess" onclick="toDiscussPage()"/>
+            <img src="../images/read-set03.png" class="bookmark" onclick="addBookMark()"/>
+            <img src="../images/read-set04.png" class="set"/>
+        </div>
+
+        <div class="menu">
+            <ul>
+                <li class="reward">
+                    <img src="../images/read-set09.png"/>
+                    <p>更新提醒开启</p>
+                </li>
+                <li class="autodis">
+                    <img src="../images/read-set10.png"/>
+                    <p>自动订阅下一章</p>
+                </li>
+                <li class="toShare">
+                    <img src="../images/read-set11.png"/>
+                    <p>分享</p>
+                </li>
+                <li class="toReport">
+                    <img src="../images/read-set12.png"/>
+                    <p>举报本章</p>
+                </li>
+            </ul>
+            <span></span>
+        </div>
+    </div>
+
+
+    <!--底部窗口-->
+
+    <div class="read-set-b">
+
+        <div class="swiper-pre">
+            <span onclick="toNextPage(false)">上一章</span>
+            <div class="Topre readPercent">
+                <input type="range" name="slider-2" id="readPercentNum" min="0" max="100" value="0" data-hightlight="true"
+                       data-popup-enabled="true">
+            </div>
+            <span onclick="toNextPage(true)">下一章</span>
+        </div>
+        <div class="menu">
+            <div class="box" onclick="toBookNavPage()">
+                <img src="../images/read-set08.png"/>
+                <p>目录</p>
+            </div>
+            <div class="box" onclick="changeNight()">
+                <img src="../images/read-set07.png"/>
+                <p id="onNightText">夜间</p>
+            </div>
+            <div class="box B-set">
+                <img src="../images/read-set06.png"/>
+                <p>设置</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--更多设置-->
+    <div class="read-move">
+        <div class="read-light">
+            <div class="box">
+                <img src="../images/light01.png"/>
+                <div class="Topre Right">
+                    <input type="range" name="slider-1" id="slider-1" min="0" max="100%" value="50%">
+                </div>
+                <img src="../images/light01.png"/>
+            </div>
+            <span id="startAutoBright">系统亮度</span>
+        </div>
+        <div class="color">
+            <span style="background-color:#fff;"></span>
+            <span class="mui-icon mui-icon-checkmarkempty" style="background-color:#f9ddc1;"></span>
+            <span style="background-color:#f6e3e5;"></span>
+            <span style="background-color:#e5e3ee;"></span>
+            <span style="background-color:#fffae4;"></span>
+            <span style="background-color:#3a648a;"></span>
+            <span style="background-color:#585d57;"></span>
+        </div>
+        <div class="change-font">
+            <div class="box">
+                <button class="reduce" onclick="changeFontSize(false)">A-</button>
+                <span id="fontSizeText">较小</span>
+                <button class="add" onclick="changeFontSize(true)">A+</button>
+            </div>
+            <button class="system-font">黑体 ></button>
+        </div>
+        <div class="last-menu">
+            <div class="box">
+                <img src="../images/read-set08.png"/>
+                <p>目录</p>
+            </div>
+            <div class="box" onclick="changeReadType()">
+                <img src="../images/read-see.png"/>
+                <p>护眼模式</p>
+            </div>
+            <div class="box" onclick="window.location.href='read_install.html'">
+                <img src="../images/read-set04.png"/>
+                <p>更多</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="read-fixed">
+
+        <!--设置字体样式-->
+        <div id="system-font">
+            <h2>选择字体</h2>
+            <div class="box">
+                <h3>黑体</h3>
+                <h3>宋体</h3>
+            </div>
+            <h1>取消</h1>
+        </div>
+    </div>
+
+    <!-- <div class="swiper"></div> -->
+</div>
+<input type="hidden" id="chapterId"/>
+<input type="hidden" id="bookMarkId"/>
+<input type="hidden" value="较小" id="fontSize"/>
+<input type="hidden" value="较小" id="lineSpace"/>
+<input type="hidden" value="黑体" id="fontFamily"/>
+<input type="hidden" id="backColor"/>
+<input type="hidden" value="0" id="onNight"/>
+<input type="hidden" value="1" id="showTop"/>
+<input type="hidden" value="1" id="showBottom"/>
+<input type="hidden" value="1" id="showSystem"/>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true, //启用右滑关闭功能
+    });
+    /**滑块**/
+
+    /**获取body的整个高度**/
+    $(function () {
+        $(document.body).height($(window).height());
+        var H = $(document.body).width() / 3;
+        /**长按字段**/
+        $(".page_text p").on("taphold", function () {
+            $(this).toggleClass("on").siblings().removeClass("on")
+        })
+
+
+
+        /**左右滑动事件**/
+        // $(".page_text").on("swipeleft",function(e){
+        //     var e = e || event;
+        //     e.stopPropagation();
+        //     if(e.swipestart.coords[1]<2*H){
+
+        //     }
+        // })
+        // $(".page_text").on("swiperight",function(e){
+        //     var e = e || event;
+        //     e.stopPropagation();
+        //     if(e.swipestart.coords[1]<2*H){
+
+        //     }
+
+        // })
+
+        // $("#autoBuyDiv input").attr("checked", true);
+        //点击自动订阅
+        var isOk = false;
+        $("#autoBuyDiv input").click(function(e){
+            var e = e || event;
+            e.stopPropagation();
+            if($(this).attr("data-cacheval") == "false"){
+                updateAutoSubscribeState(true)
+            }else{
+                updateAutoSubscribeState(false)
+            }
+
+
+
+        })
+
+        /**点击更新提示**/
+        $(".read-set-top .menu li.reward").click(function(){
+            $(this).toggleClass('now');
+
+
+            if($(this).hasClass('now')){
+                $(this).find("img").attr("src","../images/read-set09d.png");
+            }else{
+                $(this).find("img").attr("src","../images/read-set09.png");
+            }
+        })
+
+
+
+        /**点击自动订阅下一章**/
+        $(".read-set-top .menu li.autodis").click(function(){
+            $(this).toggleClass('now');
+
+
+            if($(this).hasClass('now')){
+                $(this).find("img").attr("src","../images/read-set10d.png");
+                updateAutoSubscribeState(true);
+            }else{
+                $(this).find("img").attr("src","../images/read-set10.png");
+                updateAutoSubscribeState(false);
+            }
+        })
+
+
+
+
+        /**点击上中下触发事件**/
+        var flag = true;
+        $(".page_text").click(function (e) {
+            var e = e || event;
+            if (e.clientX <= H) {
+                toNextPage(false);
+            } else if (H < e.clientX && e.clientX <= 2 * H) {
+                if (flag) {
+                    $(".read-set-top").css("display", "block").css("display", "flex");
+                    $(".read-set-b").css("display", "block")
+                } else {
+                    $(".read-set-top").css("display", "none");
+                    $(".read-set-b").css("display", "none");
+                }
+                $(".read-move").css("display", "none")
+                flag = !flag;
+            } else {
+                toNextPage(true);
+            }
+        })
+
+
+        var showe = true;
+        $(".read-set-top .func .set").click(function () {
+            if (showe) {
+                $(".read-set-top .menu").css("display", "block");
+            } else {
+                $(".read-set-top .menu").css("display", "none");
+            }
+            showe = !showe;
+        })
+
+
+        /**点击设置**/
+        $(".read-set-b .menu .box.B-set").click(function (e) {
+            var e = e || event;
+            e.stopPropagation();
+            $(".read-set-top").css("display", "none");
+            $(".read-set-b").css("display", "none");
+
+            $(".read-move").css("display", "block")
+        })
+
+
+        /**获取值**/
+        $(".read-set-b").on("click", ".ui-slider-track .ui-btn.ui-slider-handle", function () {
+            //console.log("a")
+        })
+
+
+        /**弹出选择字体样式**/
+        $(".system-font").click(function () {
+            $(".read-move").css("display", "none");
+            flag = !flag;
+            $(".read-fixed").stop().fadeIn();
+            $("#system-font").addClass("active");
+        })
+
+        /**选择字体样式**/
+        $("#system-font h3").click(function () {
+            var text = $(this).html();
+            // if (text == '系统字体') {
+            //     $(document.body).css("font-family", "微软雅黑");
+
+            // } else {
+            //     $(document.body).css("font-family", text);
+            // }
+
+            $(".read-fixed").stop().fadeOut();
+            $("#font-family").removeClass("active");
+            $('#fontFamily').val(text);
+            updateAppReadSetting();
+        })
+
+        /**点击取消**/
+        $("#system-font>h1").click(function () {
+            $("#system-font").removeClass("active");
+            $(".read-fixed").stop().fadeOut();
+        })
+
+
+        /**选择背景颜色**/
+        $(".read-move .color span").click(function(){
+            $(this).addClass('mui-icon mui-icon-checkmarkempty').siblings().removeClass('mui-icon mui-icon-checkmarkempty');
+            $('#backColor').val($(this).css("background-color"));
+            updateAppReadSetting();
+        })
+
+
+
+
+
+        /**改变章节滑块的值**/
+       $(".readPercent input.ui-slider-input").val(0).slider("refresh");
+        $(".readPercent input.ui-slider-input").change(function(e) {
+            // var event = e || event;
+            // event.stopPropagation();
+            getChapterContentByPercent($(this).val());
+        });
+
+
+        /**获取系统亮度的滑块值**/
+        var pre = 0;
+        $(".Right input.ui-slider-input").change(function(e) {
+            var event = e || event;
+            event.stopPropagation();
+            pre = Math.floor($(this).val() * 2.55);
+            NATIVE.saveScreenBrightness(pre);
+        });
+
+
+
+
+        /**点击更新提示**/
+
+    })
+
+    //Set(2,4,"黑体","#fff",false)
+
+    /**修改阅读的设置值**/
+    function Set(Fontsize, Linespace, Fontfamily, Backcolor, Nightmode) {
+        // 设置字体大小
+        if (Fontsize) {
+            switch (Fontsize) {
+                case '最小':
+                    $(".page_text #page_content p").css("font-size", "12px");
+                    break;
+                case '较小':
+                    $(".page_text #page_content p").css("font-size", "14px");
+                    break;
+                case '适中':
+                    $(".page_text #page_content p").css("font-size", "16px");
+                    break;
+                case '最大':
+                    $(".page_text #page_content p").css("font-size", "20px");
+                    break;
+            }
+        }
+
+
+        //设置字体的行高
+        if (Linespace) {
+            switch (Linespace) {
+                case '最小':
+                    $(".page_text #page_content p").css("line-height", "22px");
+                    break;
+                case '较小':
+                    $(".page_text #page_content p").css("line-height", "24px");
+                    break;
+                case '适中':
+                    $(".page_text #page_content p").css("line-height", "26px");
+                    break;
+                case '最大':
+                    $(".page_text #page_content p").css("line-height", "30px");
+                    break;
+            }
+        }
+
+        //设置字体
+        if (Fontfamily) {
+            $(".page_text #page_content p").css("font-family", Fontfamily);
+        }
+
+
+
+
+        //设置夜间模式
+        if (Nightmode == 1) {
+            $("#pageone").css({"background-image": "none", "background-color": "#1b1b1b"});
+            $(".page_text p").css("color", "#5e5e5e");
+            $("#chapterName").css("color", "#5e5e5e");
+        }else{
+            //设置背景颜色
+            if (Backcolor) {
+                $("#pageone").css({"background-image": "none", "background-color": Backcolor});
+            }else{
+                $("#pageone").css("background-color","").css('background-image','url(../images/book_bg.jpg)');
+                $(".page_text p").css("color", "#1C1300");
+                $("#chapterName").css("color", "#1C1300");
+            }
+        }
+
+
+
+        //自动系统亮度
+        $("#startAutoBright").click(function(){
+            NATIVE.startAutoBrightness();
+        })
+    }
+
+
+
+
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+    var id = getQueryString(winurl, 'id');
+    var chapterId = getQueryString(winurl, 'chapterId');
+
+    var isFirstPage = getQueryString(winurl,'isFirstPage');
+    if(isFirstPage == 1){
+        $('.Back').attr('href','javascript:void(0);');
+        $('.Back').click(function(){
+            NATIVE.closeWinView();
+        });
+    }
+
+
+    if(accessToken){
+        getAppReadSetting();
+        getAutoSubscribeState();
+    }else{
+        getReadInfo(chapterId);
+    }
+
+
+    //获取当前阅读章节
+    function getReadInfo(chapterId) {
+        var params = '["{bookId:' + id + '}"]';
+        if (chapterId) {
+            params = '["{bookId:' + id + ',chapterId:' + chapterId + '}"]';
+        }
+        var options = {
+            url: urls.getReadInfo.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if (res.data) {
+                        var record = res.data;
+                        setContent(record,true);
+                        if (!record['readAll']) {
+                            //window.location.href = 'book_lock.html';
+
+                            readVip(record.chapterId);
+                        }else{
+                            $('.lock').hide();
+                        }
+                    }
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        };
+        if (accessToken) {
+            options.headers = {'jd-token': accessToken};
+        }
+        myHttp(options);
+    }
+    //下一页
+    function toNextPage(isNext) {
+        if(!$('#chapterId').val()){
+            return false;
+        }
+
+        var params = '["{chapterId:' + $('#chapterId').val() + ',prev:true}"]';
+        if(isNext){
+            params = '["{chapterId:' + $('#chapterId').val() + ',next:true}"]';
+        }
+        var options = {
+            url: urls.getChapterContent.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if (res.data) {
+                        var record = res.data;
+                        setContent(record);
+                        $('.page_text').scrollTop(0);
+                        if (!record['readAll']) {
+                            readVip(record.chapterId);
+                        }else{
+                            $('.lock').hide();
+                        }
+                    }
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        };
+        if (accessToken) {
+            options.headers = {'jd-token': accessToken};
+        }
+        myHttp(options);
+
+    }
+
+    //跳转到目录
+    function toBookNavPage(){
+        window.location.href="book_nav.html?id="+id;
+    }
+
+    //跳转到评论页面
+    function toDiscussPage(){
+        window.location.href="all_discuss.html?id="+id;
+    }
+
+    //添加书签
+    function addBookMark(){
+        if($('#bookMarkId').val()){
+            myAlert('该章节已加入书签');
+            $(".bookmark").attr("src","../images/read-set03d.png");
+            return false;
+        }
+
+        var chapterId = $('#chapterId').val();
+        var params = '["{chapterId:' + chapterId + '}"]';
+        if(accessToken){
+            myHttp({
+                url: urls.addBookMark.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+//                    window.location.reload();
+                        //TODO 改变书签样式
+                        $('#bookMarkId').val(res.data);
+                    } else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+        }else{
+            NATIVE.toLogin();
+        }
+    }
+
+
+    //获取vip章节
+    function readVip(chapterId){
+        $('.lock').show();
+        //1、定义已个方法，显示需要购买的样式，填充章节金额和自己的金额，按钮样式及响应事件
+        //2、请求我的余额，填充金额
+        //3、根据我的金额《》章节金额  填充按钮样式及事件
+        //4、事件1：跳转到 充值页面  事件2：调用订阅接口
+        //<div class="lock" style="display: none;">
+    //     <p>——  码字不易，请购买后阅读 ——</p>
+    //     <div class="money">
+    //         <p><span>本章价格：</span><span><em class="thisprice">10</em>今元宝</span></p>
+    //         <p><span>可用余额：</span><span><em>0</em>今元宝</span></p>
+    //         <button type="button" class=" ui-btn ui-shadow ui-corner-all" id="toNext">余额不足，立即充值</button>
+    //         <div class="mui-input-row mui-checkbox" id="autoBuyDiv">
+    //             <div class=" ui-checkbox"><input name="checkbox" value="Item 1" type="checkbox"></div>
+    //             <span>自动购买下一章</span>
+    //         </div>
+    //     </div>
+    // </div>
+
+
+        var params = '["{chapterId:' + chapterId + '}"]';
+        if(accessToken){
+            //已登录。。
+            myHttp({
+                url: urls.getChapterSubscribeInfo.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        var result = res.data;
+                        var discountPrice = result.discountPrice;
+                        if(!discountPrice){
+                            discountPrice = result.originalPrice;
+                        }
+                         $(".thisprice").html(discountPrice);
+
+                        if(result.balance){
+                            $(".myBalance").html(result.balance)
+                        }
+                        $("#toNext").unbind("click");
+                        if(parseInt(result.balance) > parseInt(discountPrice)){
+                            $("#toNext").html("立即订阅").click(function(){
+                                //跳去订阅页面
+                                subscribe(chapterId);
+
+                            })
+                        }else{
+                            $("#toNext").html("余额不足，立即充值").click(function(){
+                                //跳去充值页面
+                                window.localtion.href = 'refill.html';
+                            })
+                        }
+
+
+                        //getAutoSubscribeState();
+
+                        //TODO 请求当前用户是否自动订阅
+                        //若有，则勾选自动订阅按钮
+                        //若无 则不管
+                        //
+                        //若用户勾选了自动订阅按钮，则判断是否勾选，请求保存自动订阅设置
+
+
+
+                    } else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+
+
+        }else{
+            //未登录
+            $(".money p").hide();
+            $("#autoBuyDiv").hide();
+            $("#toNext").html("去登录").click(function(){
+                NATIVE.toLogin();
+            });
+        }
+
+
+    }
+
+
+    //得到是否已经订阅
+    function getAutoSubscribeState(){
+        var params = '["{bookId:' + id + '}"]';
+            myHttp({
+                url: urls.getAutoSubscribeState.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        //如果已经订阅了，则默认勾选复选框
+                        if(res.data){
+                            $("#autoBuyDiv input").attr("checked", true);
+                            $("#autoBuyDiv input").attr("data-cacheval",'false');
+                            $('.autodis').addClass('now');
+                            $('.autodis img').attr('src','../images/read-set10d.png');
+                        }
+                    }else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+    }
+
+
+
+    //更新是否订阅
+    function updateAutoSubscribeState(isOk){
+        if(!accessToken){
+            return false;
+        }
+        var params = '["{bookId:'+id+',state:'+isOk+'}"]';
+            myHttp({
+                url: urls.updateAutoSubscribeState.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        //console.log(res.statusMsg)
+                        if(isOk){
+                            $("#autoBuyDiv input").attr("checked", true);
+                            $("#autoBuyDiv input").attr("data-cacheval",'false');
+                            $('.autodis').addClass('now');
+                            $('.autodis img').attr('src','../images/read-set10d.png');
+                        }else{
+                            $("#autoBuyDiv input").attr("checked", false);
+                            $("#autoBuyDiv input").attr("data-cacheval",'true');
+                            $('.autodis').removeClass('now');
+                            $('.autodis img').attr('src','../images/read-set10.png');
+                        }
+                    } else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+    }
+
+
+    //订阅章节
+    function subscribe(chapterId){
+        if(!confirm('确认订阅该章节吗？')) return false;
+        //myAlert(111);return false;
+        var params = '["{chapterId:' + chapterId + '}"]';
+            myHttp({
+                url: urls.subscribeChapter.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        myAlert("订阅成功");
+                        getReadInfo(chapterId);
+                         $('.page_text').scrollTop(0);
+                    } else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+    }
+
+
+
+
+    //获取阅读设置
+    function getAppReadSetting(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getAppReadSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var onNight = getQueryString(res.data, 'onNight');
+                        var showTop = getQueryString(res.data, 'showTop');
+                        var showBottom = getQueryString(res.data, 'showBottom');
+                        var showSystem = getQueryString(res.data, 'showSystem');
+                        var fontSize = getQueryString(res.data, 'fontSize');
+                        var lineSpace = getQueryString(res.data, 'lineSpace');
+                        var fontFamily = getQueryString(res.data, 'fontFamily');
+                        var backColor = getQueryString(res.data, 'backColor');
+                        if(onNight && onNight == 1){
+                            onNight = 1;
+                        }else{
+                            onNight = 0;
+                        }
+                        if(showTop == 0){
+                            $('#showTop').val(0);
+                            $('.page-name').hide();
+                        }
+                        if(showBottom == 0){
+                            $('#showBottom').val(0);
+                            $('.page-fix').hide();
+                        }
+
+                        if(!fontSize){
+                            fontSize = '较小';
+                        }else{
+                            $('#fontSizeText').text(fontSize);
+                        }
+
+                        if(!lineSpace){
+                            lineSpace = '较小';
+                        }
+                        if(!fontFamily){
+                            fontFamily = '黑体';
+                        }
+                        if(!backColor){
+                            backColor = '';
+                        }else{
+                            $(".color span").each(function(e){
+                                if($(this).css('background-color') == backColor){
+                                    $(this).addClass('mui-icon mui-icon-checkmarkempty').siblings().removeClass('mui-icon mui-icon-checkmarkempty');
+                                }
+                            });
+                        }
+
+                        $('#fontSize').val(fontSize);
+                        $('#lineSpace').val(lineSpace);
+                        $('#fontFamily').val(fontFamily);
+                        $('#backColor').val(backColor);
+                        $('#onNight').val(onNight);
+                    }
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+                getReadInfo(chapterId);
+            }
+        });
+    }
+
+    //更新app设置
+    function updateAppReadSetting(){
+        var showTop = $('#showTop').val();
+        var showBottom = $('#showBottom').val();
+        var onNight = $('#onNight').val();
+        var fontSize = $('#fontSize').val();
+        var lineSpace = $('#lineSpace').val();
+        var fontFamily = $('#fontFamily').val();
+        var backColor = $('#backColor').val();
+        Set(fontSize,lineSpace,fontFamily,backColor,onNight);
+
+        if(!accessToken){
+            return false;
+        }
+
+        if(onNight==1){
+            onNight = 1;
+        }else{
+            onNight = 0;
+        }
+
+        var p = "&onNight="+onNight+"&showTop="+showTop+"&showBottom="+showBottom;
+        p += "&fontSize="+fontSize+"&lineSpace="+lineSpace+"&fontFamily="+fontFamily+"&backColor="+backColor;
+        var params = '["{config:\''+p+'\'}"]';
+        myHttp({
+            url: urls.updateAppReadSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+//                    window.location.reload();
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+    //切换夜间模式
+    function changeNight(){
+        var onNight = $('#onNight').val();
+        if(onNight == 1){
+            $('#onNight').val(0);
+        }else{
+            $('#onNight').val(1);
+        }
+        updateAppReadSetting();
+    }
+
+    //获取百分比章节
+    function getChapterContentByPercent(percent){
+        var params = '["{bookId:'+id+',percent:'+percent+'}"]';
+        myHttp({
+            url: urls.getChapterContentByPercent.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                        setContent(record);
+                        $('.page_text').scrollTop(0);
+                    if (!record['readAll']) {
+                        readVip(record.chapterId);
+                    }else{
+                            $('.lock').hide();
+                        }
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+
+    }
+
+    //填充内容
+    function setContent(record,isFirstSet){
+        if(record['bookName']){
+            $('#bookName').text("《" + record['bookName'] + "》");
+        }
+        $('#chapterName').text(record['chapterName']);
+        $('#chapterName1').text(record['chapterName']);
+        if (record['readPercent'] && isFirstSet) {
+            $(".readPercent input.ui-slider-input").val(parseInt(record['readPercent'])).slider("refresh");
+            $('#readPercent').text(record['readPercent'] + '%');
+        }
+//                            $('.page_text').append($('#chapterName').parent().html() + record['content']);
+        $('#page_content').html(record['content']);
+        $('#chapterId').val(record['chapterId']);
+        if(record['bookMarkId']){
+            $('#bookMarkId').val(record['bookMarkId']);
+        }else{
+            $('#bookMarkId').val('');
+        }
+        var fontSize = $('#fontSize').val();
+        var lineSpace = $('#lineSpace').val();
+        var fontFamily = $('#fontFamily').val();
+        var backColor = $('#backColor').val();
+        var onNight = $('#onNight').val();
+
+        Set(fontSize,lineSpace,fontFamily,backColor,onNight);
+    }
+
+    //护眼模式切换
+    var changeRead = false;
+    function changeReadType(){
+        var backColor = $('#backColor').val();
+        if(changeRead){
+            changeRead = false;
+        }else{
+            backColor = '#e5f3dc';
+            changeRead = true;
+        }
+        Set(fontSize,'','',backColor,false);
+    }
+
+
+    //字号调整
+    function changeFontSize(flag){
+        var fontSize = $('#fontSizeText').text();
+        if(flag){
+            switch(fontSize){
+                case '最小': $('#fontSizeText').text('较小');
+                    $('#fontSize').val('较小')
+                    updateAppReadSetting();
+                    break;
+                case '较小':
+                    $('#fontSizeText').text('适中');
+                    $('#fontSize').val('适中')
+                    updateAppReadSetting();
+                    break;
+                case '适中':
+                    $('#fontSizeText').text('最大');
+                    $('#fontSize').val('最大')
+                    updateAppReadSetting();
+                     break;
+                case '最大': return false; break;
+            }
+
+        }else{
+            switch(fontSize){
+                case '最小': return false; break;
+                case '较小':
+                    $('#fontSizeText').text('最小');
+                    $('#fontSize').val('最小')
+                    updateAppReadSetting();
+                    break;
+                case '适中':
+                    $('#fontSizeText').text('较小');
+                    $('#fontSize').val('较小')
+                    updateAppReadSetting();
+                    break;
+                case '最大':
+                    $('#fontSizeText').text('适中');
+                    $('#fontSize').val('适中')
+                    updateAppReadSetting();
+                    break; break;
+            }
+
+
+        }
+    }
+
+    //获取页面的高度
+    $(function(){
+        var Ch = document.documentElement.clientHeight;
+        var pnH = $(".page-name").height();
+        var pfH = $(".page-fix").height();
+        var overH = Ch - pnH -pfH -15;
+        $(".page_text").height(overH)
+
+
+
+        /**获取当前时间**/
+        function p(s) {
+            return s < 10 ? '0' + s: s;
+        }
+        function shownowTime(){
+
+
+            var myDate = new Date();
+            //获取当前年
+            var year=myDate.getFullYear();
+            //获取当前月
+            var month=myDate.getMonth()+1;
+            //获取当前日
+            var date=myDate.getDate();
+            var h=myDate.getHours();       //获取当前小时数(0-23)
+            var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s=myDate.getSeconds();
+
+            var now=p(h)+':'+p(m);
+            $(".time span").html(now);
+        }
+        shownowTime();
+        var timer = setInterval(shownowTime,60000);
+
+    })
+
+</script>
+</body>
+</html>

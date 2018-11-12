@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>书架</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .content{
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="myheader">
+        <h2 class="title">书架</h2>
+        <img src="../images/search.png" class="book-search"/>
+        <img src="../images/set.png" class="set"/>
+        <div class="book-Tosearch">
+            <div class="box">
+                <a class="mui-icon mui-icon-search search-icon"></a>
+                <input type="text" name="search" placeholder="输入你想看的书名">
+            </div>
+            <button class="off">取消</button>
+        </div>
+        <div class="book-set">
+            <ul>
+                <li>
+                    <img src="../images/book-admini.png"/>
+                    <p>批量管理</p>
+                </li>
+                <li>
+                    <img src="../images/book-time.png"/>
+                    <p>更新时间排序</p>
+                </li>
+                <li>
+                    <img src="../images/book-mosi.png"/>
+                    <p>列表模式</p>
+                </li>
+                <li>
+                    <a href="browse_record.html" data-ajax='false'>
+                    <img src="../images/book-jilu.png"/>
+                    <p>浏览记录</p>
+                    </a>
+                </li>
+            </ul>
+            <span></span>
+        </div>
+        <div class="batch-management">
+            <span class="cancel">取消</span>
+            <h2>批量管理</h2>
+            <span class="all">全选</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="sign">
+            <div class="box">
+                <img src="../images/sign.png" />
+                <p>每日签到，赢超值好礼！</p>
+            </div>
+            <button>签到</button>
+        </div>
+        <div class="bookshelf-box">
+            <div class="box">
+                <div class="img">
+                    <a href="book_cover.html" data-ajax="false">
+                    <img src="../images/bookshelf-img01.jpg"/>
+                    </a>
+                    <i></i>
+                    <div class="mui-input-row mui-checkbox">
+                        <input name="checkbox" value="Item 1" type="checkbox">
+                    </div>
+                </div>
+                <div class="text">
+                    <h2>晨曦鹦鹉宠物店</h2>
+                    <span>已读38%</span>
+                    <p><span>三小时前</span><span>更新至第三百八十章</span></p>
+                </div>
+                <img src="../images/book-set.png" class="set"/>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/bookshelf-img02.jpg"/>
+                    <i></i>
+                </div>
+                <div class="text">
+                    <h2>建新风云录</h2>
+                    <span>已读29%</span>
+                    <p><span>三小时前</span><span>更新至第三百八十章</span></p>
+                </div>
+                <img src="../images/book-set.png" class="set"/>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/bookshelf-img03.jpg" />
+                    <i></i>
+                </div>
+                <div class="text">
+                    <h2>仙临</h2>
+                    <span>未读</span>
+                    <p><span>一天前</span><span>更新至第三百八十章</span></p>
+                </div>
+                <img src="../images/book-set.png" class="set"/>
+            </div>
+            <div class="box">
+                <img src="../images/bookshelf-add.jpg"/>
+                <input type="file" />
+                <h2>添加书籍</h2>
+            </div>
+        </div>
+    </div>
+
+    <!--长按弹窗-->
+    <div class="loog-tap">
+        <div class="box">
+            <div class="name">
+                <img src="../images/bookshelf-img01.jpg"/>
+                <div class="con">
+                    <h2>晨曦鹦鹉宠物店</h2>
+                    <p><span>漫笔</span></p>
+                </div>
+                <a href="#">详情</a>
+            </div>
+            <div class="your-mess">
+                <img src="../images/no.otherlast.png"/>
+                <div class="details">
+                    <h2><span>贤菲宝</span><span>未上榜</span></h2>
+                    <p>当前粉丝值0</p>
+                    <p class="your-rank">再获得750粉丝值上升至125名</p>
+                </div>
+            </div>
+            <div class="op">
+                <div class="box">
+                    <div class="mui-switch mui-switch-mini" data-switch="4">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                    <p>置顶</p>
+                </div>
+                <div class="box">
+                    <div class="mui-switch mui-switch-mini mui-active" data-switch="7">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                    <p>更新提示</p>
+                </div>
+                <div class="box">
+                    <div class="mui-switch mui-switch-mini mui-active" data-switch="7">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                    <p>自动订阅下一章</p>
+                </div>
+                <div class="box">
+                    <div class="img">
+                        <img src="../images/share01.png"/>
+                    </div>
+                    <p>分享</p>
+                </div>
+                <div class="box">
+                    <div class="img">
+                        <img src="../images/share02.png"/>
+                    </div>
+                    <p>讨论</p>
+                </div>
+                <div class="box">
+                    <div class="img">
+                        <img src="../images/share03.png"/>
+                    </div>
+                    <p>书评</p>
+                </div>
+                <div class="box">
+                    <div class="img">
+                        <img src="../images/share04.png"/>
+                    </div>
+                    <p>下载</p>
+                </div>
+                <div class="box">
+                    <div class="img">
+                        <img src="../images/share05.png"/>
+                    </div>
+                    <p>删除</p>
+                </div>
+            </div>
+            <div class="Tomoney">
+                <div class="box">
+                    <img src="../images/share07.png"/>
+                    <span>订阅</span>
+                </div>
+                <div class="box">
+                    <img src="../images/share06.png"/>
+                    <span>打赏</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--底部菜单栏-->
+    <div class="footer">
+        <div class="box">
+            <a href="bookshelf.html" data-ajax="false">
+                <img src="../images/tabbar01d.png"/>
+                <p>书架</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="../index.html"data-ajax="false" >
+                <img src="../images/tabbar02.png"/>
+                <p>精选</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="find.html" data-ajax="false">
+                <img src="../images/tabbar03.png"/>
+                <p>发现</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="../images/tabbar04.png"/>
+                <p>账户</p>
+            </a>
+        </div>
+    </div>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+    <script type="text/javascript">
+        /**根据屏幕改变根元素字体大小**/
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+            mui.init({
+                swipeBack: true, //启用右滑关闭功能
+                gestureConfig:{
+                   tap: true, //默认为true
+                   doubletap: true, //默认为false
+                   longtap: true, //默认为false
+                   swipe: true, //默认为true
+                   drag: true, //默认为true
+                   hold:false,//默认为false，不监听
+                   release:false//默认为false，不监听
+                  }
+            });
+            /**长按弹窗**/
+            mui(".box").on("longtap",".img",function(){
+                document.getElementsByClassName("loog-tap")[0].classList.add("on");
+            })
+
+        $(function(){
+            /**搜索效果**/
+            $(".myheader img.book-search").click(function(){
+                $(".myheader .book-Tosearch").css("display","block").css("display","flex");
+                $(".off").click(function(){
+                    $(".myheader .book-Tosearch").css("display","none")
+                })
+            })
+
+
+            /**设置选项**/
+            $(".myheader img.set").click(function(){
+                $(".myheader .book-set").fadeToggle();
+            })
+            $(".myheader .book-set ul li").click(function(){
+                    var index =$(this).index();
+                    $(".myheader .book-set").css("display","none");
+
+                    /**模式切换**/
+                    if(index == 2){
+                        $(".bookshelf-box").toggleClass("bookshelf-box1");
+                        if($(this).find("p").html() == "列表模式"){
+                            $(this).find("p").html("图墙模式")
+                        }else{
+                            $(this).find("p").html("列表模式")
+                        }
+                    }
+                })
+
+            /**switch开关**/
+            $(".op >.box>.mui-switch").click(function(){
+                $(this).toggleClass("mui-active");
+            })
+
+
+            /**弹出形式**/
+            $(".bookshelf-box img.set").click(function(){
+                $(".loog-tap").toggleClass("on")
+            })
+            $(".loog-tap").click(function(){
+                $(this).toggleClass("on")
+            })
+            $(".loog-tap>.box").click(function(e){
+                var e = e || event;
+                e.stopPropagation();
+                $(this).css("display","block")
+            })
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>系统头像</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div date-role="page">
+    <div class="system-page">
+        <div class="myheader">
+            <a class="Goback" href="javascript:window.history.back();">
+                <img src="../images/Goback.png"/>
+            </a>
+            <h2 class="title">系统头像</h2>
+        </div>
+        <div class="system-img">
+            <img  id="iconUrl"  src="../images/system-img02.png">
+        </div>
+    </div>
+    <h2 class="system-title">— 选择头像 —</h2>
+    <div class="system-more-img">
+        <div class="box">
+            <img src="../images/system-img01.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img02.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img03.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img04.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img05.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img06.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img07.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img08.png">
+        </div>
+        <div class="box">
+            <img src="../images/system-img09.png">
+        </div>
+    </div>
+    <button type="button" onClick="uploadAvatar()" class="right-away">立即设置</button>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+
+    $(function () {
+        //选择图像
+        $(".system-more-img .box").eq(1).addClass('now').siblings().removeClass('now');
+        $(".system-more-img .box").click(function () {
+            var Imgsrc = $(this).find("img").attr("src");
+            $(this).addClass('now').siblings().removeClass('now')
+            $(".system-page .system-img img").attr("src", Imgsrc);
+        })
+    })
+
+</script>
+<script>
+
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getUserInfo();
+    }else{
+        toLogin();
+    }
+
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var dataURL = canvas.toDataURL("image/jpg");
+        return dataURL // return dataURL.replace("data:image/png;base64,", "");
+    }
+
+    function uploadAvatar(){
+        var img = document.createElement('img');
+        img.src = $('#iconUrl').attr('src');
+        img.onload =function() {
+            var imgstr = getBase64Image(img);
+            console.log(imgstr);
+            var params = '["{imgType:\'jpg\',base64Data:\''+imgstr+'\'}"]';
+            myHttp({
+                url: urls.uploadAvatar.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        window.location.href="personal_data.html";
+                    } else if(res.statusCode == 110003) {
+                        toLogin();
+                    }
+                }
+            });
+
+        }
+    }
+
+    //获取用户资料
+    function getUserInfo(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    $('#iconUrl').attr('src',record['iconUrl']);
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

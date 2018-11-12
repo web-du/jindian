@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>更改昵称</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .mui-bar {
+            background-color: #e15149;
+            height: 0.8rem;
+        }
+
+        .mui-bar-nav.mui-bar .mui-icon {
+            color: #FFFFFF;
+        }
+
+        .mui-title {
+            color: #FFFFFF;
+        }
+
+        .mui-bar .mui-btn-link {
+            color: #FFFFFF;
+        }
+
+        .mui-bar .mui-btn-link a {
+            color: #fff;
+        }
+
+        .mui-checkbox, .mui-radio {
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0.6rem;
+        }
+
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+            position: initial;
+        }
+
+        .mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+            color: #e15149;
+        }
+
+        .mui-checkbox p {
+            font-size: 0.24rem;
+            color: #999;
+            margin-left: 0.15rem;
+        }
+
+        .mui-checkbox p a {
+            color: #ff8986;
+        }
+    </style>
+<script src="../js/public.js"></script> </head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:NATIVE.closeWinView();" >
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">更改昵称</h2>
+</div>
+<div class="content">
+    <div class="register-page">
+        <div class="box">
+            <h5 class="your-nickname">昵称:</h5>
+            <form>
+                <p class="your-nick">
+                    <input id="nickname" type="text" placeholder="贤菲宝"/>
+                </p>
+                <button type="button" onclick="updateUserInfo()" class="Toreg">确定</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+
+<script>
+    $('.loading').hide();
+
+
+    if(accessToken){
+        getUserInfo();
+    }else{
+        NATIVE.toLogin();
+    }
+
+    //获取用户资料
+    function getUserInfo(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    $('#nickname').attr('placeholder',record['nickname']);
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+    //修改用户资料
+    function updateUserInfo(){
+        var nickname = $('#nickname').val();
+        if(!nickname){
+            //window.history.back();
+            NATIVE.closeWinView();
+            return false;
+        }
+        var params = '["{nickname:\'' + nickname + '\'}"]';
+        $('.loading').show();        myHttp({
+            url: urls.updateUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    //locationUrl('personal_data.html',false);
+                    myAlert('修改成功');
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+</script>
+<script src="../js/public.js"></script> </body>
+</html>

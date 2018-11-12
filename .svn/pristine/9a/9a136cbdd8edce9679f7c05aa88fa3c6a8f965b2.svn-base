@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>书籍目录书签</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+
+    </style>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();" >
+        <img src="../images/Goback.png"/>
+    </a>
+    <div class="tab">
+        <span class="now">目录</span>
+        <span>书签</span>
+    </div>
+    <div class="screen" onclick="orderByTime()">
+        <img src="../images/dao.png"/>
+        <span>倒序</span>
+    </div>
+</div>
+<div class="content book-nav">
+    <ul class="mui-table-view">
+        <div class="any-null">
+            <img src="../images/any-null.png" >
+        </div>
+        <!--<li class="mui-table-view-cell">-->
+            <!--<span>第十二章</span>-->
+            <!--<img src="../images/shuo.png"/>-->
+        <!--</li>-->
+    </ul>
+    <ul class="bookmark" style="display: none;">
+        <div class="any-null">
+            <img src="../images/any-null.png" >
+        </div>
+        <!--<li>-->
+            <!--<div class="name">-->
+                <!--<h2>第三十六章</h2>-->
+                <!--<img src="../images/del.png"/>-->
+            <!--</div>-->
+            <!--<p>圣魂草即便是随口吞咽，对于魂力的修炼，-->
+                <!--也是非常有用，但是每一棵圣魂草，-->
+                <!--都就没看了蛇年快乐水电工v四节课而-->
+                <!--警方共i及偶尔及</p>-->
+            <!--<span>刚刚</span>-->
+        <!--</li>-->
+    </ul>
+</div>
+<input id="pageid" value="1" type="hidden">
+<input id="orderByTime" value="asc" type="hidden">
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+
+    /**头部导航swiper组**/
+    var swiper = ["swiper1", "swiper2", "swiper3", "swiper4", "swiper5", "swiper6"]
+    for (var i = 1; i < 6; i++) {
+        swiper[i - 1] = new Swiper('.swiper' + i, {
+            observer: true,
+            observeParents: true,
+            slidesPerView: "auto",
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+
+
+    /**头部tab切换**/
+    $(".myheader .tab span").click(function () {
+        var index = $(this).index()
+        $(this).addClass("now").siblings().removeClass("now");
+        $(".book-nav ul").css("display", "none");
+        $(".book-nav ul").eq(index).css("display", "block");
+        if (index == 1) {
+            $(".myheader>.screen").css("display", "none");
+        } else {
+            $(".myheader>.screen").css("display", "block").css("display", "flex");
+        }
+    })
+
+
+    /**后面的章节需要解锁**/
+    $(".book-nav>ul>li.mui-table-view-cell").each(function () {
+        var index = $(this).index();
+        if (index <= 8) {
+            $(this).find("img").css("display", "none");
+        }
+    })
+</script>
+<script>
+
+
+    var id = getQueryString(winurl, 'id');
+    if (id) {
+        var params = '["{bookId:' + id + '}"]';
+        getBookCatalog(params);
+        getBookMarkList(id)
+    } else {
+        myAlert('请求参数错误');
+    }
+
+
+
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 10 }, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var orderByTime = $('#orderByTime').val();
+            var params = '["{pageNumber:'+next+',bookId:'+id+',orderByTime:\''+orderByTime+'\'}"]';
+            getBookCatalog(params);
+        }
+    });
+
+
+    //排序
+    function orderByTime(){
+        var orderByTime = $('#orderByTime').val();
+        if(orderByTime == 'asc'){
+            orderByTime = 'desc';
+        }else{
+            orderByTime = 'asc';
+        }
+        $('#orderByTime').val(orderByTime);
+        $('.mui-table-view').html('');
+        var params = '["{bookId:'+id+',orderByTime:\''+orderByTime+'\'}"]';
+        getBookCatalog(params);
+    }
+
+
+    //获取目录
+    function getBookCatalog(params) {
+        var options = {
+            url: urls.getBookCatalog.path,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    if (res.data && res.data.length>0) {
+                        $('.mui-table-view .any-null').hide();
+                        for(var i in res.data){
+                            for(var k in res.data[i].chapters){
+                                var record = res.data[i].chapters[k];
+                                var contenthtml= '<li class="mui-table-view-cell" onclick="locationUrl(\'book_page.html?id='+record['bookId']+'&chapterId='+record['id']+'\',true)" >'+
+                                    '            <span>'+record['name']+'</span>';
+                                if(record['vip']){
+                                    contenthtml+=' <img src="../images/shuo.png">';
+                                }
+                                contenthtml+='    </li>';
+                                $('.mui-table-view').append(contenthtml);
+                            }
+                        }
+                    }
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                } else {
+                    $('.mui-table-view').html('');
+                    myAlert(res.statusMsg);
+                }
+            }
+        };
+        if (accessToken) {
+            options.headers = {'jd-token': accessToken};
+        }
+        $('.loading').show(); myHttp(options);
+    }
+
+
+    //获取书签
+    function getBookMarkList(id) {
+        if (!accessToken) {
+            return false;
+        }
+        var params = '["{bookId:' + id + '}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getBookMarkList.path,
+            headers: {'jd-token': accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    if(res.data && res.data.length>0){
+                        $('.bookmark .any-null').hide();
+                    }
+
+                    for(var i in res.data){
+                        var record = res.data[i];
+                        var contenthtml = '<li id="bookMark_'+record['id']+'" ' +
+                            '                   >' +
+                            '            <div class="name">' +
+                            '                <h2>'+record['chapterName']+'</h2>' +
+                            '                <img src="../images/del.png" onclick="deleteBookMark('+record['id']+')">' +
+                            '            </div>' +
+                            '            <div onclick="locationUrl(\'book_page.html?id='+record['bookId']+'&chapterId='+record['chapterId']+'\',true);">'+record['chapterSummary']+'</div>' +
+                            '            <span>'+record['createTime']+'</span>' +
+                            '        </li>';
+                        $('.bookmark').append(contenthtml);
+                    }
+
+
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    function deleteBookMark(bookMarkId){
+        if(!bookMarkId){
+            return false;
+        }
+
+        if(!confirm('确认删除书签吗？'))  return false;
+
+        var params = '["{bookMarkId:' + bookMarkId + '}"]';
+        $('.loading').show();        myHttp({
+            url: urls.deleteBookMark.path,
+            headers: {'jd-token': accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    $('#bookMark_'+bookMarkId).remove();
+
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

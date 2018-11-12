@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>更多</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.index-free {
+		    padding: 0 0.25rem 0;
+		}
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="javascript:NATIVE.closeWinView();" >
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">更多</h2>
+	</div>
+	<div class="content">
+		<div class="index-free">
+	 		<div class="free-box" id="moreBookId">
+				<div class="any-null">
+					<img src="../images/any-null.png" >
+				</div>
+	 		</div>
+	 	</div>
+	</div>
+	<input type="hidden" id="pageid" value="1">
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/config.js"></script>
+    <script type="text/javascript" src="../js/public.js"></script>
+	<script type="text/javascript">
+
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+	var id = getQueryString(winurl,'id');
+	var type = getQueryString(winurl,'type');//1 作者其他  2 同类  3完结金榜 4最新完结 5大家都在搜 6男生喜欢 7女生喜欢 8畅销 9签约 10限时免费 11编辑推荐 12最近更新
+	var isFirstPage = getQueryString(winurl,'isFirstPage');
+	if(isFirstPage == 1){
+		$('.Goback').attr('href','javascript:void(0);');
+		$('.Goback').click(function(){
+			NATIVE.closeWinView();
+		});
+	}
+
+	var title = '';
+	var url;
+	var params;
+	var isLastRecord = false;
+	if(type==1){
+		url = urls.getAuthorBooksMore.path;
+		params = '["{pageNumber:1,more:true,pageSize:10,bookId:'+id+'}"]';
+	}else if(type==2){
+		url = urls.getSimilarBooks.path;
+		params = '["{pageNumber:1,more:true,pageSize:10,bookId:'+id+'}"]';
+	}else if(type==3){
+        title = '完结金榜';
+        url = urls.getBestEndList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+	}else if(type==4){
+        title = '最新完结';
+        url = urls.getRecentEndList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+	}else if(type==5){
+        url = urls.getSearchRankList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==6){
+        title = '男生最爱';
+        url = urls.getBoyFavoriteList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==7){
+        title = '女生最爱';
+        url = urls.getGirlFavoriteList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==8){
+        title = '畅销精选';
+        url = urls.getPopularList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==9){
+        title = '签约新作';
+        url = urls.getNewRecommendList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==10){
+        title = '限时免费';
+        url = urls.getLimitFreeList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==11){
+        title = '编辑推荐';
+        url = urls.getEditorRecommendList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==12){
+        title = '最近更新';
+        url = urls.getLatestUpdateList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==13){
+        title = '免费精品';
+        url = urls.getBestFreeList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==14){
+        title = '新书免费';
+        url = urls.getNewFreeList.path;
+        params = '["{pageNumber:1,more:true,pageSize:10}"]';
+    }else if(type==15){
+        //关键字搜索结果
+        title = decodeURI(getQueryString(winurl, 'keyword'));
+        url = urls.getMyEvaluateList.path;
+        params = '["{pageNumber:1,keyword:\''+title+'\',pageSize:10}"]';
+        $('.Goback').attr('href','javascript:window.history.back();');
+	}
+	if(title){
+		$('.title').text(title);
+	}
+	shouContent(params);
+
+
+	/***获取书籍更多***/
+	function shouContent(params){
+	    if(isLastRecord){
+	       return false;
+		}
+        $('.loading').show();        myHttp({
+            url: url,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if(res.statusCode==200){
+                    var bookdata = res.data;
+                    if(bookdata!=null && bookdata!='' || (type != 1 && type != 2)){
+                        if(type==10){
+                            bookdata = res.data.list;
+						}
+                        var str='';
+                        if(!bookdata || bookdata.length==0){
+                            isLastRecord = true; myAlert('没有更多数据了'); return false;
+                        }
+                        $('.any-null').hide();
+                        for(var i=0;i<bookdata.length;i++){
+							var record = bookdata[i];
+
+                            if(record.serialState=='已完结'){
+                                var serialStateStr = '<span class="over">已完结</span>';
+                            }else{
+                                var serialStateStr = '<span >连载中</span>';
+                            }
+
+                            if(type==12){
+                                str+='<div class="box">'+
+                                    '		 			<a href="javascript:locationUrl(\'book_details.html?id='+record.id+'\',true);">'+
+                                    '		 				<div class="img">'+
+                                    '		 					<img src="'+record.coverUrl+'"/>'+
+                                    '		 				</div>'+
+                                    '		 				<div class="details">'+
+                                    '		 					<div class="name">'+
+                                    '		 						<p>'+record.name+'</p>'+
+                                    '		 					</div>'+
+                                    '		 					<div class="show">'+
+                                    '		 						<span>'+record.authorPenName+'</span><span>更新时间：'+record.lastUpdateTime+'</span>'+
+                                    '		 					</div>'+
+                                    '		 					<div class="text">';
+                                if(record.vip){
+                                	str+='		 						<p>'+record.chapterName+'<span style="color: red;"> VIP</span></p>';
+								}else{
+                                	str+='		 						<p>'+record.chapterName+'</p>';
+								}
+
+								str+='		 					</div>'+
+                                    '		 				</div>'+
+                                    '		 			</a>'+
+                                    '	 			</div>';
+							}else{
+                                str+='<div class="box">'+
+                                    '		 			<a href="javascript:locationUrl(\'book_details.html?id='+record.id+'\',true);">'+
+                                    '		 				<div class="img">'+
+                                    '		 					<img src="'+record.coverUrl+'"/>'+
+                                    '		 				</div>'+
+                                    '		 				<div class="details">'+
+                                    '		 					<div class="name">'+
+                                    '		 						<p>'+record.name+'</p>'+serialStateStr+
+                                    '		 					</div>'+
+                                    '		 					<div class="show">'+
+                                    '		 						<span>'+record.authorPenName+'</span><span>'+record.categoryName+'</span><span>'+record.formatWordCount+'</span><span>'+record.clickCount+'次点击</span>'+
+                                    '		 					</div>'+
+                                    '		 					<div class="text">'+
+                                    '		 						<p>'+record.summary+'</p>'+
+                                    '		 					</div>'+
+                                    '		 				</div>'+
+                                    '		 			</a>'+
+                                    '	 			</div>';
+							}
+
+
+                        }
+
+                        $("#moreBookId").append(str);
+                    }
+
+                }
+            },
+            error: function (res) {
+                //console.log(res);
+            }
+        });
+	}
+
+
+
+
+        window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+
+        new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 0 }, function (offset) {
+            if (offset > 0) {
+				var page = $("#pageid").val();
+				var next=Number(page)+1;
+				$("#pageid").val(next);
+                if(type==1 || type==2){
+                    params = '["{pageSize:10,pageNumber:'+next+',more:true,bookId:'+id+'}"]';
+                }else {
+                    params = '["{pageSize:10,pageNumber:'+next+',more:true}"]';
+                }
+                shouContent(params);
+            }
+    });
+	</script>
+</body>
+</html>

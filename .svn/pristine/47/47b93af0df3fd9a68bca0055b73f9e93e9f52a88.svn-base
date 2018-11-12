@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>畅销精选</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.index-free {
+		    padding: 0 0.25rem 0;
+		}
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="javascript:void(0);" onclick="window.history.back()">
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">畅销精选</h2>
+	</div>
+	<div class="content">
+		<div class="index-free">
+	 		<div class="free-box">
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="../images/index-img09.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>我的手机有美女</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线来得及可能是邓丽君大门口了没的说了昆明</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="../images/index-img10.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>建新风云录</p>
+		 						<span class="over">已完结</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>念南北</span><span>言情</span><span>6.6万字</span><span>454次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>都说情债难偿，更何况是添了血肉债的情呢？</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="../images/index-img11.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>神医入世之我的老师是鬼</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>凡心如你</span><span>玄幻</span><span>18.7万字</span><span>257次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>那个不想活的的，还叫我妇产科男护士?从今以后你们要叫我神医大人。</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="../images/index-img12.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>梦想是成为魔法少女的中二坚实的解放路数据库</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>凡心如你</span><span>玄幻</span><span>18.7万字</span><span>257次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>那个不想活的的，还叫我妇产科男护士?从今以后你们要叫我神医大人。</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="../images/index-img09.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>我的手机有美女</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线来得及可能是邓丽君大门口了没的说了昆明</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 		</div>
+	 	</div>
+	</div>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>系统通知</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.ui-page{
+    		background-color: #f5f5f5;
+    	}
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="javascript:window.history.back();">
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">系统通知</h2>
+	</div>
+
+	<div class="content">
+		<div class="system">
+			<div class="box">
+				<img src="../images/notice-details.png"/>
+				<div class="text">
+					<h2>系统通知<span>9:40</span></h2>
+					<div class="con">
+						<p>您有新版本，赶快更新吧</p>
+					</div>
+				</div>
+			</div>
+			<div class="box">
+				<img src="../images/notice-details.png"/>
+				<div class="text">
+					<h2>系统通知<span>三天前</span></h2>
+					<div class="con">
+						<p>您有新版本，赶快更新吧</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+	</script>
+</body>
+</html>

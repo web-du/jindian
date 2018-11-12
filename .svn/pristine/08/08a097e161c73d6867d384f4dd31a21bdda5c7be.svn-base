@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>搜索</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+    </style>
+<script type="text/javascript" src="../js/public.js"></script>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:NATIVE.closeWinView();" data-ajax='false'>
+        <img src="../images/Goback.png"/>
+    </a>
+
+        <div class="new-search">
+            <input type="text" id="keyword"  placeholder="输入作者或作者名">
+            <img src="../images/new-search.png">
+        </div>
+        <button class="to-search" type="button" onclick="onSearch()">搜索</button>
+</div>
+<div class="hot-search">
+    <h5>热词搜索</h5>
+    <div class="box key-box">
+        <!--<span class="now">穿越</span>-->
+        <!--<span class="now">超神学院</span>-->
+        <!--<span class="now">火影</span>-->
+        <!--<span>幻想乡</span>-->
+        <!--<span>斗罗大陆</span>-->
+        <!--<span>玛丽苏</span>-->
+        <!--<span>末世洪荒</span>-->
+        <!--<span>重生</span>-->
+        <!--<span>反玛丽苏</span>-->
+        <!--<span>热血</span>-->
+    </div>
+</div>
+<div class="line"></div>
+<div class="search-record">
+    <h5>搜索记录</h5>
+    <div class="box searchKeyList">
+        <!--<p><span>漫画</span><img src="../images/account-To.png"></p>-->
+        <!--<p><span>热血小说</span><img src="../images/account-To.png"></p>-->
+        <!--<p><span>二次元</span><img src="../images/account-To.png"></p>-->
+    </div>
+    <h6>清除历史记录</h6>
+</div>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // 清楚历史记录
+        $(".search-record>h6").click(function () {
+            $(".search-record .box>p").remove();
+            localStorage.clear();
+        })
+    })
+</script>
+<script>
+
+
+    var searchKeyList = localStorage.getItem("searchKeyList");
+    if(!searchKeyList){
+        searchKeyList = new Array();
+    }else{
+        searchKeyList=searchKeyList.split(",");
+    }
+    if(searchKeyList.length>5){
+        searchKeyList.splice(0,1);
+    }
+//    console.log(searchKeyList);
+    for(var i in searchKeyList){
+        $('.searchKeyList').append('<p onclick="$(\'#keyword\').val(\''+searchKeyList[i]+'\');onSearch()"><span>'+searchKeyList[i]+'</span><img src="../images/account-To.png"></p>');
+    }
+
+
+
+
+
+    var isFirstPage = getQueryString(winurl,'isFirstPage');
+    if(isFirstPage == 1){
+        $('.Goback').attr('href','javascript:void(0);');
+        $('.Goback').click(function(){
+            NATIVE.closeWinView();
+        });
+    }
+
+    getHotSearchKeyword();
+
+    function getHotSearchKeyword(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getHotSearchKeyword.path,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if(res.statusCode==200){
+                    for(var i in res.data){
+                        $('.key-box').append('<span onclick="$(\'#keyword\').val(\''+i+'\');onSearch()">'+i+'</span>');
+                    }
+                }
+            },
+            error: function (res) {
+                //console.log(res);
+            }
+        });
+    }
+
+
+    //获取用户资料
+    function onSearch() {
+        var keyword = $('#keyword').val();
+        if(!keyword){
+            myAlert('请输入你要搜索的关键字');return false;
+        }
+        var index = searchKeyList.indexOf(keyword)
+        if(index>-1){
+            searchKeyList.splice(index,1);
+        }
+        searchKeyList.unshift(keyword);
+        if(searchKeyList.length>5){
+            searchKeyList.splice(4,1);
+        }
+        localStorage.setItem("searchKeyList",searchKeyList);
+//        $('#keyword2').val(encodeURI(keyword));
+//        $('#type').val(15);
+        //locationUrl('book_more.html?type=15&keyword='+encodeURI(keyword),true);
+		window.location.href='book_more.html?type=15&keyword='+encodeURI(keyword);
+    }
+
+    $('#keyword').bind('keyup', function(event) {
+        if (event.keyCode == "13") {
+            //回车执行查询
+            onSearch();
+        }
+    });
+
+
+</script>
+</body>
+</html>

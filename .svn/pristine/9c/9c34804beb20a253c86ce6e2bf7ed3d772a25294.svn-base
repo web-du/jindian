@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>消息中心</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .content {
+            margin-bottom: 0.98rem;
+        }
+        #unreadNum{display: none;}
+        #unreadNumTotal{display: none;}
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="account.html" data-ajax="false">
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">消息中心</h2>
+    <button class="account-del">
+        <img src="../images/account-del.png"/>
+    </button>
+</div>
+
+<div class="content">
+    <div class="account-mess-nav">
+        <ul>
+            <li class="now">
+                <span>消息</span>
+                <i id="unreadNum">0</i>
+            </li>
+            <li>
+                <span>通知</span>
+                <i id="unreadNumTotal">0</i>
+            </li>
+        </ul>
+    </div>
+    <div class="account-mess-con">
+        <div class="box msg-list">
+            <div class="To">
+                <a href="#">
+                    <img src="../images/mess-centre01.png"/>
+                    <div class="details">
+                        <div class="name">
+                            <h2>书友1234<span>赞了你的评论</span></h2>
+                            <span>9:40</span>
+                        </div>
+                        <div class="text">
+                            <p>这书刚开始看感觉一般，不过越看越觉得吧两家手机卡是不会按时间凯迪拉克</p>
+                            <i>2</i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="box notice-list">
+            <!--<div class="To">-->
+                <!--<a href="#">-->
+                    <!--<img src="../images/mess-centre04.png"/>-->
+                    <!--<div class="account-notice">-->
+                        <!--<p><span>9:40</span></p>-->
+                        <!--<h2><span>系统通知</span><i>1</i></h2>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+</div>
+<input id="pageid" value="1" type="hidden">
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+
+    $(function () {
+        //初始化布局
+        $(".account-mess-con .box").eq(0).css("display", "block").siblings().css("display", "none");
+        $(".account-mess-nav ul li").eq(0).addClass("now");
+        $(".account-mess-nav ul li").click(function () {
+            var index = $(this).index();
+            $(this).addClass("now").siblings().removeClass("now");
+            $(".account-mess-con .box").eq(index).css("display", "block").siblings().css("display", "none");
+        })
+    })
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        var params = '["{pageSize:10,pageNumber:1}"]';
+        getCommentMessageList(params);
+        getMessageTypeInfo(params);
+    }else{
+        toLogin();
+    }
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 0 }, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:'+next+',pageSize:10}"]';
+            getCommentMessageList(params);
+        }
+    });
+
+
+
+    //获取消息列表
+    function getCommentMessageList(params){
+        myHttp({
+            url: urls.getCommentMessageList.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var unreadNum =  res.data.unreadNum;
+                    if(unreadNum){
+                        $('#unreadNum').text(unreadNum).show();
+                    }
+
+                    for(var i in res.data.list){
+                        var record = res.data.list[i];
+                        var timeStr = '';
+                        if(record['createTime']){
+                            var date = new Date(record['createTime']);
+                            timeStr = getTimeStr(date.getTime());
+                        }
+
+                        var contenthtml = '<div class="To">' +
+                            '                <a href="#">' +
+                            '                    <img src="'+record['senderHeaderUrl']+'">' +
+                            '                    <div class="details">' +
+                            '                        <div class="name">' +
+                            '                            <h2>'+record['senderName']+'<span>赞了你的评论</span></h2>' +
+                            '                            <span>'+timeStr+'</span>' +
+                            '                        </div>' +
+                            '                        <div class="text">' +
+                            '                            <p>'+record['content']+'</p>' ;
+                        if(record['unreadNum']){
+                            contenthtml+='                   <i>'+record['unreadNum']+'</i>';
+                        }
+                        contenthtml+='                </div>' +
+                            '                    </div>' +
+                            '                </a>' +
+                            '            </div>';
+                        $('.msg-list').append(contenthtml);
+                    }
+
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+
+    //获取通知列表
+    function getMessageTypeInfo(params){
+        myHttp({
+            url: urls.getMessageTypeInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    for(var i in res.data.details){
+                        var record = res.data.details[i];
+                        var timeStr = '';
+                        if(record['createTime']){
+                            var date = new Date(record['createTime']);
+                            timeStr = getTimeStr(date.getTime());
+                        }
+
+                        var contenthtml = '<div class="To">' +
+                            '                <a href="#">' +
+                            '                    <img src="'+record['icon']+'">' +
+                            '                    <div class="account-notice">' +
+                            '                        <p><span>'+timeStr+'</span></p>' +
+                            '                        <h2><span>'+record['type']+'</span>';
+                        if(record['unreadNum']){
+                            contenthtml+='<i>'+record['unreadNum']+'</i>';
+                        }
+                            contenthtml+='               </h2></div>' +
+                            '                </a>' +
+                            '            </div>';
+
+                        $('.notice-list').append(contenthtml);
+                    }
+
+
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+
+
+
+
+    //格式化时间
+    function getTimeStr(dateTimeStamp){   //dateTimeStamp是一个时间毫秒，注意时间戳是秒的形式，在这个毫秒的基础上除以1000，就是十位数的时间戳。13位数的都是时间毫秒。
+        var minute = 1000 * 60;      //把分，时，天，周，半个月，一个月用毫秒表示
+        var hour = minute * 60;
+        var day = hour * 24;
+        var week = day * 7;
+        var month = day * 30;
+        var year = month * 12;
+        var now = new Date().getTime();   //获取当前时间毫秒
+        var diffValue = now - dateTimeStamp;//时间差
+        console.log(diffValue)
+
+        if(diffValue < 0){
+            return;
+        }
+        var minC = diffValue/minute;  //计算时间差的分，时，天，周，月
+        var hourC = diffValue/hour;
+        var dayC = diffValue/day;
+        var weekC = diffValue/week;
+        var monthC = diffValue/month;
+        var yearC = diffValue/year;
+
+        if(yearC >= 1){
+            result = " " + parseInt(yearC) + "年前"
+        }else if(monthC >= 1 && monthC <= 12){
+            result = " " + parseInt(monthC) + "月前"
+        }else if(weekC >= 1 && weekC <= 4){
+            result = " " + parseInt(weekC) + "周前"
+        }else if(dayC >= 2 && dayC <= 7){
+            result = " " + parseInt(dayC) + "天前"
+        }else if(dayC >=1 && dayC<2){
+            result = " " + "昨天"
+        }else if(hourC >= 1 && hourC <= 24){
+            result = " " + parseInt(hourC) + "小时前"
+        }else if(minC >= 1 && minC <= 60){
+            result =" " + parseInt(minC) + "分钟前"
+        }else if(diffValue >= 0 && diffValue <= minute){
+            result = "刚刚"
+        }
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

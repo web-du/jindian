@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>今点首页</title>
+    <script src="js/mui.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+		<h1 class="mui-title index-title">精选</h1>
+		<a class="mui-icon mui-icon-search mui-pull-right commission-back search-open" id="search-open"></a>
+		<div class="search mui-hidden" id="search">
+        	<div class="content-wrap search-wrap ub ub-pj ub-ac">
+            	<div class="search-input-group ub ub-ac">
+            		<a class="mui-icon mui-icon-search search-icon"></a>
+            		<input type="text" name="search" id="search" placeholder="输入你想看的书名">
+            	</div>
+            	<a class="cancel-btn" id="cancel-btn">取消</a>
+        	</div>
+        </div>
+	</header>
+	<div class="mui-content">
+	 	<div class="swiper-container index-banner">
+	 		<div class="swiper-wrapper">
+	 			<div class="swiper-slide">
+	 				<img src="images/index-banner.jpg"/>
+	 			</div>
+	 			<div class="swiper-slide">
+	 				<img src="images/index-banner.jpg"/>
+	 			</div>
+	 			<div class="swiper-slide">
+	 				<img src="images/index-banner.jpg"/>
+	 			</div>
+	 			<div class="swiper-slide">
+	 				<img src="images/index-banner.jpg"/>
+	 			</div>
+	 		</div>
+	 		<!-- Add Pagination -->
+    		<div class="swiper-pagination"></div>
+	 	</div>
+	 	<div class="index-nav">
+	 		<div class="box">
+	 			<a href="pages/index_class.html">
+	 			<img src="images/index-nav1.png"/>
+	 			<p>分类</p>
+	 			</a>
+	 		</div>
+	 		<div class="box">
+	 			<a href="pages/rank.html">
+	 			<img src="images/index-nav2.png"/>
+	 			<p>排行</p>
+	 			</a>
+	 		</div>
+	 		<div class="box">
+	 			<a href="pages/self.html">
+	 			<img src="images/index-nav3.png"/>
+	 			<p>免费</p>
+	 			</a>
+	 		</div>
+	 		<div class="box">
+	 			<a href="pages/finish.html">
+	 			<img src="images/index-nav4.png"/>
+	 			<p>完本</p>
+	 			</a>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-sell">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img.png"/>
+	 				<p>畅销精选</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="pages/book_more.html?type=8">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="sell-box">
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img05.png"/>
+	 					<h2>猎龙师</h2>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="pages/book_details.html">
+	 					<img src="images/index-img06.png"/>
+	 					<h2>将军快回来</h2>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img06.png"/>
+	 					<h2>寨劫难逃</h2>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img07.png"/>
+	 					<h2>晨曦鹦鹉宠物店</h2>
+	 				</a>
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-select">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img2.png"/>
+	 				<p>签约新作</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="#">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box">
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img01.jpg"/>
+	 					<p>迷失花园</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img02.jpg"/>
+	 					<p>穿越成伪娘王爷我却啦啦啦</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img03.jpg"/>
+	 					<p>战神的幼妻养成</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<img src="images/index-img04.jpg"/>
+	 					<p>晨曦鹦鹉宠物店</p>
+	 				</a>
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-free">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img03.png"/>
+	 				<p>限时免费</p>
+	 				<p id="Timeover"></p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="#">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="free-box">
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="images/index-img09.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>我的手机有美女</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线来得及可能是邓丽君大门口了没的说了昆明</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="images/index-img10.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>建新风云录</p>
+		 						<span class="over">已完结</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>念南北</span><span>言情</span><span>6.6万字</span><span>454次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>都说情债难偿，更何况是添了血肉债的情呢？</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="images/index-img11.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>神医入世之我的老师是鬼</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>凡心如你</span><span>玄幻</span><span>18.7万字</span><span>257次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>那个不想活的的，还叫我妇产科男护士?从今以后你们要叫我神医大人。</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 			<div class="box">
+		 			<a href="#">
+		 				<div class="img">
+		 					<img src="images/index-img12.jpg"/>
+		 				</div>
+		 				<div class="details">
+		 					<div class="name">
+		 						<p>梦想是成为魔法少女的中二坚实的解放路数据库</p>
+		 						<span>连载中</span>
+		 					</div>
+		 					<div class="show">
+		 						<span>凡心如你</span><span>玄幻</span><span>18.7万字</span><span>257次点击</span>
+		 					</div>
+		 					<div class="text">
+		 						<p>那个不想活的的，还叫我妇产科男护士?从今以后你们要叫我神医大人。</p>
+		 					</div>
+		 				</div>
+		 			</a>
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-gold">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img4.png"/>
+	 				<p>完结金榜</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="#">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="box">
+	 			<div class="swiper-container gold-swiper">
+	 				<div class="swiper-wrapper">
+	 					<div class="swiper-slide" style="background-image: url(images/index-img13.jpg);">
+	 					</div>
+	 					<div class="swiper-slide" style="background-image: url(images/index-img13.jpg);">
+	 					</div>
+	 					<div class="swiper-slide" style="background-image: url(images/index-img13.jpg);">
+	 					</div>
+	 					<div class="swiper-slide" style="background-image: url(images/index-img13.jpg);">
+	 					</div>
+	 				</div>
+	 				<!-- Add Pagination -->
+    				<div class="swiper-pagination"></div>
+	 			</div>
+	 		</div>
+	 		<div class="details">
+	 			<div class="details-Box">
+	 				<div class="name">
+		 				<p>斗罗大陆</p><span class="over">已完结</span>
+		 			</div>
+		 			<div class="show">
+		 				<span>我本是妖</span>
+		 				<span>玄幻</span>
+		 				<span>18.7万字</span>
+		 				<span>257次点击</span>
+		 			</div>
+		 			<div class="text">
+		 				<p>盛唐的时代结束，安史叛军大举进攻，都城长安本就人人惶恐的时候，前太师冷少天为了达到长生不死，非玫琳凯的扩散到了两三年分开发了哦你</p>
+		 			</div>
+	 			</div>
+	 			<div class="details-Box" style="display: none;">
+	 				<div class="name">
+		 				<p>王者荣耀</p><span class="over">已完结</span>
+		 			</div>
+		 			<div class="show">
+		 				<span>我本是妖</span>
+		 				<span>玄幻</span>
+		 				<span>18.7万字</span>
+		 				<span>257次点击</span>
+		 			</div>
+		 			<div class="text">
+		 				<p>盛唐的时代结束，安史叛军大举进攻，都城长安本就人人惶恐的时候，前太师冷少天为了达到长生不死，非玫琳凯的扩散到了两三年分开发了哦你</p>
+		 			</div>
+	 			</div>
+	 			<div class="details-Box" style="display: none;">
+	 				<div class="name">
+		 				<p>妖僧</p><span class="over">已完结</span>
+		 			</div>
+		 			<div class="show">
+		 				<span>我本是妖</span>
+		 				<span>玄幻</span>
+		 				<span>18.7万字</span>
+		 				<span>257次点击</span>
+		 			</div>
+		 			<div class="text">
+		 				<p>盛唐的时代结束，安史叛军大举进攻，都城长安本就人人惶恐的时候，前太师冷少天为了达到长生不死，非玫琳凯的扩散到了两三年分开发了哦你</p>
+		 			</div>
+	 			</div>
+	 			<div class="details-Box" style="display: none;">
+	 				<div class="name">
+		 				<p>斗破苍穹</p><span class="over">已完结</span>
+		 			</div>
+		 			<div class="show">
+		 				<span>我本是妖</span>
+		 				<span>玄幻</span>
+		 				<span>18.7万字</span>
+		 				<span>257次点击</span>
+		 			</div>
+		 			<div class="text">
+		 				<p>盛唐的时代结束，安史叛军大举进攻，都城长安本就人人惶恐的时候，前太师冷少天为了达到长生不死，非玫琳凯的扩散到了两三年分开发了哦你</p>
+		 			</div>
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-recomm">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img5.png"/>
+	 				<p>编辑推荐</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="#">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box">
+	 			<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img14.jpg"/>
+	 						<span>连载中</span>
+	 					</div>
+	 					<p>逍遥杀手俏总裁</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img15.jpg"/>
+	 						<span class="over">已完结</span>
+	 					</div>
+	 					<p>忠犬校草撩回家</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img16.jpg"/>
+	 						<span>连载中</span>
+	 					</div>
+	 					<p>恢恢</p>
+	 				</a>
+	 			</div>
+	 			<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img17.jpg"/>
+	 						<span>连载中</span>
+	 					</div>
+	 					<p>陌上向晚微若初晴</p>
+	 				</a>
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-new">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="images/index-stitle-img6.png"/>
+	 				<p>最近更新</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="#">
+	 				<span>更多</span>
+	 				<img src="images/more_to.png"/>
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box">
+	 			<div class="bbox">
+	 			<a href="#">
+	 				<div class="img">
+	 					<img src="images/index-img18.jpg"/>
+	 				</div>
+	 				<div class="details">
+	 					<h5>建新风云录</h5>
+	 					<p>作者：念南北</p> 
+						<p>更新时间：2018-06-22 16:07</p>
+						<h6>第四百一十三章 有监军 <em>VIP</em></h6>
+	 				</div>
+	 			</a>
+	 			</div>
+	 			<div class="sbox">
+	 				<div class="box">
+	 					<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img19.jpg"/>
+	 					</div>
+	 					<div class="details">
+	 						<h5>建新风云录</h5>
+	 						<p>作者：念南北 </p>
+	 					</div>
+	 					</a>
+	 				</div>
+	 				<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img20.jpg"/>
+	 					</div>
+	 					<div class="details">
+	 						<h5>和亲女将</h5>
+	 						<p>作者：唐不甜</p>
+	 					</div>
+	 				</a>
+	 				</div>
+	 				<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img21.jpg"/>
+	 					</div>
+	 					<div class="details">
+	 						<h5>将军快回来</h5>
+	 						<p>作者：念南北</p>
+	 					</div>
+	 				</a>
+	 				</div>
+	 				<div class="box">
+	 				<a href="#">
+	 					<div class="img">
+	 						<img src="images/index-img22.jpg"/>
+	 					</div>
+	 					<div class="details">
+	 						<h5>溯憶三界行</h5>
+	 						<p>作者：江山为裳</p>
+	 					</div>
+	 				</a>
+	 				</div>
+	 			</div>
+	 		</div>
+	 	</div>
+	</div>
+	
+	
+	<!--底部菜单栏-->
+	<div class="footer">
+		<div class="box">
+			<a href="pages/bookshelf.html">
+				<img src="images/tabbar01.png"/>
+				<p>书架</p>
+			</a>
+		</div>
+		<div class="box">
+			<a href="index.html">
+				<img src="images/tabbar02d.png"/>
+				<p>精选</p>
+			</a>
+		</div>
+		<div class="box">
+			<a href="pages/find.html">
+				<img src="images/tabbar03.png"/>
+				<p>发现</p>
+			</a>
+		</div>
+		<div class="box">
+			<a href="pages/account.html">
+				<img src="images/tabbar04.png"/>
+				<p>账户</p>
+			</a>
+		</div>
+	</div>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		/**头部搜索框**/
+            (function($, doc) {
+                $.init();
+                $.ready(function() {
+                	//search show hide
+					document.getElementById("search-open").addEventListener('tap', function() {
+						document.getElementById('search').classList.remove('mui-hidden');
+					});
+					document.getElementById("cancel-btn").addEventListener('tap', function() {
+						document.getElementById('search').classList.add('mui-hidden');
+					});
+					
+					
+					
+                });
+            })(mui, document);
+            
+            
+			/*--------首页banner图切换---------*/ 
+			var swiper = new Swiper('.index-banner', {
+		      spaceBetween: 30,
+		      centeredSlides: true,
+		      autoplay: {
+		        delay: 2500,
+		        disableOnInteraction: false,
+		      },
+		      pagination: {
+		        el: '.swiper-pagination',
+		        clickable: true,
+		      },
+		   });
+		   
+		   
+		  /**完结金榜效果**/
+			var thisindex = 0;
+		  var swiper1 = new Swiper('.gold-swiper', {
+		      effect: 'coverflow',
+		      grabCursor: true,
+		      centeredSlides: true,
+		      slidesPerView: 'auto',
+		      autoplay: {
+			    disableOnInteraction: false,
+			  },
+		      coverflowEffect: {
+		        rotate:0,
+		        stretch: 0,
+		        depth: 200,
+		        modifier: 1,
+		        slideShadows : true,
+		      },
+		      pagination: {
+		        el: '.swiper-pagination',
+		      },
+		      on: {
+				slideChangeTransitionEnd: function(){
+			  		thisindex = this.activeIndex; //切换结束时，告诉我现在是第几个slide
+			  		$(".index-gold .details>.details-Box").eq(thisindex).css("display","block").siblings().css("display","none");
+			    },
+			  },
+    	});
+    		
+    		/**定时器**/
+			 var oSpan = document.getElementById("Timeover");
+			 function tow(n) {
+			  return n >= 0 && n < 10 ? '0' + n : '' + n;
+			 }
+			 function getDate() {
+			  var oDate = new Date();//获取现在日期对象
+			  var oldTime = oDate.getTime();//现在距离1970年的毫秒数
+			  var newDate = new Date('2018/9/1 00:00:00');//获取指定日期对象
+			  var newTime = newDate.getTime();//2018年距离1970年的毫秒数
+			  var second = Math.floor((newTime - oldTime) / 1000);//未来时间距离现在的秒数
+			  var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；
+			  second = second % 86400;//余数代表剩下的秒数；
+			  var hour = Math.floor(second / 3600);//整数部分代表小时；
+			  second %= 3600; //余数代表 剩下的秒数；
+			  var minute = Math.floor(second / 60);
+			  second %= 60;
+			  var str = tow(day) + '<span class="time">天</span>'
+			    + tow(hour) + '<span class="time">小时</span>'
+			    + tow(minute) + '<span class="time">分钟</span>'
+			    + tow(second) + '<span class="time">秒</span>';
+				  if (tow(day) >= 0 || tow(hour) >= 0 || tow(minute) >= 0 || tow(second) >= 0){
+				 	oSpan.innerHTML = str;
+				 }
+				 if (tow(day) <= 0 && tow(hour) <= 0 && tow(minute) <= 0 && tow(second) <= 0) {
+				  window.clearInterval(_ordertimer);
+				  _ordertimer = null;
+				 }
+			 }
+			 getDate();
+			 var _odertimer = setInterval(getDate, 1000);
+			 
+	</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>免费</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="javascript:window.history.back();">
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">免费</h2>
+	</div>
+
+	<div class="content">
+		<div class="index-recomm">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="../images/index-stitle-img7.png">
+	 				<p>免费精品</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="book_more.html?type=13">
+	 				<span>更多</span>
+	 				<img src="../images/more_to.png">
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box best-list">
+	 			<!--<div class="box">-->
+	 				<!--<a href="#">-->
+	 					<!--<div class="img">-->
+	 						<!--<img src="../images/index-img14.jpg">-->
+	 						<!--<span>连载中</span>-->
+	 					<!--</div>-->
+	 					<!--<p>逍遥杀手俏总裁</p>-->
+	 				<!--</a>-->
+	 			<!--</div>-->
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="index-free">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="../images/index-stitle-img03.png">
+	 				<p>限时免费</p>
+	 				<p id="Timeover">00<span class="time">天</span>00<span class="time">小时</span>00<span class="time">分钟</span>00<span class="time">秒</span></p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="book_more.html?type=10">
+	 				<span>更多</span>
+	 				<img src="../images/more_to.png">
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="free-box">
+	 			<!--<div class="box">-->
+		 			<!--<a href="#">-->
+		 				<!--<div class="img">-->
+		 					<!--<img src="../images/index-img09.jpg">-->
+		 				<!--</div>-->
+		 				<!--<div class="details">-->
+		 					<!--<div class="name">-->
+		 						<!--<p>我的手机有美女</p>-->
+		 						<!--<span>连载中</span>-->
+		 					<!--</div>-->
+		 					<!--<div class="show">-->
+		 						<!--<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>-->
+		 					<!--</div>-->
+		 					<!--<div class="text">-->
+		 						<!--<p>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线来得及可能是邓丽君大门口了没的说了昆明</p>-->
+		 					<!--</div>-->
+		 				<!--</div>-->
+		 			<!--</a>-->
+	 			<!--</div>-->
+
+	 		</div>
+	 	</div>
+	 	<div class="line">
+	 	</div>
+	 	<div class="self-box">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="../images/index-stitle-img8.png">
+	 				<p>新书免费</p>
+	 			</div>
+	 			<div class="more">
+	 				<a href="book_more.html?type=14">
+	 				<span>更多</span>
+	 				<img src="../images/more_to.png">
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box free-list">
+	 			<!--<div class="box">-->
+	 				<!--<a href="#">-->
+	 					<!--<img src="../images/self-img01.jpg">-->
+	 					<!--<h2>将军快回来</h2>-->
+	 					<!--<p>长安</p>-->
+	 				<!--</a>-->
+	 			<!--</div>-->
+	 		</div>
+	 	</div>
+	</div>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/config.js"></script>
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var _ordertimer = null;
+
+			/**定时器**/
+			 var oSpan = document.getElementById("Timeover");
+			 function tow(n) {
+			  return n >= 0 && n < 10 ? '0' + n : '' + n;
+			 }
+			 function getDate(timeStr) {
+			  var oDate = new Date();//获取现在日期对象
+			  var oldTime = oDate.getTime();//现在距离1970年的毫秒数
+			  var newDate = new Date(timeStr);//获取指定日期对象
+			  var newTime = newDate.getTime();//2018年距离1970年的毫秒数
+			  var second = Math.floor((newTime - oldTime) / 1000);//未来时间距离现在的秒数
+			  var day = Math.floor(second / 86400);//整数部分代表的是天；一天有24*60*60=86400秒 ；
+			  second = second % 86400;//余数代表剩下的秒数；
+			  var hour = Math.floor(second / 3600);//整数部分代表小时；
+			  second %= 3600; //余数代表 剩下的秒数；
+			  var minute = Math.floor(second / 60);
+			  second %= 60;
+			  var str = tow(day) + '<span class="time">天</span>'
+			    + tow(hour) + '<span class="time">小时</span>'
+			    + tow(minute) + '<span class="time">分钟</span>'
+			    + tow(second) + '<span class="time">秒</span>';
+				  if (tow(day) >= 0 || tow(hour) >= 0 || tow(minute) >= 0 || tow(second) >= 0){
+				 	oSpan.innerHTML = str;
+				 }
+				 if (tow(day) <= 0 && tow(hour) <= 0 && tow(minute) <= 0 && tow(second) <= 0) {
+				  window.clearInterval(_ordertimer);
+				  _ordertimer = null;
+				 }
+			 }
+			 //getDate();
+			 //var _odertimer = setInterval(getDate, 1000);
+	</script>
+	<script>
+        var winurl = window.location.href;
+        var isFirstPage = getQueryString(winurl,'isFirstPage');
+        if(isFirstPage == 1){
+			$('.Goback').attr('href','javascript:void(0);');
+            $('.Goback').click(function(){
+                closeWinView();
+			});
+		}
+
+
+
+        getBestFreeList();
+        getLimitFreeList();
+        getNewFreeList();
+
+        //获取免费精品
+        function getBestFreeList() {
+            var params = '["{pageSize:4,more:false}"]';
+            myHttp({
+                url: urls.getBestFreeList.path,
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        for(var i in res.data){
+                        	var record = res.data[i];
+                            var contenthtml = '<div class="box">' +
+                                '      <a href="book_details.html?id='+record['id']+'">' +
+                                '       <div class="img">' +
+                                '        <img src="'+record['coverUrl']+'">' ;
+							if(record['serialState'] == '连载中'){
+                            	contenthtml+='<span>连载中</span>' ;
+							}else{
+                            	contenthtml+='<span class="over">已完结</span>' ;
+							}
+                            contenthtml+='</div>' +
+                                '       <p>'+record['name']+'</p>' +
+                                '      </a>' +
+                                '     </div>';
+							$('.best-list').append(contenthtml);
+
+						}
+                    } else {
+                        alert(res.statusMsg);
+                    }
+                }
+            });
+        }
+
+        //获取限时免费
+        function getLimitFreeList() {
+            var params = '["{pageSize:4,more:false}"]';
+            myHttp({
+                url: urls.getLimitFreeList.path,
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        if(res.data.endTime){
+//                            res.data.endTime =  '2018-07-29 00:00:00';
+                        	getDate(res.data.endTime);
+                            _ordertimer = setInterval(function(){
+                                getDate(res.data.endTime);
+							}, 1000);
+						}
+                        for(var i in res.data.list) {
+                            var record = res.data.list[i];
+                            var contenthtml = '<div class="box">' +
+                                '                <a href="book_details.html?id='+record['id']+'">' +
+                                '                    <div class="img">' +
+                                '                        <img src="'+record['coverUrl']+'">' +
+                                '                    </div>' +
+                                '                    <div class="details">' +
+                                '                        <div class="name">' +
+                                '                            <p>'+record['name']+'</p>';
+                            if(record['serialState']=='已完结'){
+                                contenthtml+='<span class="over" >已完结</span>';
+                            }else{
+                                contenthtml+='<span>连载中</span>';
+                            }
+                            contenthtml+='               </div>' +
+                                '                        <div class="show">' +
+                                '                            <span>'+record['authorPenName']+'</span><span>'+record['categoryName']+'</span>' +
+                                '                            <span>'+record['formatWordCount']+'</span><span>'+record['formatClickCount']+'点击</span>' +
+                                '                        </div>' +
+                                '                        <div class="text">' +
+                                '                            <p>'+record['summary']+'</p>' +
+                                '                        </div>' +
+                                '                   </div>' +
+                                '                </a>' +
+                                '            </div>';
+                            $('.free-box').append(contenthtml);
+                        }
+
+
+                    } else {
+                        alert(res.statusMsg);
+                    }
+                }
+            });
+        }
+
+        //获取新书免费
+        function getNewFreeList() {
+            var params = '["{pageSize:3,more:false}"]';
+            myHttp({
+                url: urls.getNewFreeList.path,
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        for(var i in res.data) {
+                            var record = res.data[i];
+                            var contenthtml = '<div class="box">' +
+                                '      <a href="book_details.html?id='+record['id']+'">' +
+                                '       <img src="'+record['coverUrl']+'">' +
+                                '       <h2>'+record['name']+'</h2>' +
+                                '       <p>'+record['authorPenName']+'</p>' +
+                                '      </a>' +
+                                '     </div>';
+							$('.free-list').append(contenthtml);
+                        }
+                    } else {
+                        alert(res.statusMsg);
+                    }
+                }
+            });
+        }
+
+
+
+	</script>
+</body>
+</html>

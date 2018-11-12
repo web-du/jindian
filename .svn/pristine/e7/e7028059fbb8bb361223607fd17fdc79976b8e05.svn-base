@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>安全中心</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+
+        .account-install-page .details .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="account.html" data-ajax="false">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">安全中心</h2>
+    </div>
+
+    <div class="content">
+        <div class="personal_data">
+            <h2>账号安全</h2>
+            <div class="box">
+                <div class="your-id">
+                    <a href="#">
+                        <span>绑定手机号</span>
+                        <div class="img">
+                            <span class="right">已绑定</span>
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-mail">
+                    <a id="emailBindLink" href="binding_mail.html">
+                        <span>绑定邮箱</span>
+                        <div class="img">
+                            <span id="emailBind">未绑定</span>
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="modify-pwd">
+                    <a href="change_password.html">
+                        <span>修改密码</span>
+                        <div class="img">
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="Tofind-pwd">
+                    <a href="find_pwd.html">
+                        <span>找回密码</span>
+                        <div class="img">
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getBindState();
+    }else{
+        toLogin();
+    }
+
+    //获取app设置
+    function getBindState(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getBindState.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var record = res.data;
+                        if(record['emailBind']){
+                            $('#emailBind').addClass('right').text('已绑定');
+                            $('#emailBindLink').attr('href','#');
+                        }
+
+                    }
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

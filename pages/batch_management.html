@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>批量管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .bookshelf-box {
+            padding: 0.25rem 0.25rem 1rem;
+        }
+    </style>
+<script src="../js/public.js"></script> </head>
+<body>
+<div class="myheader">
+    <div class="batch-management">
+        <span class="cancel" onclick="NATIVE.closeWinView()">取消</span>
+        <h2>批量管理</h2>
+        <span class="all">全选</span>
+    </div>
+</div>
+
+<div class="content">
+    <div class="bookshelf-box">
+        <div class="any-null">
+            <img src="../images/any-null.png" >
+        </div>
+        <!--<div class="box">-->
+            <!--<div class="img">-->
+                <!--<a href="book_cover.html" data-ajax="false">-->
+                    <!--<img src="../images/bookshelf-img01.jpg"/>-->
+                <!--</a>-->
+                <!--<div class="mui-input-row mui-checkbox">-->
+                    <!--<input name="checkbox" value="Item 1" type="checkbox">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="text">-->
+                <!--<h2>晨曦鹦鹉宠物店</h2>-->
+                <!--<span>已读38%</span>-->
+                <!--<p><span>三小时前</span><span>更新至第三百八十章</span></p>-->
+            <!--</div>-->
+            <!--<img src="../images/book-set.png" class="set"/>-->
+        <!--</div>-->
+    </div>
+    <div class="batch-del">
+        <span>删除所选(<em id="del">0</em>)</span>
+    </div>
+</div>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+
+<script type="text/javascript">
+
+
+
+    // 点击全选
+    $(".all").click(function () {
+        var checkBoxl = $(".bookshelf-box .box").length;
+        for (var i = 0; i < checkBoxl; i++) {
+            $(".bookshelf-box .box").eq(i).find("input").prop("checked", "true");
+        }
+        Ischeck();
+    })
+
+
+    // 判断是否选中
+    function Ischeck() {
+        var num = 0;
+        $(".bookshelf-box .box").each(function () {
+            if ($(this).find("input").is(":checked")) {
+                num++;
+            }
+        });
+        $("#del").html(num)
+    }
+
+    // 点击删除所选
+    $(".batch-del").click(function () {
+        var str = '';
+        $(".bookshelf-box .box").each(function () {
+            if ($(this).find("input").is(":checked")) {
+                str += (str ? ',' : '') + $(this).find("input").val();
+            }
+        })
+        if (str) {
+            var params = '["{collectId:['+str+']}"]';
+            $('.loading').show();        myHttp({
+                url: urls.deleteFavorite.path,
+                headers: {'jd-token': accessToken},
+                params: params,
+                success: function (res) { $('.loading').hide();
+                    if (res.statusCode == 200) {
+                        window.location.reload();
+
+                    } else if (res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+        }
+
+
+    })
+
+
+</script>
+<script>
+
+
+    if (accessToken) {
+        var params = '["{}"]';
+        getBookShelfIndex(params);
+    } else {
+        NATIVE.toLogin();
+    }
+
+    //获取书架书籍
+    function getBookShelfIndex(params) {
+        $('.loading').show();        myHttp({
+            url: urls.getBookShelfIndex.path,
+            //headers:{'jd-token':accessToken,'Accept':'application/json, text/javascript'},
+            headers: {'jd-token': accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                var imgshtml = '';
+                if (res.statusCode == 200) {
+                    $('.bookshelf-box').html('');
+                    for (var i in res.data.collectList) {
+                        var record = res.data.collectList[i];
+                        var contenthtml = '<div class="box"> ' +
+                            '            <div class="img"> ' +
+                            '                <a href="javascript:void(0);" onclick="$(\'#check_' + record['collectId'] + '\').click();Ischeck()"> ' +
+                            '                    <img src="' + record['coverUrl'] + '"> ' +
+                            '                </a> ' +
+                            '           <div class="mui-input-row mui-checkbox">' +
+                            '                    <input id="check_' + record['collectId'] + '" name="checkbox" value="' + record['collectId'] + '" type="checkbox">' +
+                            '                </div></div> ' +
+                            '            <div class="text"> ' +
+                            '                <h2>' + record['name'] + '</h2> ';
+                        if (record['readPercent']) {
+                            contenthtml += '    <span>已读' + record['readPercent'] + '%</span> ';
+                        } else {
+                            contenthtml += '    <span>未读</span> ';
+                        }
+                        contenthtml += '   </div> ' +
+                            '        </div>';
+                        $('.bookshelf-box').append(contenthtml);
+                    }
+                    var temphtml = '<div class="box" onclick="NATIVE.toIndex()"> ' +
+                        '            <img src="../images/bookshelf-add.jpg"> ' +
+                        '            <h2>添加书籍</h2> ' +
+                        '        </div>';
+                    $('.bookshelf-box').append(temphtml);
+
+
+                } else if (res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+<script src="../js/public.js"></script> </body>
+</html>

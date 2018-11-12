@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>账户</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #f0f0f0;
+        }
+        #isReadMsg{display: none;}
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div date-role="page">
+    <div class="myheader">
+        <a href="account-install.html" class="account-install">
+            <img src="../images/account-img02.png"/>
+        </a>
+        <h2 class="title">账户</h2>
+        <a href="account-message.html" class="account-mess">
+            <img src="../images/account-img01.png"/>
+            <i id="isReadMsg"></i>
+        </a>
+    </div>
+    <div class="myheader-bg">
+    </div>
+    <div class="account-page">
+        <div class="message">
+            <img src="../images/account-img03.png"/>
+            <h2>贤菲宝</h2>
+            <p>这个人很懒，什么也没有留下！</p>
+            <div class="nav-top">
+                <div class="box">
+                    <a href="member.html">
+                        <img src="../images/account-img04.png"/>
+                        <h2>LV<span id="level">0</span></h2>
+                        <p>会员等级</p>
+                    </a>
+                </div>
+                <div class="box">
+                    <a href="wallet.html">
+                        <img src="../images/account-img05.png"/>
+                        <h2 id="readCoin">0</h2>
+                        <p>余额</p>
+                    </a>
+                </div>
+                <div class="box">
+                    <a href="sign_in.html" data-ajax="false">
+                        <img src="../images/account-img06.png"/>
+                        <h2><span id="signDays">0</span>天</h2>
+                        <p>连续签到</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="my-account">
+            <div class="To">
+                <a href="wallet.html">
+                    <p>
+                        <img src="../images/account-img07.png"/>
+                        <span>我的钱包</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="fans_vals.html">
+                    <p>
+                        <img src="../images/account-img08.png"/>
+                        <span>粉丝值</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="task.html">
+                    <p>
+                        <img src="../images/account-img09.png"/>
+                        <span>我的任务</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="security_centre.html">
+                    <p>
+                        <img src="../images/account-img10.png"/>
+                        <span>安全中心</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="#">
+                    <p>
+                        <img src="../images/account-img11.png"/>
+                        <span>我的版权</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To" id="isAuthor" style="display:none;">
+                <a href="#">
+                    <p>
+                        <img src="../images/account-img12.png"/>
+                        <span>作者中心</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--底部菜单栏-->
+    <div class="footer">
+        <div class="box">
+            <a href="bookshelf.html">
+                <img src="../images/tabbar01.png"/>
+                <p>书架</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="../index.html">
+                <img src="../images/tabbar02.png"/>
+                <p>精选</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="find.html">
+                <img src="../images/tabbar03.png"/>
+                <p>发现</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#">
+                <img src="../images/tabbar04d.png"/>
+                <p>账户</p>
+            </a>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mobile-1.4.5.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getAccountInfo();
+    }else{
+        //TODO 跳转到登录页面
+    }
+
+
+    //获取账户基本信息
+    function getAccountInfo(){
+        var params = '["{}"]';
+        myHttp.ajax({
+            url: urls.getAccountInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    $('.message>img').attr('src',record['iconUrl']);
+                    $('.message>h2').text(record['nickname']);
+                    if(record['sumary']){
+                        $('.message>p').text(record['sumary']);
+                    }
+                    if(record['level']){
+                        $('#level').text(record['level']);
+                    }
+                    if(record['readCoin']){
+                        $('#readCoin').text(record['readCoin']);
+                    }
+                    if(record['signDays']){
+                        $('#signDays').text(record['signDays']);
+                    }
+                    if(record['unreadMsgNum']&& record['unreadMsgNum']>0){
+                        $('#isReadMsg').show();
+                    }
+                    if(record['isAuthor']){
+                        $('#isAuthor').show();
+                    }
+
+
+
+                } else if(res.statusCode == 110003) {
+                    //TODO 跳转到登录页面
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

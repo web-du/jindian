@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>浏览记录</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page{
+            background-color: #fff;
+        }
+        .myheader>button.account-del{
+            font-size:0.32rem;
+            color:#fff;
+            font-weight:normal;
+        }
+    </style>
+<script src="../js/public.js"></script> </head>
+<body>
+    <div class="myheader">
+        <a class="Goback" href="javascript:NATIVE.closeWinView();"  data-ajax='false'>
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">浏览记录</h2>
+        <button class="account-del" >
+            清空
+        </button>
+    </div>
+
+    <div class="content">
+        <div class="browse-page" style="display:none;">
+            <div class="box">
+                <div class="img">
+                    <img src="../images/bookshelf-img01.jpg" >
+                </div>
+                <div class="name">
+                    <h2>晨曦鹦鹉宠物店</h2>
+                    <p>6分钟前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/bookshelf-img02.jpg" >
+                </div>
+                <div class="name">
+                    <h2>建新风云录</h2>
+                    <p>2小时前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img13.jpg" >
+                </div>
+                <div class="name">
+                    <h2>妖僧</h2>
+                    <p>2天前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img16.jpg" >
+                </div>
+                <div class="name">
+                    <h2>恢恢</h2>
+                    <p>10天前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img20.jpg" >
+                </div>
+                <div class="name">
+                    <h2>和亲女将</h2>
+                    <p>15天前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img21.jpg" >
+                </div>
+                <div class="name">
+                    <h2>将军快回来</h2>
+                    <p>一个月前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img16.jpg" >
+                </div>
+                <div class="name">
+                    <h2>恢恢</h2>
+                    <p>10天前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/index-img20.jpg" >
+                </div>
+                <div class="name">
+                    <h2>和亲女将</h2>
+                    <p>15天前读过</p>
+                </div>
+                <div class="del">
+                    <img src="../images/del.png" >
+                </div>
+            </div>
+        </div>
+        <div class="any-null">
+            <img src="../images/any-null.png" style="display:none;">
+            <img src="../images/null-val.png" >
+            <span>去充值</span>
+        </div>
+    </div>
+    <div class="loading">
+        <img src="../images/loading.gif" >
+    </div>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/config.js"></script>
+
+    <script type="text/javascript">
+
+        $(function(){
+            // 点击删除按钮
+            $(".browse-page .box .del").on("click",function(){
+                $(this).parent().remove();
+            })
+
+            // 点击清空按钮
+            $(".myheader>button.account-del").click(function(){
+                $(".browse-page").remove();
+            })
+        })
+    </script>
+<script src="../js/public.js"></script> </body>
+</html>

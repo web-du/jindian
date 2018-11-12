@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>作者中心</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.ui-page{
+    		background-color: #F5F5F4;
+    	}
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="book_details.html">
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">作者中心</h2>
+		<button class="account-del" >
+			<img src="../images/account-del.png"/>
+		</button>
+	</div>
+
+	<div class="content">
+		<div class="account-mess-nav">
+			<ul>
+				<li class="now">
+					<span>消息</span>
+					<i>4</i>
+				</li>
+				<li>
+					<span>通知</span>
+					<i>2</i>
+				</li>
+			</ul>
+		</div>
+		<div class="account-mess-con">
+			<div class="box">
+				<div class="author-img">
+					<div class="img">
+						<img src="../images/index-img09.jpg"/>
+					</div>
+					<div class="con">
+						<h2>我的手机有美女</h2>
+						<h6>更新至第二百二十章</h6>
+						<p>发表时间：2018-3-20  9:40</p>
+					</div>
+				</div>
+				<div class="author-img">
+					<div class="img">
+						<img src="../images/index-img11.jpg"/>
+					</div>
+					<div class="con">
+						<h2>神医入世之我的老师是鬼</h2>
+						<h6>更新至第二百二十章</h6>
+						<p>发表时间：2018-3-20  9:40</p>
+					</div>
+				</div>
+			</div>
+			<div class="box">
+				<div class="To">
+					<a href="#">
+						<img src="../images/mess-centre04.png"/>
+						<div class="account-notice">
+							<p><span>9:40</span></p>
+							<h2><span>系统通知</span><i>1</i></h2>
+						</div>
+					</a>
+				</div>
+				<div class="To">
+					<a href="#">
+						<img src="../images/mess-centre05.png"/>
+						<div class="account-notice">
+							<p><span>9:40</span></p>
+							<h2><span>充值通知</span><i>1</i></h2>
+						</div>
+					</a>
+				</div>
+				<div class="To">
+					<a href="#">
+						<img src="../images/mess-centre06.png"/>
+						<div class="account-notice">
+							<p><span>两天前</span></p>
+							<h2><span>订阅打赏</span></h2>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+		
+		
+		$(function(){
+			//初始化布局
+			$(".account-mess-con .box").eq(0).css("display","block").siblings().css("display","none");
+			$(".account-mess-nav ul li").eq(0).addClass("now");
+			$(".account-mess-nav ul li").click(function(){
+				var index = $(this).index();
+				$(this).addClass("now").siblings().removeClass("now");
+				$(".account-mess-con .box").eq(index).css("display","block").siblings().css("display","none");
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>设置</title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+        button{
+            -webkit-transition: all 0s;
+               -moz-transition: all 0s;
+                -ms-transition: all 0s;
+                 -o-transition: all 0s;
+                    transition: all 0s;
+        }
+    </style>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="javascript:NATIVE.closeWinView();">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">设置</h2>
+    </div>
+
+    <div class="content">
+        <div class="account-install-page">
+            <div class="box">
+                <h6>基本设置</h6>
+                <div class="con">
+                    <div class="details">
+                        <div class="text">
+                            <h2>消息推送</h2>
+                            <p>关闭后，可以禁止消息栏通知提醒</p>
+                        </div>
+                        <div id="pushState" class="mui-switch mui-switch-mini" data-switch="4">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </div>
+                    <!--<div class="details">-->
+                        <!--<div class="text">-->
+                            <!--<h2>自动订阅管理</h2>-->
+                            <!--<p>开启后，可以自动订阅下一章</p>-->
+                        <!--</div>-->
+                        <!--<div id="autoSubscribe" class="mui-switch mui-switch-mini" data-switch="4">-->
+                            <!--<div class="mui-switch-handle"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="details">
+                        <a href="read_install.html" data-ajax="false">
+                            <div class="text">
+                                <h2>阅读设置</h2>
+                                <p>调整自己喜欢的阅读界面</p>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                    <div class="details">
+                        <div class="text">
+                            <h2>仅在WIFI环境下下载图片</h2>
+                        </div>
+                        <div id="isWifi" class="mui-switch mui-switch-mini" data-switch="4">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="text">
+                            <h2>清除缓存</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <h6>关于今点</h6>
+                <div class="con">
+                    <div class="details">
+                        <a href="#">
+                            <div class="text">
+                                <h2>版本更新</h2>
+                                <p>当前已是最新版本</p>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="con">
+                    <div class="details">
+                        <a href="#">
+                            <div class="text">
+                                <h2>免责声明</h2>
+                            </div>
+                            <img src="../images/account-To.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="NATIVE.outLogin();">切换账号</button>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/mui.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+    $(function(){
+        $(".mui-switch").click(function(){
+            $(this).toggleClass("mui-active");
+            updateAppSetting();
+        })
+    })
+</script>
+<script>
+
+
+    if(accessToken){
+        getAppSetting();
+//        updateAppSetting();
+    }else{
+        $('.loading').hide();
+        NATIVE.toLogin();
+    }
+
+    //获取app设置
+    function getAppSetting(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getAppSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var pushState = getQueryString(res.data, 'pushState');
+                        var autoSubscribe = getQueryString(res.data, 'autoSubscribe');
+                        var isWifi = getQueryString(res.data, 'isWifi');
+                        if(pushState == 1){
+                            $("#pushState").addClass('mui-active');
+                        }
+                        if(autoSubscribe == 1){
+                            $("#autoSubscribe").addClass('mui-active');
+                        }
+                        if(isWifi == 1){
+                            $("#isWifi").addClass('mui-active');
+                        }
+                    }
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    function getAutoSubscribeState(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getAutoSubscribeState.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var autoSubscribe = getQueryString(res.data, 'autoSubscribe');
+                        if(autoSubscribe == 1){
+                            $("#autoSubscribe").addClass('mui-active');
+                        }
+                    }
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+
+
+
+
+    //更新app设置
+    function updateAppSetting(){
+        var pushState = 0;
+        var autoSubscribe = 0;
+        var isWifi = 0;
+        if($('#pushState').hasClass('mui-active')){
+            pushState = 1;
+        }
+        if($('#autoSubscribe').hasClass('mui-active')){
+            autoSubscribe = 1;
+        }
+        if($('#isWifi').hasClass('mui-active')){
+            isWifi = 1;
+        }
+        var p = "&pushState="+pushState+"&autoSubscribe="+autoSubscribe+"&isWifi="+isWifi;
+        var params = '["{config:\''+p+'\'}"]';
+        $('.loading').show();        myHttp({
+            url: urls.updateAppSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+//                    window.location.reload();
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

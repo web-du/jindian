@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>粉丝值</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.ui-page{
+    		background-color: #f5f5f5;
+    	}
+    </style>
+</head>
+<body>
+	<div data-role="page">
+		<div class="myheader">
+			<a class="Goback" href="book_details.html">
+				<img src="../images/Goback.png"/>
+			</a>
+			<h2 class="title">粉丝值</h2>
+		</div>
+
+		<div class="content">
+			<div class="fans-val">
+				<div class="box">
+					<div class="img">
+						<img src="../images/bookshelf-img01.jpg"/>
+					</div>
+					<div class="con">
+						<h2>我的粉丝值<em>1280</em></h2>
+						<p>《晨曦鹦鹉宠物店》 长安</p>
+						<h6>再获得750粉丝值上升至125名</h6>
+					</div>
+				</div>
+				<div class="box">
+					<div class="img">
+						<img src="../images/bookshelf-img02.jpg"/>
+					</div>
+					<div class="con">
+						<h2>我的粉丝值<em>550</em></h2>
+						<p>《建新风云录》 漫笔</p>
+						<h6>再获得450粉丝值上升至76名</h6>
+					</div>
+				</div>
+				<div class="box">
+					<div class="img">
+						<img src="../images/index-img16.jpg"/>
+					</div>
+					<div class="con">
+						<h2>我的粉丝值<em>360</em></h2>
+						<p>《恢恢》 一条咸鱼</p>
+						<h6>再获得640粉丝值上升至256名</h6>
+					</div>
+				</div>
+				<div class="box">
+					<div class="img">
+						<img src="../images/bookshelf-img03.jpg"/>
+					</div>
+					<div class="con">
+						<h2>我的粉丝值<em>100</em></h2>
+						<p>《仙临》 横行无忌</p>
+						<h6>再获得900粉丝值上升至500名</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+		
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>书籍目录书签</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="mui-icon mui-icon-back"></a>
+		<div class="tab">
+			<span class="now">目录</span>
+			<span>书签</span>
+		</div>
+		<div class="screen">
+			<img src="../images/dao.png"/>
+			<span>倒序</span>
+		</div>
+	</div>
+	<div class="content book-nav">
+		<ul class="mui-table-view">
+			 <li class="mui-table-view-cell">
+			 	<span>第一章</span>
+			 	<img src="../images/shuo.png" />
+			 </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第二章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第三章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第四章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第四章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+			 	<span>第五章</span>
+			 	<img src="../images/shuo.png" />
+			 </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第六章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第七章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第八章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第九章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	          <li class="mui-table-view-cell">
+	         	<span>第十章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第十一章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+	         <li class="mui-table-view-cell">
+	         	<span>第十二章</span>
+			 	<img src="../images/shuo.png" />
+	         </li>
+		</ul>
+		<ul class="bookmark" style="display: none;">
+			<li>
+				<div class="name">
+					<h2>第三十六章</h2>
+					<img src="../images/del.png"/>
+				</div>
+				<p>圣魂草即便是随口吞咽，对于魂力的修炼，
+					也是非常有用，但是每一棵圣魂草，
+					都就没看了蛇年快乐水电工v四节课而
+					警方共i及偶尔及</p>
+				<span>刚刚</span>
+			</li>
+			<li>
+				<div class="name">
+					<h2>第五十四章</h2>
+					<img src="../images/del.png"/>
+				</div>
+				<p>圣魂草即便是随口吞咽，对于魂力的修炼，
+					也是非常有用，但是每一棵圣魂草，
+					都就没看了蛇年快乐水电工v四节课而
+					警方共i及偶尔及</p>
+				<span>9：25</span>
+			</li>
+			<li>
+				<div class="name">
+					<h2>第三十六章</h2>
+					<img src="../images/del.png"/>
+				</div>
+				<p>圣魂草即便是随口吞咽，对于魂力的修炼，
+					也是非常有用，但是每一棵圣魂草，
+					都就没看了蛇年快乐水电工v四节课而
+					警方共i及偶尔及</p>
+				<span>一天前</span>
+			</li>
+		</ul>
+	</div>
+	
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+		
+		/**头部导航swiper组**/
+		var swiper = ["swiper1","swiper2","swiper3","swiper4","swiper5","swiper6"]
+		for(var i = 1; i < 6;i++){
+			swiper[i-1] = new Swiper('.swiper'+i, {
+				observer:true,
+    			observeParents:true,
+		      slidesPerView:"auto",
+		      pagination: {
+		        el: '.swiper-pagination',
+		        clickable: true,
+		      },
+		    });
+		}
+		mui(".swiper-container").on('tap','.swiper-slide',function(){
+			var num = this.parentNode.getElementsByClassName('swiper-slide').length;
+			for(var i = 0;i<num;i++){
+				this.parentNode.getElementsByClassName('swiper-slide')[i].getElementsByTagName('span')[0].classList.remove("now");
+			}
+			var Span = this.getElementsByTagName('span')[0].classList.add("now"); 
+		})
+		
+		
+		/**头部tab切换**/
+		$(".myheader .tab span").click(function(){
+			var index = $(this).index()
+			$(this).addClass("now").siblings().removeClass("now");
+			$(".book-nav ul").css("display","none");
+			$(".book-nav ul").eq(index).css("display","block");
+			if(index ==1){
+				$(".myheader>.screen").css("display","none");
+			}else{
+				$(".myheader>.screen").css("display","block").css("display","flex");
+			}
+		})
+		
+		
+		
+		/**后面的章节需要解锁**/
+		$(".book-nav>ul>li.mui-table-view-cell").each(function(){
+			var index = $(this).index();
+			if(index<=8){
+				$(this).find("img").css("display","none");
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>书籍详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.myheader{
+    		background-color: rgba(225,81,73,0);
+    	}
+		.content-hidden{
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			overflow: hidden;
+		}
+		.index-stitle .more a{
+			display:flex;
+			display:-webkit-flex;
+			display:-moz-flex;
+			align-items:center;
+		}
+		.index-stitle .more a span{
+			margin-right:0.15rem;
+		}
+		.discuss .title .img h6{
+			font-size:0.3rem;
+			font-weight:normal;
+		}
+		.fix-reward .box .gift .box img{
+			width:1.5rem;
+			height:1.5rem;
+		}
+    </style>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body style="overflow-x: hidden;">
+	<div class="myheader">
+		<a class="Goback" href="javascript:NATIVE.closeWinView();" >
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">书籍详情</h2>
+		<img id="collectImg" src="../images/collect.png" onclick="addFavorite()"/>
+	</div>
+	<div class="book-content">
+		<div class="bg" id="coverUrlId" style="">
+			<div class="book-name">
+				<div class="book-img">
+					<img src="../images/details-bimg01.jpg" id="Imgid"/>
+				</div>
+				<div class="book-de">
+					<h2 id="nameId"></h2>
+					<p><span>作者：</span><span id="authorPenNameId">知了</span><img src="../images/author-rank.png" /><span id="authorLevel">1</span></p>
+					<p class="biao"><span id="channelId">男频</span><span id="categoryNameId">玄幻</span></p>
+					<p class="active"><span id="wordCountId">141.6万字</span><span id="serialStateId">连载中 </span></p>
+					<h6 class="reward"><span id="formatRewardTimesId">125次打赏</span><button onclick="getGiftList()">打赏</button></h6>
+				</div>
+			</div>
+		</div>
+		<div class="fans">
+			<div class="box">
+				<img src="../images/dian-num01.png"/>
+				<h2 id="clicksId">181</h2>
+				<p>点击数</p>
+			</div>
+			<div class="box">
+				<img src="../images/dian-num02.png"/>
+				<h2 id="formatCollectTimesId">200</h2>
+				<p>收藏量</p>
+			</div>
+			<div class="box">
+				<a href="javascript:toFans();">
+				<img src="../images/dian-num03.png"/>
+				<h2 id="formatFanValId">250</h2>
+				<p>粉丝值</p>
+				</a>
+			</div>
+		</div>
+		<div class="text">
+			<p id="summaryId"></p>
+			<span>展开</span>
+		</div>
+		<div class="new-title">
+
+			<p>目录：<span id="chapterNumId">第五百三十八章</span></p>
+			<p><a href="#" id="lastUpdateTimeId">2018-6-26  9:40更新 <span class="mui-icon mui-icon-arrowright"></span></a></p>
+		</div>
+		<div class="line">
+		</div>
+		<div class="discuss discuss1">
+			<div class="title">
+				<div class="img">
+					<img src="../images/comment-simg.png"/>
+					<h6>讨论区</h6>
+				</div>
+				<p><a href="javascript:void(0);" ><span id="discussTotal">0条</span><span class="mui-icon mui-icon-arrowright"></span></a></p>
+			</div>
+			<div class="details" id="CommentId">
+
+
+			</div>
+		</div>
+		<div class="line">
+		</div>
+		<div class="discuss discuss2">
+			<div class="title">
+				<div class="img">
+					<img src="../images/comment-simg.png"/>
+					<h6>书评区</h6>
+				</div>
+				<p><a href="javascript:void(0);" ><span id="recommendTotal">0篇</span><span class="mui-icon mui-icon-arrowright"></span></a></p>
+			</div>
+			<div class="details" id="ReviewId">
+
+
+			</div>
+		</div>
+		<div class="line">
+		</div>
+		<div class="self-box">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="../images/index-stitle-img10.png">
+	 				<p>其他作品</p>
+	 			</div>
+	 			<div class="more">
+	 				<a id="moreId1" href="">
+	 				<span>更多</span>
+	 				<img src="../images/more_to.png">
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="author-details">
+	 			<div class="img">
+	 				<img src="" id="authimgid" onerror="this.onerror='';src='../images/account-img03.png'"/>
+	 			</div>
+	 			<div class="author-text">
+	 				<h2 id="authid"></h2>
+	 				<p id="authdescid"></p>
+	 			</div>
+	 		</div>
+	 		<div class="book-box" id="authbookId">
+
+	 		</div>
+	 		<!-- 如果该作者没有其他作品 -->
+	 		<div class="No-book" style="display:none;">
+	 			<p>暂无其他作品</p>
+	 		</div>
+	 	</div>
+	 	<div class="line">
+		</div>
+		<div class="self-box">
+	 		<div class="index-stitle">
+	 			<div class="name">
+	 				<img src="../images/index-stitle-img11.png">
+	 				<p>同类小说</p>
+	 			</div>
+	 			<div class="more">
+	 				<a id="moreId2" href="">
+	 				<span>更多</span>
+	 				<img src="../images/more_to.png">
+	 				</a>
+	 			</div>
+	 		</div>
+	 		<div class="book-box" id="simbookId">
+
+
+	 		</div>
+	 	</div>
+	 	<div class="line">
+		</div>
+		<div class="copyright">
+			<p>2018年3月12日上架</p>
+			<p>本作品由今点互娱进行电子制作与发行</p>
+			<p>版权所有 · 侵权必究</p>
+		</div>
+	</div>
+
+
+	<!--底部阅读-->
+	<div class="Toread">
+		<!-- <div class="box">
+			<a href="#">
+			<img src="../images/download.png"/>
+			<p>下载</p>
+			</a>
+		</div> -->
+		<div class="box">
+			<a href="javascript:toReadBook(); " data-ajax="false">
+			<h2>立即阅读</h2>
+			</a>
+		</div>
+		<div class="box">
+			<a href="javascript:addFavorite(); "data-ajax="false">
+			<img src="../images/join.png"/>
+			<p>加入书架</p>
+			</a>
+		</div>
+	</div>
+	<!--打赏弹窗-->
+	<div class="fix-reward">
+		<div class="box">
+			<h2>打赏</h2>
+			<div class="your-money">
+				<p>您的余额：<span>0</span></p>
+				<a href="javascript:locationUrl('refill.html',false)">充值中心</a>
+			</div>
+			<div class="gift">
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img01.png"/>-->
+					<!--<h5>今龙鱼</h5>-->
+					<!--<p>500今元宝</p>-->
+				<!--</div>-->
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img02.png"/>-->
+					<!--<h5>今字塔</h5>-->
+					<!--<p>2000今元宝</p>-->
+				<!--</div>-->
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img03.png"/>-->
+					<!--<h5>今壤玉</h5>-->
+					<!--<p>5000今元宝</p>-->
+				<!--</div>-->
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img04.png"/>-->
+					<!--<h5>今手指</h5>-->
+					<!--<p>10000今元宝</p>-->
+				<!--</div>-->
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img05.png"/>-->
+					<!--<h5>今手套</h5>-->
+					<!--<p>50000今元宝</p>-->
+				<!--</div>-->
+				<!--<div class="box">-->
+					<!--<img src="../images/reward-img06.png"/>-->
+					<!--<h5>点妹24K金手办</h5>-->
+					<!--<p>100000今元宝</p>-->
+				<!--</div>-->
+			</div>
+			<div class="your-message">
+				<input type="text" maxlength="30"/>
+				<span>赠言：</span>
+			</div>
+			<div class="your-reward">
+				<div class="box">
+					<span>打赏数量:</span>
+					<div class="num">
+						<button class="reduce">-</button>
+						<input type="number" />
+						<button class="add">+</button>
+					</div>
+				</div>
+				<input type="hidden" id="giftId"/>
+				<button type='button' onclick="addRewardGift()">确定打赏</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/config.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+
+		/**根据滚动条来改变顶部导航透明度**/
+		$(function(){
+			$(document).scroll(function(){
+				var H = $(document).scrollTop()
+				$(".myheader").css("background-color","rgba(225,81,73,"+H/150+")")
+				if(H>=$(document).height()-$(window).height()){
+					$(".myheader").css("background-color","rgba(225,81,73,1)")
+				}
+			})
+		})
+
+		/**点击打赏弹窗**/
+
+		$(".fix-reward").click(function(){
+			$(this).css("display","none");
+		})
+		$(".fix-reward>.box").click(function(e){
+			var e= e ||event;
+			e.stopPropagation();
+			$(".fix-reward").css("display",'block');
+		})
+		/**点击礼物选择默认值**/
+
+		/**点击加减按钮**/
+		$(".add").click(function(){
+			$(".fix-reward .num input").val(parseInt($(".fix-reward .num input").val())+1)
+		})
+		$(".reduce").click(function(){
+			$(".fix-reward .num input").val(parseInt($(".fix-reward .num input").val())-1)
+			if(parseInt($(".fix-reward .num input").val())<=0){
+				$(".fix-reward .num input").val(0)
+			}
+		})
+
+
+		/**截取字符串**/
+		$(function(){
+			var oldtext = $(".book-content .text p").html()
+			var textnum = $(".book-content .text p").html().length;
+			if(textnum > 77){
+				var newtext = $(".book-content .text p").html().substring(0,77)+"...";
+				$(".book-content .text p").html(newtext);
+				$(".book-content .text span").css("display","block");
+
+
+				/**点击展开**/
+				$(".book-content .text span").click(function(){
+					if($(this).html() == "展开"){
+						$(".book-content .text p").html(oldtext);
+						$(this).html("收起");
+					}else{
+						$(".book-content .text p").html(newtext);
+						$(this).html("展开");
+					}
+
+				})
+			}else{
+				$(".book-content .text span").css("display","none");
+			}
+		})
+
+
+		/***书籍详情**/
+
+        var id = getQueryString(winurl,'id');
+        var isFirstPage = getQueryString(winurl,'isFirstPage');
+
+        if(isFirstPage == 1){
+            $('.Goback').attr('href','javascript:void(0);');
+            $('.Goback').click(function(){
+                NATIVE.closeWinView();
+            });
+        }
+
+
+		$("#moreId1").attr('href','javascript:locationUrl(\'book_more.html?id='+id+'&type=1\',true)');
+		$("#moreId2").attr('href','javascript:locationUrl(\'book_more.html?id='+id+'&type=2\',true)');
+		var params = '["{bookId:'+id+'}"]';
+		var options = {
+            url: urls.getBookInfo.path,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if(res.statusCode==200){
+                    var detail = res.data;
+                    $("#authorPenNameId").html(detail.authorPenName);
+                    $("#chapterNumId").html(detail.latestChapterName);
+                    $("#nameId").html(detail.name);
+                    $("#Imgid").attr('src',detail.coverUrl);
+                    $("#coverUrlId").attr('style','background-image:url("'+detail.coverUrl+'");background-repeat: no-repeat;background-size:cover;');
+
+                    $("#clicksId").html(detail.formatClicks);
+                    $("#lastUpdateTimeId").html(detail.lastUpdateTime);
+                    $("#formatCollectTimesId").html(detail.formatCollectTimes);
+                    $("#serialStateId").html(detail.serialState);
+
+                    $("#channelId").html(detail.channel);
+                    $("#summaryId").html(detail.summary);
+                    $("#formatFanValId").html(detail.formatFanVal);
+                    $("#latestChapterNameId").html(detail.latestChapterName);
+                    $("#wordCountId").html(detail.formatWordCount);
+                    $("#formatRewardTimesId").html(detail.formatRewardTimes);
+                    $("#authorLevel").html(detail.authorLevel);
+
+                    if(detail.collected){
+                        $('#collectImg').attr('src','../images/collect1.png');
+					}
+
+                    $('.new-title').click(function(){
+                        locationUrl('book_nav.html?id='+id,true);
+                    });
+                }
+            },
+            error: function (res) {
+                //console.log(res);
+            }
+        }
+        if(accessToken){
+            options.headers = {'jd-token':accessToken};
+		}
+        $('.loading').show(); myHttp(options);
+
+
+		/***书籍评论接口***/
+		var params = '["{pageNumber:1,pageSize:10,bookId:'+id+'}"]';
+		$('.loading').show();        myHttp({
+		  url: urls.getCommentList.path,
+		  params: params,
+		  success: function (res) { $('.loading').hide();
+			 if(res.statusCode==200){
+				var commdata = res.data.list;
+				if(commdata!=null && commdata!=''){
+					var str='';
+					$("#discussTotal").html(res.data.total+'条');
+					for(var i=0;i<commdata.length;i++){
+						str+='<div class="box">'+
+		'					<div class="name">'+
+		'						<img src="'+commdata[i].headerUrl+'" onerror="this.onerror=\'\';src=\'../images/account-img03.png\'"/>'+
+		'						<span>'+commdata[i].userName+'</span>'+
+		'					</div>'+
+		'					<p class="content-hidden">'+commdata[i].content+'</p>'+
+		'					<div class="time">'+
+		'						<span>'+commdata[i].createTime+'</span>'+
+		'						<div class="Todis">'+
+		'							<div class="zan">'+
+		'								<img src="../images/zan.png"/>'+
+		'								<span>'+commdata[i].praiseNum+'</span>'+
+		'							</div>'+
+		'							<div class="zan">'+
+		'								<a href="#">'+
+		'								<img src="../images/zan2.png"/>'+
+		'								<span>'+commdata[i].replyNum+'</span>'+
+		'								</a>'+
+		'							</div>'+
+		'						</div>'+
+		'					</div>'+
+		'				</div>';
+					}
+
+					$("#CommentId").html(str);
+				}
+
+			 }
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+
+
+		/***书评区***/
+		var params = '["{pageNumber:1,pageSize:10,bookId:'+id+'}"]';
+		$('.loading').show();        myHttp({
+		  url: urls.getReviewList.path,
+		  params: params,
+		  success: function (res) { $('.loading').hide();
+			 if(res.statusCode==200){
+				var reviewdata = res.data.list;
+				console.log(reviewdata)
+				if(reviewdata!=null && reviewdata!=''){
+					var str1='';
+					$("#recommendTotal").html(res.data.total+'篇');
+					for(var i=0;i<reviewdata.length;i++){
+						str1+='<div class="box">'+
+		'					<div class="name">'+
+		'						<img src="'+reviewdata[i].headerUrl+'"/ onerror="this.onerror=\'\';src=\'../images/account-img03.png\'">'+
+		'						<span>'+reviewdata[i].userName+'</span>'+
+		'					</div>'+
+		'					<p class="content-hidden">'+reviewdata[i].content+'</p>'+
+		'					<div class="time">'+
+		'						<span class="content-hidden">'+reviewdata[i].createTime+'</span>'+
+		'						<div class="Todis">'+
+		'							<div class="zan">'+
+		'								<img src="../images/zan.png"/>'+
+		'								<span>'+reviewdata[i].praiseNum+'</span>'+
+		'							</div>'+
+		'							<div class="zan">'+
+		'								<a href="#">'+
+		'								<img src="../images/zan2.png"/>'+
+		'								<span>'+reviewdata[i].detestNum+'</span>'+
+		'								</a>'+
+		'							</div>'+
+		'						</div>'+
+		'					</div>'+
+		'				</div>';
+					}
+				}
+				$("#ReviewId").html(str1);
+			 }
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+
+
+	/***获取作者相关书籍***/
+	var params = '["{size:3,bookId:'+id+'}"]';
+		$('.loading').show();        myHttp({
+		  url: urls.getAuthorBooks.path,
+		  params: params,
+		  success: function (res) { $('.loading').hide();
+			 if(res.statusCode==200){
+				var audata = res.data.bookList;
+				if(audata && audata.length>0){
+					var str2='';
+					$("#authid").html(res.data.author.name);
+					$("#authdescid").html(res.data.author.summary);
+					$("#authimgid").attr('src',res.data.author.headerUrl);
+					for(var i=0;i<audata.length;i++){
+						str2+='<div class="box">'+
+	'						<a href="javascript:locationUrl(\'book_details.html?id='+audata[i].id+'\',true);" data-ajax="false">'+
+	'							<img src="'+audata[i].coverUrl+'">'+
+	'							<h2>'+audata[i].name+'</h2>'+
+	'						</a>'+
+	'					</div>';
+					}
+				}else{
+				    $('.No-book').show();
+				}
+				$("#authbookId").html(str2);
+			 }
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+
+
+	/***获取同类书籍***/
+	var params = '["{pageSize:3,pageNumber:1,more:false,bookId:'+id+'}"]';
+		$('.loading').show();        myHttp({
+		  url: urls.getSimilarBooks.path,
+		  params: params,
+		  success: function (res) { $('.loading').hide();
+			 if(res.statusCode==200){
+				var simdata = res.data;
+				if(simdata!=null && simdata!=''){
+					var str3='';
+					for(var i=0;i<simdata.length;i++){
+						str3+='<div class="box">'+
+	'						<a href="javascript:locationUrl(\'book_details.html?id='+simdata[i].id+'\',true);" data-ajax="false">'+
+	'							<img src="'+simdata[i].coverUrl+'">'+
+	'							<h2>'+simdata[i].name+'</h2>'+
+	'						</a>'+
+	'					</div>';
+					}
+				}
+				$("#simbookId").html(str3);
+			 }
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+
+
+        /***讨论区页面跳转***/
+        $('.discuss1').click(function(e){
+            locationUrl('all_discuss.html?id='+id,true);
+        });
+        /***书评区页面跳转***/
+        $('.discuss2').click(function(e){
+            locationUrl('all_book_recommend.html?id='+id,true);
+        });
+
+        function toFans(){
+            locationUrl('fans.html?id='+id,true);
+		}
+
+
+
+
+        function addFavorite(){
+            if(!accessToken){
+                NATIVE.toLogin();
+			}
+            if(id){
+                var params = '["{bookId:'+id+'}"]';
+                       myHttp({
+                    url: urls.addFavorite.path,
+                    headers:{'jd-token':accessToken},
+                    params: params,
+                    success: function (res) {
+                        if(res.statusCode==200){
+                            myAlert('收藏成功');
+                            $('#collectImg').attr('src','../images/collect1.png');
+                        }else{
+                            myAlert(res.statusMsg);
+						}
+                    },
+                    error: function (res) {
+                        //console.log(res);
+                    }
+                });
+			}
+		}
+
+
+		function getGiftList(){
+            if(!accessToken){
+                NATIVE.toLogin();
+            }
+            var params = '["{}"]';
+            $('.loading').show();        myHttp({
+                url: urls.getAccountCoin.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) { $('.loading').hide();
+                    if(res.statusCode==200){
+                        $('.your-money span').text(res.data);
+                    }else{
+                        myAlert(res.statusMsg);
+                    }
+                }
+            });
+
+            $('.loading').show();        myHttp({
+                url: urls.getGiftList.path,
+                params: params,
+                success: function (res) { $('.loading').hide();
+                    if(res.statusCode==200){
+                        for(var i in res.data){
+							var record = res.data[i];
+							var contenthtml = '<div class="box" onclick="onGiftClick(this,'+record['id']+')"> <input id="gift_'+record['id']+'" type="hidden" value="'+record['wishMsg']+'">' +
+                                '          <img src="'+record['imgUrl']+'"> ' +
+                                '          <h5>'+record['name']+'</h5> ' +
+                                '          <p>'+record['price']+'今元宝</p> ' +
+                                '        </div>';
+							$('.gift').append(contenthtml);
+						}
+
+                    }else{
+                        myAlert(res.statusMsg);
+                    }
+                }
+            });
+            $(".fix-reward").css("display",'block');
+		}
+
+		//选中礼品
+		function onGiftClick(e,id){
+		    $('#giftId').val(id);
+            $(e).addClass("now").siblings().removeClass("now");
+            $(".fix-reward .num input").val("1");
+            $(".fix-reward .box .your-message input").val($('#gift_'+id).val())
+		}
+
+		//送礼物
+		function addRewardGift(){
+            if(!accessToken){
+                NATIVE.toLogin();
+            }
+            var giftId = $('#giftId').val();
+            var giftNum = $(".fix-reward .num input").val();
+            if(!giftId || !id || !giftNum){
+                return false;
+			}
+
+            var params = '["{giftId:'+giftId+',giftNum:'+giftNum+',bookId:'+id+'}"]';
+            $('.loading').show();        myHttp({
+                url: urls.addRewardGift.path,
+                params: params,
+                headers:{'jd-token':accessToken},
+                success: function (res) {
+                    if(res.statusCode==200){
+						myAlert('打赏成功');
+                        getGiftList();
+                    }else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }else if(res.statusCode==190006){
+                        myAlert('帐户余额不足，请充值');
+					}
+                }
+            });
+
+		}
+
+		function toReadBook(){
+            locationUrl('book_page.html?id='+id,true);
+
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>阅读设置</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+
+        .account-install-page .details .text h2 {
+            font-weight: 600;
+        }
+
+        .account-install-page .details .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="javascript:window.history.back();" >
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">阅读设置</h2>
+    </div>
+
+        <div class="content">
+            <div class="read-install-page">
+                <div class="font-size">
+                    <span>字号</span>
+                    <div class="your-val">
+                        <input id='fontSize' type="text" value="较小" readonly="readonly"/>
+
+                        <img src="../images/account-To.png"/>
+                    </div>
+                </div>
+                <div class="line-space">
+                    <span>行距</span>
+                    <div class="your-val">
+                        <input id="lineSpace" type="text" value="较小" readonly="readonly"/>
+                        <img src="../images/account-To.png"/>
+                    </div>
+                </div>
+                <div class="font-family">
+                    <span>字体</span>
+                    <div class="your-val">
+                        <input id="fontFamily" type="text" value="黑体" readonly="readonly"/>
+                        <img src="../images/account-To.png"/>
+                    </div>
+                </div>
+                <!--<div class="page-margin">-->
+                    <!--<span>页边距</span>-->
+                    <!--<div class="your-val">-->
+                        <!--<input type="text" value="适中" readonly="readonly"/>-->
+                        <!--<img src="../images/account-To.png"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="read-mode">-->
+                    <!--<span>阅读模式</span>-->
+                    <!--<div class="your-val">-->
+                        <!--<input type="text" value="左右翻页" readonly="readonly"/>-->
+                        <!--<img src="../images/account-To.png"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="back-color">
+                    <span>背景颜色</span>
+                    <div class="your-val">
+                        <span id="backColor"></span>
+                        <img src="../images/account-To.png"/>
+                    </div>
+                </div>
+                <div class="line">
+                </div>
+            </div>
+            <div class="account-install-page">
+                <div class="box">
+                    <div class="con">
+                        <div class="details">
+                            <div class="text">
+                                <h2>夜间模式</h2>
+                            </div>
+                            <div id="onNight" class="mui-switch mui-switch-mini" data-switch="4">
+                                <div class="mui-switch-handle"></div>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="text">
+                                <h2>显示顶部信息区</h2>
+                            </div>
+                            <div id="showTop" class="mui-switch mui-switch-mini" data-switch="4">
+                                <div class="mui-switch-handle"></div>
+                            </div>
+                        </div>
+                        <div class="details">
+                            <div class="text">
+                                <h2>显示底部信息区</h2>
+                            </div>
+                            <div id="showBottom" class="mui-switch mui-switch-mini" data-switch="4">
+                                <div class="mui-switch-handle"></div>
+                            </div>
+                        </div>
+                        <!--<div class="details">-->
+                            <!--<div class="text">-->
+                                <!--<h2>显示系统状态栏</h2>-->
+                            <!--</div>-->
+                            <!--<div id="showSystem" class="mui-switch mui-switch-mini" data-switch="4">-->
+                                <!--<div class="mui-switch-handle"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="read-fixed">
+        <!--设置字体大小弹窗-->
+        <div id="font-size">
+            <h2>设置字体大小</h2>
+            <div class="box">
+                <h3>最小</h3>
+                <h3>较小</h3>
+                <h3>适中</h3>
+                <h3>最大</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+        <!--设置行距弹窗-->
+        <div id="line-space">
+            <h2>设置行距</h2>
+            <div class="box">
+                <h3>最小</h3>
+                <h3>较小</h3>
+                <h3>适中</h3>
+                <h3>最大</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+
+        <!--设置字体样式-->
+        <div id="font-family">
+            <h2>选择字体</h2>
+            <div class="box">
+                <h3>黑体</h3>
+                <h3>宋体</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+
+        <!--设置页边距-->
+        <div id="page-margin">
+            <h2>设置页边距</h2>
+            <div class="box">
+                <h3>最小</h3>
+                <h3>适中</h3>
+                <h3>最大</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+
+        <!--设置阅读模式-->
+        <div id="read-mode">
+            <h2>选择阅读模式</h2>
+            <div class="box">
+                <h3>左右翻页</h3>
+                <h3>上下翻页</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+
+        <!--设置阅读模式-->
+        <div id="back-color">
+            <h2>选择阅读模式</h2>
+            <div class="color">
+                <span style="background-color:#fff;"></span>
+                <span style="background-color:#f9ddc1;"></span>
+                <span style="background-color:#f6e3e5;"></span>
+                <span style="background-color:#e5e3ee;"></span>
+                <span style="background-color:#fffae4;"></span>
+                <span style="background-color:#3a648a;"></span>
+                <span style="background-color:#585d57;"></span>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+        $(function(){
+
+            /**阅读开关**/
+            $(".mui-switch").click(function(){
+                $(this).toggleClass("mui-active");
+                updateAppReadSetting();
+            })
+
+
+
+            /**弹出字体**/
+            $(".font-size").click(function(){
+                $(".read-fixed").stop().fadeIn();
+                $("#font-size").addClass("active");
+            })
+
+            /**选择字体大小**/
+            $("#font-size h3").click(function () {
+                $(".font-size .your-val input").val($(this).html())
+                $(".read-fixed").stop().fadeOut();
+                $("#font-size").removeClass("active");
+                updateAppReadSetting();
+            })
+
+            /**点击取消**/
+            $("#font-size>h1").click(function () {
+                $("#font-size").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+
+
+            /**弹出行距**/
+            $(".line-space").click(function () {
+                $(".read-fixed").stop().fadeIn();
+                $("#line-space").addClass("active")
+            })
+
+            /**选择字体大小**/
+            $("#line-space h3").click(function () {
+                $(".line-space .your-val input").val($(this).html())
+                $(".read-fixed").stop().fadeOut();
+                $("#line-space").removeClass("active");
+                updateAppReadSetting();
+            })
+
+
+            /**点击取消**/
+            $("#line-space>h1").click(function () {
+                $("#line-space").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+
+
+            /**弹出选择字体样式**/
+            $(".font-family").click(function () {
+                $(".read-fixed").stop().fadeIn();
+                $("#font-family").addClass("active");
+            })
+
+            /**选择字体样式**/
+            $("#font-family h3").click(function () {
+                $(".font-family .your-val input").val($(this).html())
+                $(".read-fixed").stop().fadeOut();
+                $("#font-family").removeClass("active");
+                updateAppReadSetting();
+            })
+
+            /**点击取消**/
+            $("#font-family>h1").click(function () {
+                $("#font-family").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+
+
+            /**弹出选择页边距**/
+            $(".page-margin").click(function () {
+                $(".read-fixed").stop().fadeIn();
+                $("#page-margin").addClass("active");
+            })
+
+            /**选择页边距**/
+            $("#page-margin h3").click(function () {
+                $(".page-margin .your-val input").val($(this).html())
+                $(".read-fixed").stop().fadeOut();
+                $("#page-margin").removeClass("active");
+            })
+
+            /**点击取消**/
+            $("#page-margin>h1").click(function () {
+                $("#page-margin").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+
+
+            /**弹出设置阅读模式**/
+            $(".read-mode").click(function () {
+                $(".read-fixed").stop().fadeIn();
+                $("#read-mode").addClass("active");
+            })
+
+            /**选择阅读模式**/
+            $("#read-mode h3").click(function () {
+                $(".read-mode .your-val input").val($(this).html())
+                $(".read-fixed").stop().fadeOut();
+                $("#read-mode").removeClass("active");
+            })
+
+            /**点击取消**/
+            $("#read-mode>h1").click(function () {
+                $("#read-mode").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+
+
+            /**弹出选择背景颜色**/
+            $(".back-color").click(function () {
+                $(".read-fixed").stop().fadeIn();
+                $("#back-color").addClass("active");
+            })
+
+            /**选择背景颜色**/
+            $("#back-color .color span").click(function () {
+                var color = $(this).css("background-color");
+                console.log(color);
+                $(".back-color .your-val span").css("background-color", color);
+                $(".read-fixed").stop().fadeOut();
+                $("#read-mode").removeClass("active");
+                updateAppReadSetting();
+            })
+
+            /**点击取消**/
+            $("#back-color>h1").click(function () {
+                $("#back-color").removeClass("active");
+                $(".read-fixed").stop().fadeOut();
+            })
+    })
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getAppReadSetting();
+        //updateAppReadSetting();
+    }else{
+        toIndex();
+    }
+
+
+    //获取app设置
+    function getAppReadSetting(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getAppReadSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    if(res.data){
+                        var onNight = getQueryString(res.data, 'onNight');
+                        var showTop = getQueryString(res.data, 'showTop');
+                        var showBottom = getQueryString(res.data, 'showBottom');
+                        var showSystem = getQueryString(res.data, 'showSystem');
+                        var fontSize = getQueryString(res.data, 'fontSize');
+                        var lineSpace = getQueryString(res.data, 'lineSpace');
+                        var fontFamily = getQueryString(res.data, 'fontFamily');
+                        var backColor = getQueryString(res.data, 'backColor');
+                        if(onNight == 1){
+                            $("#onNight").addClass('mui-active');
+                        }
+                        if(showTop == 1){
+                            $("#showTop").addClass('mui-active');
+                        }
+                        if(showBottom == 1){
+                            $("#showBottom").addClass('mui-active');
+                        }
+                        if(showSystem == 1){
+                            $("#showSystem").addClass('mui-active');
+                        }
+
+                        $('#fontSize').val(fontSize);
+                        $('#lineSpace').val(lineSpace);
+                        $('#fontFamily').val(fontFamily);
+                        $('#backColor').css('background-color',backColor);
+
+                    }
+                } else if(res.statusCode == 110003) {
+                    toIndex();
+                }
+            }
+        });
+    }
+
+
+
+
+    //更新app设置
+    function updateAppReadSetting(){
+        var onNight = 0;
+        var showTop = 0;
+        var showBottom = 0;
+        var showSystem = 0;
+        if($('#onNight').hasClass('mui-active')){
+            onNight = 1;
+        }
+        if($('#showTop').hasClass('mui-active')){
+            showTop = 1;
+        }
+        if($('#showBottom').hasClass('mui-active')){
+            showBottom = 1;
+        }
+        if($('#showSystem').hasClass('mui-active')){
+            showSystem = 1;
+        }
+        var fontSize = $('#fontSize').val();
+        var lineSpace = $('#lineSpace').val();
+        var fontFamily = $('#fontFamily').val();
+        var backColor = $('#backColor').css('background-color');
+
+        var p = "&onNight="+onNight+"&showTop="+showTop+"&showBottom="+showBottom+"&showSystem="+showSystem;
+        p += "&fontSize="+fontSize+"&lineSpace="+lineSpace+"&fontFamily="+fontFamily+"&backColor="+backColor;
+        var params = '["{config:\''+p+'\'}"]';
+        myHttp({
+            url: urls.updateAppReadSetting.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+//                    window.location.reload();
+                } else if(res.statusCode == 110003) {
+                    toIndex();
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>

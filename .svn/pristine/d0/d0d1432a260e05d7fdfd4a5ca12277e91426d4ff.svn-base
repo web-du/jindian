@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>系统通知</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();">
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">系统通知</h2>
+</div>
+
+<div class="content">
+    <div class="system">
+        <!--<div class="box">-->
+            <!--<img src="../images/notice-details.png"/>-->
+            <!--<div class="text">-->
+                <!--<h2>系统通知<span>三天前</span></h2>-->
+                <!--<div class="con">-->
+                    <!--<p>您有新版本，赶快更新吧</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+<input id="pageid" value="1" type="hidden">
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+    var isAuthor = getQueryString(winurl, 'isAuthor');
+    var typeStr = decodeURI(getQueryString(winurl, 'type'));
+    if(typeStr){
+        $('.title').text(typeStr);
+    }
+
+    if(accessToken){
+        var params = '["{pageSize:10,pageNumber:1,type:\''+typeStr+'\'}"]';
+        getMessageListByType(params);
+    }else{
+        toLogin();
+    }
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 0 }, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:'+next+',pageSize:10}"]';
+            getMessageListByType(params);
+        }
+    });
+
+
+
+    //获取消息详情列表
+    function getMessageListByType(params){
+        var url = urls.getMessageListByType.path;
+        if(isAuthor == '1'){
+            url = urls.getAuthorMessageListByType.path;
+        }
+
+        myHttp({
+            url: url,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var icon = res.data.icon;
+                    for(var i in res.data.list){
+                        var record = res.data.list[i];
+                        var contenthtml='<div class="box">' +
+                            '            <img src="'+icon+'">' +
+                            '            <div class="text">' +
+                            '                <h2>'+typeStr+'<span>'+record['formatCreateTime']+'</span></h2>' +
+                            '                <div class="con">' +
+                            '                    <p>'+record['content']+'</p>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>';
+                        $('.system').append(contenthtml);
+                    }
+
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

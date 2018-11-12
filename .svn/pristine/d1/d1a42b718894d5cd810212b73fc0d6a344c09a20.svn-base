@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>上传头像</title>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../cropper/cropper.min.js"></script>
+    <link rel="stylesheet" href="../cropper/cropper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="../js/config.js"></script>
+    <style>
+    body,html{
+        margin:0;
+    }
+        .btn-primary {
+            color: #fff;
+            background-color:#e15149;
+            border-color: #e15149;
+            text-shadow: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 5px 12px;
+            margin-bottom: 0;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.53846154;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 0;
+            -webkit-transition: all .8s cubic-bezier(.175, .885, .32, 1);
+            -o-transition: all .8s cubic-bezier(.175, .885, .32, 1);
+            transition: all .8s cubic-bezier(.175, .885, .32, 1);
+            border-radius: 3px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            border: 0;
+        }
+
+        .btn_big1 {
+            display: inline-block;
+            background: #ff4777;
+            font-size: 14px;
+            line-height: 30px;
+            border: 0px;
+            color: #FFF;
+            margin: auto;
+            border-radius: 3px;
+            font-family: "微软雅黑";
+            padding: 0px 10px;
+        }
+
+        #image {
+            max-width: 100%;
+        }
+        .title{
+            margin:0;
+        }
+        #container{
+            margin-top:0.8rem;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/ms-custom.css">
+</head>
+
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();" >
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">自定义</h2>
+</div>
+<div id="container" style="height: 300px;"><img id="image" src="../images/system-img03.png"></div>
+<div>
+    <div style="text-align: center;margin-top: 20px;">
+        <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+            <i class="iconfont icon-camera"></i> 选择
+            <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+            <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+
+                </span>
+        </label>
+        <button type="button" class="btn btn-primary" style="margin-left: 30px;" data-role="change" title="Crop">
+                <span class="docs-tooltip" data-toggle="tooltip">
+                  <i class="iconfont "></i> 上传
+                </span>
+        </button>
+    </div>
+
+</div>
+<canvas id="mycanvas" style="display: none;"></canvas>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+</script>
+</body>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        //getUserInfo();
+    }else{
+        toLogin();
+    }
+
+    //获取用户资料
+    function getUserInfo(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    $('#image').attr('src',record['iconUrl']);
+
+
+
+                } else if(res.statusCode == 110003) {
+                    toLogin();
+                }
+            }
+        });
+    }
+
+
+</script>
+<script>
+
+
+    $('[data-role="change"]').click(function () {
+        if (!$('#image').hasClass("cropper-hidden")) {
+            alert("请选择图片上传");
+            return false;
+        }
+        var result = $('#container > img').cropper('getCroppedCanvas');
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext('2d');
+        var img = new Image();
+        img.src = result.toDataURL();
+        img.onload = function () {
+            var w = img.naturalWidth,
+                h = img.naturalHeight;
+            if (w > 300) {
+                w = 300;
+                h = h / (img.naturalWidth / w);
+            }
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0, w, h);
+            var imgstr = canvas.toDataURL("image/jpg");
+            var params = '["{imgType:\'jpg\',base64Data:\''+imgstr+'\'}"]';
+            myHttp({
+                url: urls.uploadAvatar.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) {
+                    if (res.statusCode == 200) {
+                        window.location.href='personal_data.html';
+                    } else if(res.statusCode == 110003) {
+                        toLogin();
+                    }
+                }
+            });
+
+        };
+    });
+
+    $('#container > img').cropper({
+        aspectRatio: 4 / 4,
+    });
+
+
+    $(function () {
+        $image = $('#image')
+        var $inputImage = $('#inputImage');
+        var URL = window.URL || window.webkitURL;
+        var blobURL;
+
+        if (URL) {
+            $inputImage.change(function () {
+                var files = this.files;
+                var file;
+                if (!$image.data('cropper')) {
+                    return;
+                }
+
+                if (files && files.length) {
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        blobURL = URL.createObjectURL(file);
+                        $image.one('built.cropper', function () {
+
+                            // Revoke when load complete
+                            URL.revo$image.one('built.cropper', function () {
+
+                                // Revoke when load complete
+                                URL.revokeObjectURL(blobURL);
+                            }).cropper('reset').cropper('replace', blobURL);keObjectURL(blobURL);
+                        }).cropper('reset').cropper('replace', blobURL);
+                        $inputImage.val('');
+                    } else {
+                        window.alert('Please choose an image file.');
+                    }
+                }
+            });
+        } else {
+            $inputImage.prop('disabled', true).parent().addClass('disabled');
+        }
+    })
+</script>
+
+
+</html>

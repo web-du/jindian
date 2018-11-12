@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>分类详情</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<a class="Goback" href="index_class.html">
+			<img src="../images/Goback.png"/>
+		</a>
+		<h2 class="title">玄幻</h2>
+	</div>
+	<div class="class-nav">
+		<div class="box">
+			<h3>标签</h3>
+			<span class="mui-icon mui-icon-arrowdown"></span>
+		</div>
+		<div class="box">
+			<h3>人气排序</h3>
+			<span class="mui-icon mui-icon-arrowdown"></span>
+		</div>
+		<div class="box">
+			<h3>筛选</h3>
+			<span class="mui-icon mui-icon-arrowdown"></span>
+		</div>
+	</div>
+	<div class="class-nav-details">
+		<div class="B-box">
+			<div class="box">
+				<div class="content" id="tagId">
+					
+				</div>
+				<button type="button" onclick="lists();">完成</button>
+			</div>
+			<div class="box">
+				<div class="select" alt="字数">
+					<span>人气排序</span>
+					<img src="../images/class_active.png"/>
+				</div>
+				<div class="select"  alt="点击">
+					<span>点击排序</span>
+					<img src="../images/class_active.png"/>
+				</div>
+				<div class="select"  alt="收藏">
+					<span>总收藏排序</span>
+					<img src="../images/class_active.png"/>
+				</div>
+				<div class="select"  alt="订阅">
+					<span>总订阅排序</span>
+					<img src="../images/class_active.png"/>
+				</div>
+				
+				<button type="button" onclick="lists();">完成</button>
+			</div>
+			<div class="box">
+				<div class="screen">
+					<div class="condition">
+						<div class="name">
+							<span>字数</span>
+						</div>
+						<div class="details" id="search1">
+							<span class="now" alt='0'>不限</span>
+							<span alt='1'>30万字以下</span>
+							<span alt='2'>30万-50万</span>
+							<span alt='3'>50万-100万</span>
+							<span alt='4'>100万-200万</span>
+							<span alt='5'>200万以上</span>
+						</div>
+					</div>
+					<div class="condition">
+						<div class="name">
+							<span>进度</span>
+						</div>
+						<div class="details" id="search2">
+							<span class="now" alt="">全部</span>
+							<span alt="连载中">连载</span>
+							<span alt="已完结">完本</span>
+						</div>
+					</div>
+					<div class="condition">
+						<div class="name">
+							<span>更新时间</span>
+						</div>
+						<div class="details" id="search3">
+							<span class="now" alt='0'>不限</span>
+							<span alt='-3'>三日内</span>
+							<span alt='-7'>七日内</span>
+							<span alt='-15'>半月内</span>
+							<span alt='-30'>一月内</span>
+						</div>
+					</div>
+				</div>
+				<button type="button" onclick="lists();">完成</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="class-details-box class-details-content" id="list">
+		
+		
+	</div>
+	<input type="hidden" id="pageid" value="1">
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/config.js"></script>
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});	
+		
+		
+		$(".class-nav-details .box").click(function(e){
+			var e = e || event;
+			e.stopPropagation();
+			$(".class-nav-details>.B-box").stop(true,true).fadeIn();
+		})
+		
+		/**人气排序**/
+		$(".class-nav-details .box .select").click(function(e){
+			var e = e || event;
+			e.stopPropagation();
+			$(this).addClass("now").siblings().removeClass("now")
+		})
+		
+		
+		/**筛选**/
+		$(".class-nav-details .box .condition .details span").click(function(e){
+			var e = e || event;
+			e.stopPropagation();
+			$(this).addClass("now").siblings().removeClass("now")
+		})
+		
+		
+		
+		
+		$(".class-nav-details .box>button").click(function(){
+			var index = $(this).parent().index();
+			$(this).parent().css("display","none");
+			$(".class-nav .box span").eq(index).removeClass("mui-icon-arrowup").addClass("mui-icon-arrowdown");
+			None();
+		})
+		
+		/**点击最外面收起**/
+		$(".class-nav-details>.B-box").click(function(){
+			$(".class-nav-details .box").css("display","none");
+			$(".class-nav .box span").addClass("mui-icon-arrowdown");
+			None();
+		})
+		
+		/**判断半透明**/
+		function None(){
+			var op = 0;
+			$(".class-nav>.box").each(function(){
+				if($(this).find("span").hasClass("mui-icon-arrowdown")){
+					op++;
+				}
+			})
+			if(op == 3){
+				$(".class-nav>.box").each(function(){
+				$(".class-nav-details>.B-box").css("display","none");
+				$(".class-nav-details").css("display","none");
+			})
+			}else{
+				$(".class-nav-details").css("display","block");
+			}
+		}
+		
+		
+		
+	lists();
+	/***获取列表***/
+	function lists(){
+		var winurl = window.location.href;
+		var categoryId = getQueryString(winurl,'categoryId');
+		
+		var params = [];
+		
+		var tagid = '';
+		$(".class-nav-details .box .content span").each(function(e){
+			var e = e || event;
+			if($(this).hasClass("now")){
+				 tagid += $(this).attr('tagid')+',';
+			}
+		})
+		
+		var orderBy = '';
+		$(".class-nav-details .box .select").each(function(e){
+			var e = e || event;
+			
+			if($(this).hasClass('now')){
+				orderBy = $(this).attr('alt');
+			}
+			
+		})
+		
+		var wordCount = '';
+		var swordCount = '';
+		$("#search1 span").each(function(e){
+			var e = e || event;
+			if($(this).hasClass("now")){
+				 wordCount = $(this).attr('alt');
+				 
+				 if(wordCount && wordCount!=0){
+					if(wordCount==1){
+						swordCount='0,30';
+					}else if(wordCount==2){
+						swordCount='30,50';
+					}else if(wordCount==3){
+						swordCount='50,100';
+					}else if(wordCount==4){
+						swordCount='100,200';
+					}else if(wordCount==5){
+						swordCount='200,1000';
+					}
+				 }else{
+					swordCount='';
+				 }
+			}
+		})
+		
+		var serialState = '';
+		var sserialState ='';
+		$("#search2 span").each(function(e){
+			var e = e || event;
+			if($(this).hasClass("now")){
+				 serialState = $(this).attr('alt');
+				 if(serialState!='' && serialState!=null){
+					sserialState = serialState;
+				 }
+			}
+		})
+		
+		var updateTime = '';
+		$("#search3 span").each(function(e){
+			var e = e || event;
+			if($(this).hasClass("now")){
+				 updateTime= $(this).attr('alt');
+				 if(updateTime==0){
+					updateTime = '';
+				 }
+			}
+		})
+		
+		var params1 = "{'pageNumber':1,'pageSize':10,'categoryId':'"+categoryId+"','wordCount':'"+swordCount+"','tagid':'"+tagid+"','orderBy':'"+orderBy+"','serialState':'"+sserialState+"','updateTime':'"+updateTime+"'}";
+		
+		params.push(params1);
+		params = JSON.stringify(params);
+		myHttp.ajax({
+		  url: urls.getSearchList.path,
+		  params: params,
+		  success: function (res) {
+			 if(res.statusCode==200){
+				var str='';
+				for(var i=0;i<res.data.length;i++){
+					if(res.data[i].serialState=='已完结'){
+						strclass="over";
+					}else{
+						strclass='';
+					}
+					str+='<div class="box">'+
+		'				<a href="book_details.html?id='+res.data[i].id+'">'+
+		'				<div class="img">'+
+		'					<img src="'+res.data[i].coverUrl+'">'+
+		'				</div>'+
+		'				<div class="details">'+
+		'					<div class="name">'+
+		'						<h3>'+res.data[i].name+'</h3><span class="'+strclass+'">'+res.data[i].serialState+'</span>'+
+		'					</div>'+
+		'					<p><span>'+res.data[i].authorPenName+'</span><span>'+res.data[i].categoryName+'</span><span>'+res.data[i].formatWordCount+'</span><span>'+res.data[i].formatClickCount+'点击</span></p>'+
+		'					<h4>'+res.data[i].summary+'</h4>'+
+		'				</div>'+
+		'				</a>'+
+		'			</div>';
+				}
+				
+				$("#list").html('');
+				$("#list").html(str);
+			 }
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+	}
+		
+		
+		
+	/***获取标签**/
+		var winurl = window.location.href;
+		var params = '["{}"]';
+		var type = getQueryString(winurl,'type');
+		myHttp.ajax({
+		  url: urls.getCategoryAndTag.path,
+		  params: params,
+		  success: function (res) {
+			 if(res.statusCode==200){
+				var str='';
+				var seleindex = '';
+				for(var i=0;i<res.data[0].categorys.length;i++){
+					if(i==0){
+						seleindex = '';
+					}else{
+						seleindex = '';
+					}
+					str+='<span tagid="'+res.data[0].categorys[i].id+'" class="'+seleindex+'">'+res.data[0].categorys[i].name+'</span>';
+					
+				}
+				
+				$("#tagId").html('');
+				$("#tagId").html(str);
+			 }
+			 
+			 
+			 /**标签最多选择五个**/
+		var num = [];
+		var L = $(".class-nav-details .box .content span").length;
+		$(".class-nav-details .box .content span").click(function(e){
+			var e = e || event;
+			e.stopPropagation();
+			num = [];
+			$(this).toggleClass("now");
+			for(var i = 0;i < L;i++){
+				if($(".class-nav-details .box .content span").eq(i).hasClass("now")){
+					var that = $(".class-nav-details .box .content span").eq(i);
+						num.push(that);	
+				}
+			}
+			if(num.length>5){
+				$(this).removeClass("now");
+				mui.toast("最多选择五个哟");
+			}
+			None();
+		})
+			
+			
+		/**顶部导航下拉**/
+			$(".class-nav .box").click(function(){
+				var index = $(this).index();
+				$(this).find("span").addClass("mui-icon-arrowup").toggleClass("mui-icon-arrowdown");
+				$(this).addClass("now").siblings().removeClass("now");
+				$(this).siblings().find("span").addClass("mui-icon-arrowdown");
+				
+				$(".class-nav-details .B-box>.box").eq(index).stop(true,true).slideToggle().siblings().css("display","none");
+				$(".class-nav-details>.B-box").stop(true,true).fadeIn();
+				None();
+			})
+			
+			
+			
+			
+		  },
+		  error: function (res) {
+			//console.log(res);
+		  }
+		});
+	
+	
+
+	//滚动加载更多
+	if (!NeuF) var NeuF = {};
+		NeuF.ScrollPage = function (obj, options, callback) {
+			var _defaultOptions = { delay: 500, marginBottom: 50 };
+			options = $.extend(_defaultOptions, options);
+			this.isScrolling = false; //是否在滚动
+			this.oriPos = 0; //原始位置
+			this.curPos = 0; //当前位置
+			var me = this; //顶层
+			var $obj = (typeof obj == "string") ? $("#" + obj) : $(obj);
+
+			$obj.scroll(function (ev) {
+				me.curPos = $obj.scrollTop();
+				if ($(window).height() + $(window).scrollTop() >= $(document.body).height() - options.marginBottom) {
+					if (me.isScrolling == true) return;
+					me.isScrolling = true;
+					setTimeout(function () { me.isScrolling = false;}, options.delay); //重复触发间隔毫秒;
+					if (typeof callback == "function") callback.call(null, me.curPos - me.oriPos);
+				};
+				me.oriPos = me.curPos;
+			});
+		};
+  
+      
+        window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+
+        new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 0 }, function (offset) {
+            if (offset > 0) {
+				var page = $("#pageid").val();      
+				var next=Number(page)+1;
+				$("#pageid").val(next);
+					
+					
+					
+					/******条件获取*****/
+					var winurl = window.location.href;
+					var categoryId = getQueryString(winurl,'categoryId');
+					
+					var params = [];
+					
+					var tagid = '';
+					$(".class-nav-details .box .content span").each(function(e){
+						var e = e || event;
+						if($(this).hasClass("now")){
+							 tagid += $(this).attr('tagid')+',';
+						}
+					})
+					
+					var orderBy = '';
+					$(".class-nav-details .box .select").each(function(e){
+						var e = e || event;
+						
+						if($(this).hasClass('now')){
+							orderBy = $(this).attr('alt');
+						}
+						
+					})
+					
+					var wordCount = '';
+					var swordCount = '';
+					$("#search1 span").each(function(e){
+						var e = e || event;
+						if($(this).hasClass("now")){
+							 wordCount = $(this).attr('alt');
+							 
+							 if(wordCount && wordCount!=0){
+								if(wordCount==1){
+									swordCount='0,30';
+								}else if(wordCount==2){
+									swordCount='30,50';
+								}else if(wordCount==3){
+									swordCount='50,100';
+								}else if(wordCount==4){
+									swordCount='100,200';
+								}else if(wordCount==5){
+									swordCount='200,1000';
+								}
+							 }else{
+								swordCount='';
+							 }
+						}
+					})
+					
+					var serialState = '';
+					var sserialState ='';
+					$("#search2 span").each(function(e){
+						var e = e || event;
+						if($(this).hasClass("now")){
+							 serialState = $(this).attr('alt');
+							 if(serialState!='' && serialState!=null){
+								sserialState = serialState;
+							 }
+						}
+					})
+					
+					var updateTime = '';
+					$("#search3 span").each(function(e){
+						var e = e || event;
+						if($(this).hasClass("now")){
+							 updateTime= $(this).attr('alt');
+							 if(updateTime==0){
+								updateTime = '';
+							 }
+						}
+					})
+					
+					var params1 = "{'pageNumber':1,'pageSize':10,'categoryId':'"+categoryId+"','wordCount':'"+swordCount+"','tagid':'"+tagid+"','orderBy':'"+orderBy+"','serialState':'"+sserialState+"','updateTime':'"+updateTime+"'}";
+					
+					params.push(params1);
+					params = JSON.stringify(params);
+					
+					/******条件获取*****/
+					myHttp.ajax({
+					  url: urls.getSearchList.path,
+					  params: params,
+					  success: function (res) {
+						 if(res.statusCode==200){
+							if(res.data!='' && res.data!=null){
+								var str='';
+								for(var i=0;i<res.data.length;i++){
+									if(res.data[i].serialState=='已完结'){
+										strclass="over";
+									}else{
+										strclass='';
+									}
+									str+='<div class="box">'+
+						'				<a href="book_details.html?id='+res.data[i].id+'">'+
+						'				<div class="img">'+
+						'					<img src="'+res.data[i].coverUrl+'">'+
+						'				</div>'+
+						'				<div class="details">'+
+						'					<div class="name">'+
+						'						<h3>'+res.data[i].name+'</h3><span class="'+strclass+'">'+res.data[i].serialState+'</span>'+
+						'					</div>'+
+						'					<p><span>'+res.data[i].authorPenName+'</span><span>'+res.data[i].categoryName+'</span><span>'+res.data[i].formatWordCount+'</span><span>'+res.data[i].formatClickCount+'点击</span></p>'+
+						'					<h4>'+res.data[i].summary+'</h4>'+
+						'				</div>'+
+						'				</a>'+
+						'			</div>';
+								}
+								
+								
+								$("#list").append(str);
+							}else{
+								alert('没有更多数据了');
+							}
+						 }
+					  },
+					  error: function (res) {
+						//console.log(res);
+					  }
+					});
+				
+            }
+    });
+	</script>
+</body>
+</html>

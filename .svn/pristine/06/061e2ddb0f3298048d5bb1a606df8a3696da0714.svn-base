@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>账户</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #f0f0f0;
+        }
+        #isReadMsg{display: none;}
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body style="background-color:#f0f0f0;">
+<div date-role="page">
+    <div class="myheader">
+        <a href="javascript:locationUrl('account-install.html',false);" class="account-install" data-ajax="false">
+            <img src="../images/account-img02.png"/>
+        </a>
+        <h2 class="title">账户</h2>
+        <a href="javascript:locationUrl('account-message.html',false);" class="account-mess" data-ajax="false">
+            <img src="../images/account-img01.png"/>
+            <i id="isReadMsg"></i>
+        </a>
+    </div>
+    <div class="myheader-bg">
+    </div>
+    <div class="account-page">
+        <div class="message">
+            <img src="../images/account-img03.png" onclick="locationUrl('personal_data.html',false)"/>
+            <h2>贤菲宝</h2>
+            <p id="sumary">这个人很懒，什么也没有留下！</p>
+            <div class="nav-top">
+                <div class="box">
+                    <a href="javascript:locationUrl('member.html',false);" data-ajax="false">
+                        <img src="../images/account-img04.png"/>
+                        <h2>LV<span id="level">0</span></h2>
+                        <p>会员等级</p>
+                    </a>
+                </div>
+                <div class="box">
+                    <a href="javascript:locationUrl('wallet.html',false);" data-ajax="false">
+                        <img src="../images/account-img05.png"/>
+                        <h2 id="readCoin">0</h2>
+                        <p>余额</p>
+                    </a>
+                </div>
+                <div class="box">
+                    <a href="javascript:locationUrl('sign_in.html',false);" data-ajax="false">
+                        <img src="../images/account-img06.png"/>
+                        <h2><span id="signDays">0</span>天</h2>
+                        <p>连续签到</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="my-account">
+            <div class="To">
+                <a href="javascript:locationUrl('wallet.html',false);" data-ajax="false">
+                    <p>
+                        <img src="../images/account-img07.png"/>
+                        <span>我的钱包</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="javascript:locationUrl('fans_vals.html',false);" data-ajax="false">
+                    <p>
+                        <img src="../images/account-img08.png"/>
+                        <span>粉丝值</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="javascript:locationUrl('task.html',false);" data-ajax="false">
+                    <p>
+                        <img src="../images/account-img09.png"/>
+                        <span>我的任务</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="javascript:locationUrl('security_centre.html',false);" data-ajax="false">
+                    <p>
+                        <img src="../images/account-img10.png"/>
+                        <span>安全中心</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To">
+                <a href="javascript:locationUrl('copyright.html',false)">
+                    <p>
+                        <img src="../images/account-img11.png"/>
+                        <span>我的版权</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+            <div class="To" id="isAuthor" style="display:none;">
+                <a href="javascript:locationUrl('author_center.html',false);">
+                    <p>
+                        <img src="../images/account-img12.png"/>
+                        <span>作者中心</span>
+                    </p>
+                    <img src="../images/account-To.png"/>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--底部菜单栏-->
+    <div class="footer" style="display:none;">
+        <div class="box">
+            <a href="javascript:locationUrl('bookshelf.html',false);" data-ajax="false">
+                <img src="../images/tabbar01.png"/>
+                <p>书架</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="../index.html" data-ajax="false">
+                <img src="../images/tabbar02.png"/>
+                <p>精选</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="javascript:locationUrl('find.html',false);" data-ajax="false">
+                <img src="../images/tabbar03.png"/>
+                <p>发现</p>
+            </a>
+        </div>
+        <div class="box">
+            <a href="javascript:NATIVE.closeWinView();" data-ajax="false">
+                <img src="../images/tabbar04d.png"/>
+                <p>账户</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+</script>
+<script>
+
+
+
+    if(accessToken){
+        getAccountInfo();
+    }else{
+        NATIVE.toLogin();
+    }
+
+
+    //获取账户基本信息
+    function getAccountInfo(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getAccountInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    var summary = record['summary'];
+                    $('.message>img').attr('src',record['iconUrl']);
+                    $('.message>h2').text(record['nickname']);
+                    if(summary){
+                        $('#sumary').text(summary);
+                    }
+                    if(record['level']){
+                        $('#level').text(record['level']);
+                    }
+                    if(record['readCoin']){
+                        $('#readCoin').text(record['readCoin']);
+                    }
+                    if(record['signDays']){
+                        $('#signDays').text(record['signDays']);
+                    }
+                    if(record['unreadMsgNum']&& record['unreadMsgNum']>0){
+                        $('#isReadMsg').show();
+                    }
+                    if(record['isAuthor']){
+                        $('#isAuthor').show();
+                    }
+
+
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

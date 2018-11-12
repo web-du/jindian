@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>搜索</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();" data-ajax='false'>
+        <img src="../images/Goback.png"/>
+    </a>
+    <div class="new-search">
+        <input type="text" id="keyword" name="" placeholder="输入作者或作者名">
+        <img src="../images/new-search.png">
+    </div>
+    <button class="to-search" type="button" onclick="onSearch()">搜索</button>
+</div>
+<div class="hot-search">
+    <h5>热词搜索</h5>
+    <div class="box">
+        <span class="now">穿越</span>
+        <span class="now">超神学院</span>
+        <span class="now">火影</span>
+        <span>幻想乡</span>
+        <span>斗罗大陆</span>
+        <span>玛丽苏</span>
+        <span>末世洪荒</span>
+        <span>重生</span>
+        <span>反玛丽苏</span>
+        <span>热血</span>
+    </div>
+</div>
+<div class="line"></div>
+<div class="search-record">
+    <h5>搜索记录</h5>
+    <div class="box">
+        <p><span>漫画</span><img src="../images/account-To.png"></p>
+        <p><span>热血小说</span><img src="../images/account-To.png"></p>
+        <p><span>二次元</span><img src="../images/account-To.png"></p>
+    </div>
+    <h6>清除历史记录</h6>
+</div>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    $(function () {
+        // 清楚历史记录
+        $(".search-record>h6").click(function () {
+            $(".search-record .box>p").remove();
+        })
+    })
+</script>
+<script>
+    var winurl = window.location.href;
+    var isFirstPage = getQueryString(winurl,'isFirstPage');
+    if(isFirstPage == 1){
+        $('.Goback').attr('href','javascript:void(0);');
+        $('.Goback').click(function(){
+            closeWinView();
+        });
+    }
+
+
+    //获取用户资料
+    function onSearch() {
+        var keyword = $('#keyword').val();
+        if(!keyword){
+            myAlert('请输入你要搜索的关键字');return;
+        }
+        window.location.href='book_more.html?type=15&keyword='+encodeURI(keyword);
+
+
+    }
+
+
+</script>
+</body>
+</html>

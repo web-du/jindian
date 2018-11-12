@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>个人资料</title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css">
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+
+        .account-install-page .details .ui-slider-track .ui-btn.ui-slider-handle {
+            background-color: #fff;
+            border: none;
+        }
+
+        /* 选择日期 */
+        .mui-dtpicker-title {
+            display: none;
+        }
+
+        .mui-picker {
+            background-color: #fff;
+        }
+
+        .mui-dtpicker-header {
+            background-color: #fff;
+            height: 0.98rem;
+            line-height: 0.98rem;
+            padding: 0;
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0.25rem;
+            border-bottom: 1px solid #eee;
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .mui-dtpicker-header button {
+            padding: 0;
+            border: none;
+            font-size: 0.34rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .mui-dtpicker-header button:last-child {
+            background-color: #fff;
+            font-size: 0.34rem;
+            color: #e15149;
+        }
+
+        .mui-android-5-1 .mui-dtpicker.mui-active {
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .mui-pciker-list li.highlight {
+            color: #e15149;
+        }
+
+        .mui-pciker-rule-ft {
+            border-color: #e15149;
+        }
+
+        /* 选择地区 */
+        .mui-poppicker-header {
+            background-color: #fff;
+            height: 0.98rem;
+            line-height: 0.98rem;
+            padding: 0 0.25rem;
+            border-bottom: 1px solid #eee;
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .mui-poppicker-header .mui-btn {
+            padding: 0;
+            font-size: 0.34rem;
+            color: #666;
+            border: none;
+            background-color: #fff;
+            line-height: 0.98rem;
+            height: 0.98rem;
+            font-weight: 600;
+        }
+
+        .mui-poppicker-btn-ok {
+            color: #e15149 !important;
+        }
+
+        .mui-android-5-1 .mui-poppicker.mui-active {
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+    </style>
+<script type="text/javascript" src="../js/public.js"></script>
+</head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="javascript:NATIVE.closeWinView();" >
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">个人资料</h2>
+    </div>
+
+    <div class="content">
+        <div class="personal_data">
+            <h2>基本信息</h2>
+            <div class="box">
+                <div class="your-image">
+                    <span>头像</span>
+                    <div class="img">
+                        <img id="iconUrl" src="../images/account-img03.png" onerror="this.onerror='';src='../images/account-img03.png'" class="your-img">
+                        <img src="../images/account-To.png" class="to">
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-name">
+                    <a href="javascript:locationUrl('change_name.html',false);" data-ajax="false">
+                        <span>昵称</span>
+                        <div class="img">
+                            <span id="nickname">贤菲宝</span>
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-introduction">
+                    <a href="javascript:locationUrl('change_summary.html',false);" data-ajax="false">
+                        <span>简介</span>
+                        <div class="img">
+                            <span id="summary">这个人很懒，什么也没有留下~</span>
+                            <img src="../images/account-To.png" class="to">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-male">
+                    <span>性别</span>
+                    <div class="img">
+                        <span id="sex">女</span>
+                        <img src="../images/account-To.png" class="to">
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-birth" data-options='{"type":"date","beginYear":1900,"endYear":2018}'>
+                    <span >生日</span>
+                    <div class="img">
+                        <span id="result">1995-2-25</span>
+                        <img src="../images/account-To.png" class="to">
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="your-home" id="showCityPicker">
+                    <span>地区</span>
+                    <div class="img">
+                        <span id="cityResult">湖北 武汉</span>
+                        <img src="../images/account-To.png" class="to">
+                    </div>
+                </div>
+            </div>
+            <!--<div class="box">-->
+                <!--<div class="your-qq">-->
+                    <!--<a href="#">-->
+                        <!--<span>QQ</span>-->
+                        <!--<div class="img">-->
+                            <!--<span id="">116623587</span>-->
+                            <!--<img src="../images/account-To.png" class="to">-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+
+    <div class="read-fixed">
+        <!--上传图片弹窗-->
+        <div id="your-image">
+            <h2>选择图片来源</h2>
+            <div class="box">
+                <a href="javascript:locationUrl('system_img.html',false);" data-ajax="false">选择系统头像</a>
+                <a href="javascript:locationUrl('user_avatar.html',false);" data-ajax="false">自定义</a>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+
+
+        <!--选择性别弹窗-->
+        <div id="your-male">
+            <h2>选择性别</h2>
+            <div class="box">
+                <h3>男</h3>
+                <h3>女</h3>
+                <h3>保密</h3>
+            </div>
+            <div class="line">
+            </div>
+            <h1>取消</h1>
+        </div>
+    </div>
+</div>
+<script src="../js/mui.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/mui.picker.min.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script src="../js/city.data.js"></script>
+<script type="text/javascript" src="../js/city.data-3.js"></script>
+<script type="text/javascript">
+
+    // mui.init({
+    //     swipeBack: true //启用右滑关闭功能
+    // });
+
+    $(function () {
+        /**弹出选择图片来源**/
+        $(".your-image").click(function () {
+            $(".read-fixed").stop().fadeIn();
+            $("#your-image").addClass("active");
+        })
+
+        /**点击取消**/
+        $("#your-image>h1").click(function () {
+            $("#your-image").removeClass("active");
+            $(".read-fixed").stop().fadeOut();
+        })
+
+
+        /**弹出选择图片来源**/
+        $(".your-male").click(function () {
+            $(".read-fixed").stop().fadeIn();
+            $("#your-male").addClass("active");
+        })
+
+        /**选择字体样式**/
+        $("#your-male h3").click(function () {
+            $(".your-male .img span").html($(this).html())
+            $(".read-fixed").stop().fadeOut();
+            $("#your-male").removeClass("active");
+            var params = '["{sex:\'' + $(this).html() + '\'}"]';
+            updateUserInfo(params);
+        })
+
+        /**点击取消**/
+        $("#your-male>h1").click(function () {
+            $("#your-male").removeClass("active");
+            $(".read-fixed").stop().fadeOut();
+        })
+
+
+        // 选择日期
+        $(".your-birth").click(function () {
+            var optionsJson = this.getAttribute('data-options') || '{}';
+            var options = JSON.parse(optionsJson);
+            var picker = new mui.DtPicker(options);
+            picker.show(function (rs) {
+                $("#result").html(rs.text);
+                //return false;    //这是阻止对话框关闭
+                picker.dispose();
+                var params = '["{birthday:\'' + rs.text + '\'}"]';
+                updateUserInfo(params);
+            })
+        })
+
+
+        //选择地区
+        $("#showCityPicker").click(function () {
+            var cityPicker = new mui.PopPicker({
+                layer: 2
+            });
+            cityPicker.setData(cityData);
+            cityPicker.show(function (items) {
+                cityResult.innerText = items[0].text + " " + items[1].text;
+                var params = '["{nativeProvince:\'' + items[0].text + '\',nativeCity:\''+items[1].text+'\'}"]';
+                updateUserInfo(params);
+            });
+        })
+
+    })
+
+
+</script>
+<script>
+
+
+
+    if(accessToken){
+        getUserInfo();
+    }else{
+        NATIVE.toLogin();
+    }
+
+    //获取用户资料
+    function getUserInfo(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    $('#nickname').text(record['nickname']);
+                    $('#iconUrl').attr('src',record['iconUrl']);
+                    if(record['sex']){
+                        $('#sex').text(record['sex']);
+                    }else{
+                        $('#sex').text('保密');
+                    }
+                    if(record['summary']){
+                        $('#summary').text(record['summary']);
+                    }
+                    $('#result').text(record['birthday']);
+                    $('#cityResult').text(record['nativeProvice']+' '+record['nativeCity']);
+
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    //修改用户资料
+    function updateUserInfo(params){
+        $('.loading').show();        myHttp({
+            url: urls.updateUserInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

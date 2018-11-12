@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>书架</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .content {
+            padding-bottom: 1rem;
+        }
+        .myheader .book-set ul li>a{
+            border-bottom:none;
+        }
+      .bookshelf-box .img .mui-checkbox{
+        width:100%;
+        height:100%;
+        background-color: rgba(255,255,255,0.5);
+        left:0;
+        top:0;
+        display: none;
+          z-index: 98;
+      }
+      .bookshelf-box .img .mui-checkbox input{
+        position: absolute;
+        width: 0.5rem;
+        height: 0.5rem;
+        left:50%;
+        top:50%;
+        margin-left: -0.25rem;
+        margin-top: -0.25rem;
+      }
+      .bookshelf-box .img .mui-checkbox input:before{
+        font-size: 0.5rem;
+      }
+      .new-op{
+        position:absolute;
+        width:100%;
+        height:100%;
+        left:0;
+        top:0;
+        z-index:99;
+        display: flex;
+        display: -webkit-flex;
+        display: -moz-flex;
+        align-items:center;
+        justify-content:space-between;
+        background-color:#e15149;
+        padding:0 0.25rem;
+        font-size:0.3rem;
+        color:#fff;
+        display: none;
+      }
+      .batch-del{
+        display: none;
+      }
+    </style>
+</head>
+<body>
+	<div class="myheader">
+		<h2 class="title">书架</h2>
+		<img src="../images/search.png" class="book-search"/>
+		<img src="../images/set.png" class="set"/>
+		<!--<div class="book-Tosearch">-->
+			<!--<div class="box">-->
+				<!--<a class="mui-icon mui-icon-search search-icon"></a>-->
+				<!--<input type="text" name="search" placeholder="输入你想看的书名">-->
+			<!--</div>-->
+			<!--<button class="off">取消</button>-->
+		<!--</div>-->
+		<div class="book-set">
+			<ul>
+				<li onclick="showdelbutton()">
+					<img src="../images/book-admini.png"/>
+					<p>批量管理</p>
+				</li>
+				<li>
+					<img src="../images/book-time.png"/>
+					<p onclick="orderByBookShelf()">更新时间排序</p>
+				</li>
+				<!--<li>-->
+					<!--<img src="../images/book-mosi.png"/>-->
+					<!--<p>列表模式</p>-->
+				<!--</li>-->
+				<!--<li>-->
+					<!--<a href="javascript:locationUrl('browse_record.html',false);" data-ajax='false'>-->
+					<!--<img src="../images/book-jilu.png"/>-->
+					<!--<p>浏览记录</p>-->
+					<!--</a>-->
+				<!--</li>-->
+			</ul>
+			<span></span>
+		</div>
+
+        <!-- 长按样式 -->
+        <div class="new-op">
+            <span class="cancle">取消</span>
+            <span onclick="selectAll()">全选</span>
+        </div>
+	</div>
+
+<div class="content">
+    <div class="sign">
+        <div class="box">
+            <img src="../images/sign.png"/>
+            <p>每日签到，赢超值好礼！</p>
+        </div>
+        <button onclick="checkToken();">签到</button>
+    </div>
+    <div class="bookshelf-box">
+        <div class="box" onclick="NATIVE.toIndex2()">
+            <img src="../images/bookshelf-add.jpg"/>
+            <h2>添加书籍</h2>
+        </div>
+    </div>
+</div>
+
+<!--长按弹窗-->
+<div class="loog-tap">
+    <div class="box">
+        <div class="name">
+            <img src="../images/bookshelf-img01.jpg"/>
+            <div class="con">
+                <h2>晨曦鹦鹉宠物店</h2>
+                <p><span>漫笔</span></p>
+            </div>
+            <a href="#">详情</a>
+        </div>
+        <div class="your-mess">
+            <img src="../images/no.otherlast.png"/>
+            <div class="details">
+                <h2><span>贤菲宝</span><span>未上榜</span></h2>
+                <p>当前粉丝值0</p>
+                <p class="your-rank">再获得750粉丝值上升至125名</p>
+            </div>
+        </div>
+        <div class="op">
+            <div class="box">
+                <div class="mui-switch mui-switch-mini" data-switch="4">
+                    <div class="mui-switch-handle"></div>
+                </div>
+                <p>置顶</p>
+            </div>
+            <div class="box">
+                <div class="mui-switch mui-switch-mini mui-active" data-switch="7">
+                    <div class="mui-switch-handle"></div>
+                </div>
+                <p>更新提示</p>
+            </div>
+            <div class="box">
+                <div class="mui-switch mui-switch-mini mui-active" data-switch="7">
+                    <div class="mui-switch-handle"></div>
+                </div>
+                <p>自动订阅下一章</p>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/share01.png"/>
+                </div>
+                <p>分享</p>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/share02.png"/>
+                </div>
+                <p>讨论</p>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/share03.png"/>
+                </div>
+                <p>书评</p>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/share04.png"/>
+                </div>
+                <p>下载</p>
+            </div>
+            <div class="box">
+                <div class="img">
+                    <img src="../images/share05.png"/>
+                </div>
+                <p>删除</p>
+            </div>
+        </div>
+        <div class="Tomoney">
+            <div class="box">
+                <img src="../images/share07.png"/>
+                <span>订阅</span>
+            </div>
+            <div class="box">
+                <img src="../images/share06.png"/>
+                <span>打赏</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 删除所选 -->
+<div class="batch-del">
+    <span onclick="delbook()">删除所选(<em id="del">0</em>)</span>
+</div>
+<!--底部菜单栏-->
+<!--<div class="footer">-->
+    <!--<div class="box">-->
+        <!--<a href="bookshelf.html" data-ajax="false">-->
+            <!--<img src="../images/tabbar01d.png"/>-->
+            <!--<p>书架</p>-->
+        <!--</a>-->
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<a href="../index.html" data-ajax="false">-->
+            <!--<img src="../images/tabbar02.png"/>-->
+            <!--<p>精选</p>-->
+        <!--</a>-->
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<a href="find.html" data-ajax="false">-->
+            <!--<img src="../images/tabbar03.png"/>-->
+            <!--<p>发现</p>-->
+        <!--</a>-->
+    <!--</div>-->
+    <!--<div class="box">-->
+        <!--<a href="javascript:NATIVE.closeWinView();" data-ajax="false">-->
+            <!--<img src="../images/tabbar04.png"/>-->
+            <!--<p>账户</p>-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/public.js"></script>
+<script type="text/javascript">
+
+    // mui.init({
+    //     swipeBack: true, //启用右滑关闭功能
+    //     gestureConfig: {
+    //         tap: true, //默认为true
+    //         doubletap: true, //默认为false
+    //         longtap: true, //默认为false
+    //         swipe: true, //默认为true
+    //         drag: true, //默认为true
+    //         hold: false,//默认为false，不监听
+    //         release: false//默认为false，不监听
+    //     }
+    // });
+
+
+    $(function () {
+        /**搜索效果**/
+        $(".myheader img.book-search").click(function () {
+//            $(".myheader .book-Tosearch").css("display", "block").css("display", "flex");
+//            $(".off").click(function () {
+//                $(".myheader .book-Tosearch").css("display", "none")
+//            })
+            locationUrl('search_page.html?isFirstPage=1',true);
+        })
+
+
+        /**设置选项**/
+        $(".myheader img.set").click(function () {
+            $(".myheader .book-set").fadeToggle();
+        })
+        $(".myheader .book-set ul li").click(function () {
+            var index = $(this).index();
+            $(".myheader .book-set").css("display", "none");
+
+            /**模式切换**/
+            if (index == 2) {
+                $(".bookshelf-box").toggleClass("bookshelf-box1");
+                if ($(this).find("p").html() == "列表模式") {
+                    $(this).find("p").html("图墙模式")
+                } else {
+                    $(this).find("p").html("列表模式")
+                }
+            }
+        })
+
+        /**switch开关**/
+        $(".op >.box>.mui-switch").click(function () {
+            $(this).toggleClass("mui-active");
+        })
+
+
+        /**弹出形式**/
+        $(".bookshelf-box img.set").click(function () {
+            $(".loog-tap").toggleClass("on")
+        })
+        $(".loog-tap").click(function () {
+            $(this).toggleClass("on")
+        })
+        $(".loog-tap>.box").click(function (e) {
+            var e = e || event;
+            e.stopPropagation();
+            $(this).css("display", "block")
+        })
+    })
+
+
+</script>
+<script>
+
+
+    var orderBy = 1;
+    if(accessToken){
+        var params = '["{}"]';
+        getBookShelfIndex(params);
+    }else{
+        $('.loading').hide();
+        //NATIVE.toLogin();
+    }
+
+    //获取书架书籍
+    function getBookShelfIndex(params) {
+        $('.loading').show();        myHttp({
+            url: urls.getBookShelfIndex.path,
+            //headers:{'jd-token':accessToken,'Accept':'application/json, text/javascript'},
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                var imgshtml = '';
+                if (res.statusCode == 200) {
+                    $('.bookshelf-box').html('');
+                    for(var i in res.data.collectList){
+                        var record = res.data.collectList[i];
+                        var contenthtml = '<div class="box"> ' +
+                            '            <div class="img"> ' +
+                            '                <a href="javascript:locationUrl(\'book_page.html?isFirstPage=1&id='+record['bookId']+'\',true);"> ' +
+                            '                    <img src="'+record['coverUrl']+'"> '+
+                            '                </a> '+ '<div class="mui-input-row mui-checkbox">'+'<input value="'+record['collectId']+'" name="checkbox" type="checkbox" ></div>' ;
+                        if(record['hasUpdate']){
+                        	contenthtml+='       <i></i> ' ;
+						}
+                        contenthtml+='    </div> ' +
+                            '            <div class="text"> ' +
+                            '                <h2>'+record['name']+'</h2> ';
+                        if(record['readPercent']){
+                            contenthtml+='    <span>已读'+record['readPercent']+'%</span> ';
+                        }else{
+                            contenthtml+='    <span>未读</span> ';
+                        }
+                        contenthtml+='   </div> ' +
+                            '        </div>';
+                        $('.bookshelf-box').append(contenthtml);
+                    }
+                    var temphtml = '<div class="box" onclick="NATIVE.toIndex2()"> ' +
+                        '            <img src="../images/bookshelf-add.jpg"> ' +
+                        '            <h2>添加书籍</h2> ' +
+                        '        </div>';
+                    $('.bookshelf-box').append(temphtml);
+
+                    if(orderBy==1){
+                        orderBy =-1;
+                    }else{
+                        orderBy = 1;
+                    }
+
+                    /**长按弹窗**/
+                    mui.init({
+                        swipeBack: true, //启用右滑关闭功能
+                        gestureConfig:{
+                           tap: true, //默认为true
+                           doubletap: true, //默认为false
+                           longtap: true, //默认为false
+                           swipe: true, //默认为true
+                           drag: true, //默认为true
+                           hold:false,//默认为false，不监听
+                           release:false//默认为false，不监听
+                          }
+                    });
+                    /**长按弹窗**/
+                    mui(".box>.img").on("longtap","img",function(){
+                        showdelbutton();
+                    })
+                    $(".bookshelf-box .img .mui-checkbox input").on("change",function(){
+                        var ids = new Array();
+                        $(".bookshelf-box .img .mui-checkbox input").each(function(e){
+                            if($(this).is(':checked')){
+                                ids.push($(this).val());
+                            }
+                        });
+                        $('#del').text(ids.length);
+                    })
+
+                    /**点击取消**/
+                    $(".cancle").click(function(){
+                        $(".new-op").hide();
+                        $(".batch-del").hide();
+                        $(".bookshelf-box .img .mui-checkbox").hide();
+                    })
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    function showdelbutton(){
+        $(".bookshelf-box .img .mui-checkbox").show();
+        $(".new-op").show().css("display","flex");
+        $(".batch-del").show().css("display","flex");
+        //document.getElementsByClassName("loog-tap")[0].classList.add("on");
+        $("[name='checkbox']").removeAttr("checked");//取消全选
+        $('#del').text(0);
+    }
+
+    function delbook(){
+        var str = '';
+        $(".bookshelf-box .img .mui-checkbox input").each(function(e){
+            if($(this).is(':checked')){
+                str += (str ? ',' : '') + $(this).val();
+            }
+        });
+
+        if (str) {
+            var params = '["{collectId:['+str+']}"]';
+            $('.loading').show();
+            myHttp({
+                url: urls.deleteFavorite.path,
+                headers: {'jd-token': accessToken},
+                params: params,
+                success: function (res) { $('.loading').hide();
+                    if (res.statusCode == 200) {
+                        $(".bookshelf-box .img .mui-checkbox input").each(function(e){
+                            if($(this).is(':checked')){
+                                $(this).parent().parent().parent().remove();
+                            }
+                        });
+                        $(".new-op").hide();
+                        $(".batch-del").hide();
+                        $(".bookshelf-box .img .mui-checkbox").hide();
+
+
+                    } else if (res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+        }
+    }
+
+    function selectAll(){
+        $("[name='checkbox']").attr("checked",'true');//全选
+        $('#del').text($("[name='checkbox']").length);
+    }
+
+
+    function orderByBookShelf(){
+        var params = '["{orderByUpdate:'+orderBy+'}"]';
+        getBookShelfIndex(params);
+    }
+
+
+    function checkToken(){
+        if(accessToken){
+            locationUrl('sign_in.html',false);
+        }else{
+            NATIVE.toLogin();
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

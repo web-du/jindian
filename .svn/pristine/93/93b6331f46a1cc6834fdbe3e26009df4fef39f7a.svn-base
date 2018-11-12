@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>找回密码</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.mui-bar{
+    		background-color: #e15149;
+    		height: 0.8rem;
+    	}
+    	.mui-bar-nav.mui-bar .mui-icon{
+    		color: #FFFFFF;
+    	}
+    	.mui-title{
+    		color: #FFFFFF;
+    	}
+    	.mui-bar .mui-btn-link{
+    		color: #FFFFFF;
+    	}
+    	.mui-bar .mui-btn-link a{
+    		color: #fff;
+    	}
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" href="../index.html"></a>
+			<h1 class="mui-title">找回密码</h1>
+	</header>
+	<div class="content">
+		<div class="register-page">
+			<div class="box">
+				<form>
+					<p>
+						<input type="text" placeholder="输入手机号"/>
+					</p>
+					<p>
+						<input type="text" placeholder="输入验证码"/>
+						<button>获取验证码</button>
+					</p>
+					<p>
+						<input type="text" placeholder="输入新密码"/>
+					</p>
+					<p>
+						<input type="text" placeholder="再次输入"/>
+					</p>
+					<button class="Toreg">立即找回</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!--注册报错-->
+	<div class="fix-psd-error">
+		<div class="box">
+			<h2>注册提醒</h2>
+			<p>两次密码输入不一致，请重新输入</p>
+			<div class="Toregister">
+				<button>取消</button>
+				<a href="#">重新输入</a>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+	<script type="text/javascript">
+		/**根据屏幕改变根元素字体大小**/
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';		
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+	</script>
+</body>
+</html>

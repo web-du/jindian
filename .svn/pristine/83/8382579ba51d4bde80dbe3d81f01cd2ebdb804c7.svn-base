@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>完本</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();" >
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">完本</h2>
+</div>
+
+<div class="content">
+    <div class="index-gold">
+        <div class="index-stitle">
+            <div class="name">
+                <img src="../images/index-stitle-img4.png"/>
+                <p>完结金榜</p>
+            </div>
+            <div class="more">
+                <a href="book_more.html?type=3">
+                    <span>更多</span>
+                    <img src="../images/more_to.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="swiper-container gold-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" ></div>
+                    <div class="swiper-slide" ></div>
+                    <div class="swiper-slide" ></div>
+                    <div class="swiper-slide" ></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div class="details bestEndList">
+            <!--<div class="details-Box" style="display: none;">-->
+                <!--<div class="name">-->
+                    <!--<p>斗破苍穹</p><span class="over">已完结</span>-->
+                <!--</div>-->
+                <!--<div class="show">-->
+                    <!--<span>我本是妖</span>-->
+                    <!--<span>玄幻</span>-->
+                    <!--<span>18.7万字</span>-->
+                    <!--<span>257次点击</span>-->
+                <!--</div>-->
+                <!--<div class="text">-->
+                    <!--<p>盛唐的时代结束，安史叛军大举进攻，都城长安本就人人惶恐的时候，前太师冷少天为了达到长生不死，非玫琳凯的扩散到了两三年分开发了哦你</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="line">
+    </div>
+    <div class="index-free">
+        <div class="index-stitle">
+            <div class="name">
+                <img src="../images/index-stitle-img9.png"/>
+                <p>最新完结</p>
+            </div>
+            <div class="more">
+                <a href="book_more.html?type=4">
+                    <span>更多</span>
+                    <img src="../images/more_to.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="free-box">
+            <!--<div class="box">-->
+                <!--<a href="#">-->
+                    <!--<div class="img">-->
+                        <!--<img src="../images/index-img09.jpg"/>-->
+                    <!--</div>-->
+                    <!--<div class="details">-->
+                        <!--<div class="name">-->
+                            <!--<p>我的手机有美女</p>-->
+                            <!--<span>连载中</span>-->
+                        <!--</div>-->
+                        <!--<div class="show">-->
+                            <!--<span>漫笔</span><span>都市</span><span>18.7万字</span><span>88次点击</span>-->
+                        <!--</div>-->
+                        <!--<div class="text">-->
+                            <!--<p>霸道美女总裁突然跑到了我的手机里，哭着求我要了她？ 怎么办，在线来得及可能是邓丽君大门口了没的说了昆明</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+
+
+</script>
+<script>
+    var winurl = window.location.href;
+    var isFirstPage = getQueryString(winurl,'isFirstPage');
+    if(isFirstPage == 1){
+        $('.Goback').attr('href','javascript:void(0);');
+        $('.Goback').click(function(){
+            NATIVE.closeWinView();
+        });
+    }
+
+
+    getBestEndList();
+    getRecentEndList();
+    //获取完结金榜
+    function getBestEndList() {
+        var params = '["{more:false,pageSize:5}"]';
+        myHttp({
+            url: urls.getBestEndList.path,
+            params: params,
+            success: function (res) {
+                var imgshtml = '';
+                if (res.statusCode == 200) {
+                    for(var i in res.data){
+                        var record = res.data[i];
+                        imgshtml += '<div data-book-id="'+record['id']+'" class="swiper-slide" style="background-image: url('+record['coverUrl']+');" onclick="window.location.href=\'book_details.html?id='+record['id']+'\'"></div>';
+
+                        var detailhtml = '<div data-book-id="'+record['id']+'"  class="details-Box" onclick="window.location.href=\'book_details.html?id='+record['id']+'\'" ';
+                        if(i!=0){
+                            detailhtml+=' style="display:none;" ';
+                        }
+                        detailhtml+='>' +
+                            '                <div class="name">' +
+                            '                    <p>'+record['name']+'</p>';
+                        if(record['serialState'] == '连载中'){
+                            detailhtml+='<span >连载中</span>';
+                        }else{
+                            detailhtml+='<span class="over">已完结</span>';
+                        }
+                        detailhtml+='                </div>' +
+                            '                <div class="show">' +
+                            '                    <span>'+record['authorPenName']+'</span>' +
+                            '                    <span>'+record['categoryName']+'</span>' +
+                            '                    <span>'+record['formatWordCount']+'</span>' +
+                            '                    <span>'+record['formatClickCount']+'点击</span>' +
+                            '                </div>' +
+                            '                <div class="text">' +
+                            '                    <p>'+record['summary']+'</p>' +
+                            '                </div>' +
+                            '            </div>';
+                        $('.bestEndList').append(detailhtml);
+
+                    }
+                    $('.swiper-wrapper').html(imgshtml);
+
+
+                    /**完结金榜效果**/
+                    var thisindex = 0;
+                    var initialSlide = parseInt(($(".details>.details-Box").length-1)/2);
+
+                    var swiper1 = new Swiper('.gold-swiper', {
+                        effect: 'coverflow',
+                        initialSlide :initialSlide,
+                        loop : true,
+                        grabCursor: true,
+                        centeredSlides: true,
+                        slidesPerView: 'auto',
+                        autoplay: {
+                            disableOnInteraction: false,
+                        },
+                        coverflowEffect: {
+                            rotate: 0,
+                            stretch: 0,
+                            depth: 200,
+                            modifier: 1,
+                            slideShadows: true,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                        },
+                        on: {
+                            slideChangeTransitionEnd: function () {
+                                thisindex = this.activeIndex; //切换结束时，告诉我现在是第几个slide
+//                                $(".details>.details-Box").eq(thisindex).css("display", "block").siblings().css("display", "none");
+                                var currentBook = $(this.el).find('.swiper-slide-active').eq(0).attr('data-book-id');
+                                $(".details>.details-Box").each(function(){
+                                    if($(this).attr('data-book-id') == currentBook){
+                                        $(this).css("display", "block").siblings().css("display", "none");
+                                    }
+                                });
+                            },
+                            sliderMove:function(){
+                                thisindex = this.activeIndex; //切换结束时，告诉我现在是第几个slide
+                                var currentBook = $(this.el).find('.swiper-slide-active').eq(0).attr('data-book-id');
+                                $(".details>.details-Box").each(function(){
+                                    if($(this).attr('data-book-id') == currentBook){
+                                        $(this).css("display", "block").siblings().css("display", "none");
+                                    }
+                                });
+
+//                                $(".details>.details-Box").eq(thisindex).css("display", "block").siblings().css("display", "none");
+                            }
+                        },
+                    });
+
+                } else {
+                    myAlert(res.statusMsg);
+                }
+            }
+        });
+    }
+
+    //获取最新完结
+    function getRecentEndList(){
+        var params = '["{more:false}"]';
+        myHttp({
+            url: urls.getRecentEndList.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    for(var i in res.data){
+                        var record = res.data[i];
+                        var contenthtml = '<div class="box">' +
+                            '                <a href="book_details.html?id='+record['id']+'">' +
+                            '                    <div class="img">' +
+                            '                        <img src="'+record['coverUrl']+'">' +
+                            '                    </div>' +
+                            '                    <div class="details">' +
+                            '                        <div class="name">' +
+                            '                            <p>'+record['name']+'</p>';
+                        if(record['serialState']=='已完结'){
+                            contenthtml+='<span class="over" >已完结</span>';
+                        }else{
+                            contenthtml+='<span>连载中</span>';
+                        }
+                        contenthtml+='               </div>' +
+                            '                        <div class="show">' +
+                            '                            <span>'+record['authorPenName']+'</span><span>'+record['categoryName']+'</span>' +
+                            '                            <span>'+record['formatWordCount']+'</span><span>'+record['formatClickCount']+'点击</span>' +
+                            '                        </div>' +
+                            '                        <div class="text">' +
+                            '                            <p>'+record['summary']+'</p>' +
+                            '                        </div>' +
+                            '                   </div>' +
+                            '                </a>' +
+                            '            </div>';
+                        $('.free-box').append(contenthtml);
+                    }
+
+                } else {
+                    myAlert(res.statusMsg);
+                }
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>

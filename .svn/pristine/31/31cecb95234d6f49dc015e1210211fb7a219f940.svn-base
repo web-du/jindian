@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>我的任务</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .content {
+            margin-bottom: 0.98rem;
+        }
+
+        body {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:window.history.back();" data-ajax="false">
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">我的任务</h2>
+</div>
+
+<div class="content">
+    <div class="task-nav">
+        <ul>
+            <li class="now">新手任务</li>
+            <li>每日任务</li>
+            <li>每周任务</li>
+        </ul>
+    </div>
+    <div class="task-con">
+        <div class="box newUserTasks">
+            <!--<div class="To">-->
+                <!--<div class="desc">-->
+                    <!--<h2>完善信息</h2>-->
+                    <!--<p>积分+50，今元宝+100</p>-->
+                <!--</div>-->
+                <!--<a href="#" class="have">领奖励</a>-->
+            <!--</div>-->
+        </div>
+        <div class="box dayTasks">
+            <!--<div class="To">-->
+                <!--<div class="desc">-->
+                    <!--<h2>每日签到</h2>-->
+                    <!--<p>积分+5</p>-->
+                <!--</div>-->
+                <!--<a href="#" class="have">领奖励</a>-->
+            <!--</div>-->
+        </div>
+        <div class="box weekTasks">
+            <!--<div class="To">-->
+                <!--<div class="desc">-->
+                    <!--<h2>收藏3本书</h2>-->
+                    <!--<p>积分+10</p>-->
+                <!--</div>-->
+                <!--<a href="#" class="have">领奖励</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+
+    $(function () {
+        //初始化布局
+        $(".task-con .box").eq(0).css("display", "block").siblings().css("display", "none");
+        $(".task-nav ul li").eq(0).addClass("now");
+        $(".task-nav ul li").click(function () {
+            var index = $(this).index();
+            $(this).addClass("now").siblings().removeClass("now");
+            $(".task-con .box").eq(index).css("display", "block").siblings().css("display", "none");
+        })
+    })
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if(accessToken){
+        getUserTaskInfo();
+    }else{
+        //TODO 跳转到登录页面
+    }
+
+    //获取我的任务
+    function getUserTaskInfo(){
+        var params = '["{}"]';
+        myHttp({
+            url: urls.getUserTaskInfo.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    //每天任务
+                    for(var i in res.data.dayTasks){
+                        var record = res.data.dayTasks[i];
+                        var contenthtml = '<div class="To">' +
+                            '                <div class="desc">' +
+                            '                    <h2>'+record['name']+'</h2>' +
+                            '                    <p>'+record['award']+'</p>' +
+                            '                </div>' ;
+                        if(record['state']==1){
+                            contenthtml+='   <a href="#" class="have">领奖励</a>' ;
+                        }else if(record['state']==2){
+                            contenthtml+='   <a href="#" class="over">已领取</a>' ;
+                        }else{
+                            contenthtml+='   <a href="javascript:toIndex();" class="go">前往</a>' ;
+                        }
+                        contenthtml+='      </div>';
+                        $('.dayTasks').append(contenthtml);
+                    }
+                    //新手任务
+                    for(var i in res.data.newUserTasks){
+                        var record = res.data.newUserTasks[i];
+                        var contenthtml = '<div class="To">' +
+                            '                <div class="desc">' +
+                            '                    <h2>'+record['name']+'</h2>' +
+                            '                    <p>'+record['award']+'</p>' +
+                            '                </div>' ;
+                        if(record['state']==1){
+                            contenthtml+='   <a href="#" class="have">领奖励</a>' ;
+                        }else if(record['state']==2){
+                            contenthtml+='   <a href="#" class="over">已领取</a>' ;
+                        }else{
+                            contenthtml+='   <a href="javascript:toIndex();" class="go">前往</a>' ;
+                        }
+                        contenthtml+='      </div>';
+                        $('.newUserTasks').append(contenthtml);
+                    }
+                    //每周任务
+                    for(var i in res.data.weekTasks){
+                        var record = res.data.weekTasks[i];
+                        var contenthtml = '<div class="To">' +
+                            '                <div class="desc">' +
+                            '                    <h2>'+record['name']+'</h2>' +
+                            '                    <p>'+record['award']+'</p>' +
+                            '                </div>' ;
+                        if(record['state']==1){
+                            contenthtml+='   <a href="#" class="have">领奖励</a>' ;
+                        }else if(record['state']==2){
+                            contenthtml+='   <a href="#" class="over">已领取</a>' ;
+                        }else{
+                            contenthtml+='   <a href="javascript:toIndex();" class="go">前往</a>' ;
+                        }
+                        contenthtml+='      </div>';
+                        $('.weekTasks').append(contenthtml);
+                    }
+
+                } else if(res.statusCode == 110003) {
+                    //TODO 跳转到登录页面
+                }
+            }
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>修改密码</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .mui-bar {
+            background-color: #e15149;
+            height: 0.8rem;
+        }
+
+        .mui-bar-nav.mui-bar .mui-icon {
+            color: #FFFFFF;
+        }
+
+        .mui-title {
+            color: #FFFFFF;
+        }
+
+        .mui-bar .mui-btn-link {
+            color: #FFFFFF;
+        }
+
+        .mui-bar .mui-btn-link a {
+            color: #fff;
+        }
+
+        .mui-checkbox, .mui-radio {
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            bottom: 0.6rem;
+        }
+
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+            position: initial;
+        }
+
+        .mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+            color: #e15149;
+        }
+
+        .mui-checkbox p {
+            font-size: 0.24rem;
+            color: #999;
+            margin-left: 0.15rem;
+        }
+
+        .mui-checkbox p a {
+            color: #ff8986;
+        }
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="javascript:NATIVE.closeWinView();" data-ajax="false">
+        <img src="../images/Goback.png"/>
+    </a>
+    <h2 class="title">修改密码</h2>
+</div>
+<div class="content">
+    <div class="register-page">
+        <div class="box">
+            <form>
+                <p>
+                    <input id="oldPassword" type="password" placeholder="输入旧密码"/>
+                </p>
+                <p>
+                    <input id="newPassword" type="password" placeholder="输入新密码"/>
+                </p>
+                <p>
+                    <input  id="agaigNewPassword" type="password" placeholder="再次输入"/>
+                </p>
+                <button type="button" class="Toreg" onclick="modifyPassword()" >立即修改</button>
+            </form>
+        </div>
+        <!--<p><span>忘记密码?</span><a href="#">立即找回</a></p>-->
+    </div>
+</div>
+
+<!--注册报错-->
+<div class="fix-psd-error">
+    <div class="box">
+        <h2>注册提醒</h2>
+        <p>两次密码输入不一致，请重新输入</p>
+        <div class="Toregister">
+            <button type="button" onclick="$('.fix-psd-error').hide();">取消</button>
+            <a href="javascript:void(0);" onclick="$('#newPassword').val('');$('#agaigNewPassword').val('');$('.fix-psd-error').hide();">重新输入</a>
+        </div>
+    </div>
+</div>
+<script src="../js/md5.js" type="text/javascript"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/public.js"></script>
+<script src="../js/config.js"></script>
+<script>
+    $('.loading').hide();
+
+
+    if(accessToken){
+
+    }else{
+        NATIVE.toLogin();
+    }
+
+
+
+    function modifyPassword(){
+        var oldPassword = $('#oldPassword').val();
+        var newPassword = $('#newPassword').val();
+        var agaigNewPassword = $('#agaigNewPassword').val();
+        if(!oldPassword || !newPassword || !agaigNewPassword){
+            myAlert('请输入密码');
+            return false;
+        }
+        //TODO 判断密码是否符合要求
+
+        if(newPassword != agaigNewPassword){
+            $('.fix-psd-error').show();
+            return false;
+        }
+
+        var params = '["{oldPassword:\''+hex_md5(oldPassword)+'\',newPassword:\''+hex_md5(newPassword)+'\',passwordSafeLevel:0}"]';
+        $('.loading').show();        myHttp({
+            url: urls.modifyPassword.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                var imgshtml = '';
+                if (res.statusCode == 200) {
+                    myAlert('修改密码成功');
+                    //window.history.go(-1);
+                    NATIVE.closeWinView();
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }else{
+                    myAlert(res.statusMsg);
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

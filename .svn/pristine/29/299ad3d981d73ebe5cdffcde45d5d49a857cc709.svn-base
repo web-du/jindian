@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>登录</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .login-top {
+            background-image: url("../images/login-bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-bottom: 0.55rem;
+        }
+
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+            position: initial;
+        }
+
+        .mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+            color: #e15149;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page">
+    <div class="login-top">
+        <div class="login-header">
+            <a href="#">
+                <img src="../images/login-del.png"/>
+            </a>
+            <a href="#">
+                <h2>注册</h2>
+            </a>
+        </div>
+        <img src="../images/login-logo.png"/>
+        <h2>今点阅读</h2>
+    </div>
+    <div class="your-message">
+        <form>
+            <p class="name">
+                <img src="../images/login-name.png"/>
+                <input type="text" id="username" value="36548956230" placeholder="手机/用户名"/>
+            </p>
+            <p class="psd">
+                <img src="../images/login-psd.png"/>
+                <input type="password" id="password" value="1" placeholder="输入密码"/>
+            </p>
+            <button type="button" onclick="login()">立即登录</button>
+        </form>
+        <p class="forget">
+            <a href="#">忘记密码？</a>
+            <a href="#">手机验证码登录</a>
+        </p>
+    </div>
+    <div class="your-social">
+        <p>社交账号登录</p>
+        <div class="box">
+            <div class="img">
+                <a href="#">
+                    <img src="../images/login-wb.png"/>
+                </a>
+            </div>
+            <div class="img">
+                <a href="#">
+                    <img src="../images/login-wx.png"/>
+                </a>
+            </div>
+            <div class="img">
+                <a href="#">
+                    <img src="../images/login-qq.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="mui-input-row mui-checkbox mui-left">
+            <input name="checkbox" value="Item 2" type="checkbox" checked="">
+            <p>我已阅读并同意<a href="#">《用户服务协议》</a></p>
+        </div>
+    </div>
+</div>
+
+<!--登录手机号报错-->
+<div class="fix-phone-error">
+    <div class="box">
+        <h2>登录提醒</h2>
+        <p>帐号不存在，这个手机号尚未注册，现在是否注册？</p>
+        <div class="Toregister">
+            <button>取消</button>
+            <a href="#">立即注册</a>
+        </div>
+    </div>
+</div>
+
+<!--密码错误-->
+<div class="fix-psd-error">
+    <div class="box">
+        <h2>登录提醒</h2>
+        <p>密码错误，请重新输入</p>
+        <div class="Toregister">
+            <button>取消</button>
+            <a href="#">立即找回</a>
+        </div>
+    </div>
+</div>
+<script src="../js/md5.js" type="text/javascript"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/public.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript">
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+</script>
+<script>
+    function login() {
+        var timestamp =getNowFormatDate();
+//        var p = hex_md5(hex_md5("123456")+timestamp);
+//        var params = '["{username:\'13971142972\',password:\''+p+'\',time:\''+timestamp+'\'}"]';
+        var a = $('#username').val();
+        var b = $('#password').val();
+        var p = hex_md5(hex_md5(b)+timestamp);
+        var params = '["{username:\''+a+'\',password:\''+p+'\',time:\''+timestamp+'\'}"]';
+        $('.loading').show();        myHttp({
+            url: urls.login.path,
+            params: params,
+            success: function (res) { $('.loading').hide();
+                console.log(res);
+                if(res.statusCode==200){
+                    alert("accessToken:"+res.data.accessToken);
+                }
+            },
+            error: function (res) {
+                //console.log(res);
+            }
+        });
+
+    }
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        var strH= date.getHours();
+        var strM = date.getMinutes();
+        var strS = date.getSeconds();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        if (strH >= 0 && strH <= 9) {
+            strH = "0" + strH;
+        }
+        if (strM >= 0 && strM <= 9) {
+            strM = "0" + strM;
+        }
+        if (strS >= 0 && strS <= 9) {
+            strS = "0" + strS;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate+strH+strM+strS;
+        return currentdate;
+    }
+
+</script>
+</body>
+</html>

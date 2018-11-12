@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>消费记录</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.picker.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css"/>
+    <style>
+        .ui-page {
+            background-color: #fff;
+        }
+
+        .mui-poppicker-header {
+            padding: 0 0.25rem;
+            height: 0.98rem;
+            line-height: 0.98rem;
+        }
+
+        .mui-poppicker {
+            background-color: #fff;
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .mui-poppicker-header .mui-btn {
+            padding: 0;
+            border: none;
+            height: 0.98rem;
+            line-height: 0.98rem;
+            font-size: 0.34rem;
+            color: #666;
+            font-weight: 600;
+            background-color: #fff;
+        }
+
+        .mui-poppicker-btn-ok {
+            color: #e15149 !important;
+        }
+
+        .mui-picker {
+            background-color: #fff;
+        }
+
+        .mui-pciker-rule-ft {
+            border-color: #e15149;
+        }
+
+        .mui-pciker-list li.highlight {
+            color: #E15149;
+        }
+    </style>
+<script type="text/javascript">document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';</script></head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="javascript:window.history.back();">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">消费记录</h2>
+    </div>
+
+    <div class="content">
+        <div class="record-page">
+            <div class="box">
+                <div class="any-null"><img src="../images/any-null.png" ></div>
+                <!--<h6><span id="userResult">2018年7月</span><em id="showUserPicker">切换月份</em></h6>-->
+                <!--<div class="details">-->
+                    <!--<div class="reason">-->
+                        <!--<h2>订阅 《将军，回来了》 第二十五章啊圣诞节快快的金额费劲儿富士康飞</h2>-->
+                        <!--<p>07月3日 17:49</p>-->
+                    <!--</div>-->
+                    <!--<div class="money">-->
+                        <!--<em>-100</em>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<input id="pageid" value="1" type="hidden">
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+//
+//    (function ($, doc) {
+//        $.init();
+//        $.ready(function () {
+//            //普通示例
+//            var userPicker = new $.PopPicker();
+//            userPicker.setData([{
+//                value: '',
+//                text: '2018年1月'
+//            }, {
+//                value: '',
+//                text: '2018年2月'
+//            }, {
+//                value: 'lj',
+//                text: '2018年3月'
+//            }, {
+//                value: 'ymt',
+//                text: '2018年4月'
+//            }, {
+//                value: 'shq',
+//                text: '2018年5月'
+//            }, {
+//                value: 'zhbh',
+//                text: '2018年6月'
+//            }, {
+//                value: 'zhy',
+//                text: '2018年7月'
+//            }, {
+//                value: 'gyf',
+//                text: '2018年8月'
+//            }]);
+//            var showUserPickerButton = doc.getElementById('showUserPicker');
+//            var userResult = doc.getElementById('userResult');
+//            showUserPickerButton.addEventListener('tap', function (event) {
+//                userPicker.show(function (items) {
+//                    userResult.innerHTML = items[0].text;
+//                    //返回 false 可以阻止选择框的关闭
+//                    //return false;
+//                });
+//            }, false);
+//
+//        });
+//    })(mui, document);
+
+</script>
+<script>
+
+
+
+    if(!accessToken){
+        NATIVE.toLogin();
+    }
+    var params = '["{pageNumber:1,pageSize:15}"]';
+    getPayRecordList(params);
+
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 30 }, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:'+next+',pageSize:10}"]';
+            getPayRecordList(params);
+        }
+    });
+
+    var isLastRecord = false;
+
+
+    //获取消费记录
+    function getPayRecordList(params){
+        if(isLastRecord){
+            return false;
+        }
+        $('.loading').show();        myHttp({
+            url: urls.getPayRecordList.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    for(var i in res.data.payRecords){
+                        $('.any-null').hide();
+                        var record = res.data.payRecords[i];
+                        var contenthtml = '<div class="details">' +
+                            '                    <div class="reason">' +
+                            '                        <h2>'+record['payType']+' '+record['bookName']+'</h2>' +
+                            '                        <p>'+record['payTime']+'</p>' +
+                            '                    </div>' +
+                            '                    <div class="money">' +
+                            '                        <em>-'+record['payCoin']+'</em>' +
+                            '                    </div>' +
+                            '                </div>';
+                        $('.box').append(contenthtml);
+                    }
+
+                    if(!res.data.payRecords){
+                        isLastRecord = true;
+                    }
+
+//                    window.location.reload();
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

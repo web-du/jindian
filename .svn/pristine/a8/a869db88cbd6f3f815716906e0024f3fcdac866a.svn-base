@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>充值</title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/> -->
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    	.ui-page{
+    		background-color: #fff;
+    	}
+    	.mui-checkbox, .mui-radio{
+    		display: flex;
+    		display: -webkit-flex;
+    		align-items: center;
+    		justify-content: center;
+    		width: 100%;
+    	}
+		.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+			position: initial;
+		}
+		.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+			color: #12d21f;
+		}
+		.mui-checkbox p{
+			font-size: 0.24rem;
+			color: #999;
+			margin-left: 0.15rem;
+		}
+		.mui-checkbox p a{
+			color: #ff8986;
+		}
+		.read-fixed>div .box h3{
+			display: flex;
+			display: -webkit-flex;
+			display: -moz-flex;
+			align-items:center;
+			padding:0 0.25rem;
+		}
+		.read-fixed>div .box h3 img{
+			width:0.45rem;
+			height:0.45rem;
+			margin-right:0.25rem;
+		}
+		.read-fixed>div .box h3:nth-child(3) img{
+			width:0.57rem;
+		}
+        button{
+            -webkit-transition: all 0s;
+               -moz-transition: all 0s;
+                -ms-transition: all 0s;
+                 -o-transition: all 0s;
+                    transition: all 0s;
+        }
+    </style>
+<script src="../js/public.js"></script> </head>
+<body>
+	<div data-role="page">
+		<div class="myheader">
+			<a class="Goback" href="javascript:NATIVE.closeWinView();">
+				<img src="../images/Goback.png"/>
+			</a>
+			<h2 class="title">充值</h2>
+		</div>
+
+		<div class="content">
+			<div class="refill">
+				<div class="refill-to">
+					<span>支付方式</span>
+					<div class="box">
+						<img src="../images/new-pay01.png" class="logo"/>
+						<span>微信支付</span>
+						<img src="../images/account-To.png" class="to"/>
+					</div>
+				</div>
+				<div class="line"></div>
+				<div class="refill-money">
+					<h2>充值金额</h2>
+					<p>今元宝兑换比例1元=100今元宝</p>
+					<div class="box money-list">
+						<div money-type="0.01" class="money now">
+							<div>
+								<h2>￥0.01</h2>
+								<p>1今元宝</p>
+								<em>首充送1今元宝</em>
+								<!--<h2>￥20</h2>-->
+								<!--<p>2000今元宝</p>-->
+								<!--<em>首充送2000今元宝</em>-->
+							</div>
+						</div>
+						<div money-type="1" class="money">
+							<div>
+								<h2>￥1</h2>
+								<p>100今元宝</p>
+								<em>首充送100今元宝</em>
+								<!--<h2>￥30</h2>-->
+								<!--<p>3000今元宝</p>-->
+								<!--<em>首充送3000今元宝</em>-->
+							</div>
+						</div>
+						<div money-type="50" class="money">
+							<div>
+								<h2>￥50</h2>
+								<p>5000今元宝</p>
+								<em>首充送5000今元宝</em>
+							</div>
+						</div>
+						<div money-type="100" class="money">
+							<div>
+								<h2>￥100</h2>
+								<p>10000今元宝</p>
+								<em>首充送10000今元宝</em>
+							</div>
+						</div>
+						<div money-type="200" class="money">
+							<div>
+								<h2>￥200</h2>
+								<p>20000今元宝</p>
+								<em>首充送20000今元宝</em>
+							</div>
+						</div>
+						<div money-type="other" class="money">
+							<div>
+								<h2>其他金额</h2>
+								<input type="text" id="otherMoney" maxlength="3"
+									   placeholder="输入200~300之间数额" onkeyup="this.value=this.value.replace(/[^\d]/g,'')"  style="border: 0;"/>
+								<em>首充送今元宝</em>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-input-row mui-checkbox mui-left">
+					<input name="checkbox" value="Item 2" type="checkbox" checked="">
+					<p>我同意用户服务协议</p>
+				</div>
+				<button type="button" onclick="toPay()">立即支付</button>
+			</div>
+		</div>
+
+
+		<!-- 选择充值方式 -->
+		<div class="read-fixed">
+			<!--设置字体样式-->
+			<div id="To-pay">
+				<h2>选择支付方式</h2>
+				<div class="box">
+					<h3><img src="../images/new-pay01.png" ><span pay-type="weixin">微信支付</span></h3>
+					<h3><img src="../images/new-pay02.png" ><span pay-type="alipay">支付宝支付</span></h3>
+					<h3><img src="../images/new-pay03.png" ><span pay-type="applePay">Apple Pay</span></h3>
+				</div>
+				<div class="line">
+				</div>
+				<h1>取消</h1>
+			</div>
+		</div>
+		<input type="hidden" value="weixin" id="payType"/>
+	</div>
+	<div id="tempDiv"></div>
+    <script src="../js/mui.js"></script>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+
+    <script src="../js/config.js"></script>
+	<script type="text/javascript">
+
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+
+		$(function(){
+			//选择支付金额
+			$(".refill .refill-money .box .money").click(function(){
+				$(this).addClass('now').siblings().removeClass('now');
+			})
+
+
+			// 弹出选择支付窗
+			$(".refill-to").click(function(){
+				$(".read-fixed").stop().fadeIn();
+				$("#To-pay").addClass("active");
+			})
+
+			// 选择支付方式
+			$("#To-pay h3").click(function(){
+				var Img = $(this).find("img").attr("src");
+				var text = $(this).find("span").html();
+				$('#payType').val($(this).find("span").attr('pay-type'));
+				$(".refill .refill-to .box").find("img.logo").attr("src",Img);
+				$(".refill .refill-to .box").find("span").html(text);
+				$(".read-fixed").stop().fadeOut();
+				$("#font-family").removeClass("active");
+			})
+
+
+			/**点击取消**/
+			$("#To-pay>h1").click(function(){
+				$("#To-pay").removeClass("active");
+				$(".read-fixed").stop().fadeOut();
+			})
+
+		})
+
+	</script>
+	<script>
+
+
+
+
+        if(!accessToken){
+            NATIVE.toLogin();
+        }
+
+		function toPay(){
+		    var money = 20;
+            $(".money-list .money").each(function(e){
+                var e = e || event;
+                if($(this).hasClass('now')){
+                    money = $(this).attr('money-type');
+                }
+            });
+            if(money == 'other'){
+                money = $('#otherMoney').val();
+                if(money > 300 || money < 200){
+					myAlert('请输入200-300之间的数额');
+					return false;
+				}
+			}
+
+            var payType = $('#payType').val();
+			if(payType == 'alipay'){
+//                var params = '["{amount:'+money+'}"]';
+//                createAlipayOrder4App(params);
+				NATIVE.alipay(money);
+			}else if(payType == 'weixin'){
+				NATIVE.wechatpay(money);
+			}else if(payType == 'applePay'){
+                myAlert('苹果支付正在努力开发中....');
+            }
+		}
+
+
+        //获取账户余额
+        function createAlipayOrder4App(params){
+            $('.loading').show();        myHttp({
+                url: urls.createAlipayOrder4App.path,
+                headers:{'jd-token':accessToken},
+                params: params,
+                success: function (res) { $('.loading').hide();
+                    if (res.statusCode == 200) {
+						$('#tempDiv').html(res.data.orderParams);
+                    } else if(res.statusCode == 110003) {
+                        NATIVE.toLogin();
+                    }
+                }
+            });
+        }
+	</script>
+<script src="../js/public.js"></script> </body>
+</html>

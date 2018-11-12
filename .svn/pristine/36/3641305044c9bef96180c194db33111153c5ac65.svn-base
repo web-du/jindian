@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>粉丝榜</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper-4.2.2.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="myheader">
+    <a class="Goback" href="book_details.html">
+        <img src="../images/Goback.png"/>
+    </a>
+    <div class="fans-title">
+        <h2>粉丝榜</h2>
+        <span>0</span>
+    </div>
+</div>
+
+<div class="content">
+    <div class="fans-rank">
+    </div>
+    <div class="line">
+    </div>
+    <div class="other-fans">
+        <!--<div class="box">-->
+            <!--<div class="name">-->
+                <!--<span>4.</span>-->
+                <!--<img src="../images/No.other01.png"/>-->
+                <!--<p>兰家</p>-->
+            <!--</div>-->
+            <!--<span>1300</span>-->
+        <!--</div>-->
+    </div>
+    <div class="your">
+        <img src="../images/no.otherlast.png"/>
+        <div class="box">
+            <h2>当前粉丝值<span>0</span><em>未上榜</em></h2>
+            <p>再获得<b id="curNeedVal">0</b>粉丝值上升至<b id="curNeedRank">0</b>名</p>
+        </div>
+    </div>
+</div>
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/swiper-4.2.2.min.js"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+    var id = getQueryString(winurl, 'id');
+    if(id){
+        getBookFansRankList();
+    }
+
+    //获取书籍粉丝列表
+    function getBookFansRankList() {
+        var params = '["{size:10,bookId:' + id + '}"]';
+        var options = {
+            url: urls.getBookFansRankList.path,
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    var detail = res.data;
+                    if(detail.curUserId){
+                        $('.fans-title span').text(detail['curVal']);
+                        $('.your img').attr('src',detail['curHeaderUrl']);
+                        $('.your span').text(detail['curVal']);
+                        if(detail['hitRank']){
+                            $('.your em').hide();
+                        }
+                        $('#curNeedVal').text(detail['curNeedVal']);
+                        $('#curNeedRank').text(detail['curNeedRank']);
+
+                    }else {
+                        $('.your').hide();
+                        $('.fans-title span').hide();
+                    }
+                    var contenthtml1 = '';
+                    var contenthtml2 = '';
+                    console.log(detail.fanRanks);
+                    for(var i in detail.fanRanks){
+                        var record = detail.fanRanks[i];
+                        if(i == 0){
+                            contenthtml1 += '<div class="box">' +
+                                '            <div class="img">' +
+                                '                <img src="'+record['headerUrl']+'">' +
+                                '                <img src="../images/first.png">' +
+                                '            </div>' +
+                                '            <h2>'+record['nickname']+'</h2>' +
+                                '            <span>'+record['fansVal']+'</span>' +
+                                '        </div>';
+                        }else if(i==1){
+                            contenthtml1 += '<div class="box">' +
+                                '            <div class="img">' +
+                                '                <img src="'+record['headerUrl']+'">' +
+                                '                <img src="../images/sec.png">' +
+                                '            </div>' +
+                                '            <h2>'+record['nickname']+'</h2>' +
+                                '            <span>'+record['fansVal']+'</span>' +
+                                '        </div>';
+                        }else if(i==2){
+                            contenthtml1 += '<div class="box">' +
+                                '            <div class="img">' +
+                                '                <img src="'+record['headerUrl']+'">' +
+                                '                <img src="../images/three.png">' +
+                                '            </div>' +
+                                '            <h2>'+record['nickname']+'</h2>' +
+                                '            <span>'+record['fansVal']+'</span>' +
+                                '        </div>';
+                        }else{
+                            contenthtml2 +='<div class="box">' +
+                                '            <div class="name">' +
+                                '                <span>'+i+'.</span>' +
+                                '                <img src="'+record['headerUrl']+'">' +
+                                '                <p>'+record['nickname']+'</p>' +
+                                '            </div>' +
+                                '            <span>'+record['fansVal']+'</span>' +
+                                '        </div>';
+
+
+
+                        }
+                        $('.fans-rank').html(contenthtml1);
+                        $('.other-fans').html(contenthtml2);
+
+
+
+
+
+
+
+                    }
+
+                } else {
+                    alert(res.statusMsg);
+                }
+            }
+        };
+        if(accessToken){
+            options.headers = {'jd-token':accessToken};
+        }
+
+        myHttp.ajax(options);
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

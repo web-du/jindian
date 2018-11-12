@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>粉丝值</title>
+    <script src="../js/mui.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.mobile-1.4.5.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .ui-page {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<div data-role="page">
+    <div class="myheader">
+        <a class="Goback" href="account.html" data-ajax="false">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">粉丝值</h2>
+    </div>
+
+    <div class="content">
+        <div class="fans-val">
+            <!--<div class="box">-->
+                <!--<div class="img">-->
+                    <!--<img src="../images/bookshelf-img01.jpg"/>-->
+                <!--</div>-->
+                <!--<div class="con">-->
+                    <!--<h2>我的粉丝值<em>1280</em></h2>-->
+                    <!--<p>《晨曦鹦鹉宠物店》 长安</p>-->
+                    <!--<h6>再获得750粉丝值上升至125名</h6>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+</div>
+<input id="pageid" value="1" type="hidden">
+<script src="../js/config.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    /**根据屏幕改变根元素字体大小**/
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+
+
+</script>
+<script>
+    var winurl = window.location.href;
+    var accessToken = getQueryString(winurl, 'accessToken');
+
+    if (accessToken) {
+        var params = '["{pageSize:10,pageNumber:1}"]';
+        getFansValList(params);
+    } else {
+        //TODO 跳转到登录页面
+    }
+
+
+    window.scrollTo(0, 0); //每次F5刷新把滚动条置顶
+    new NeuF.ScrollPage(window, { delay: 1000, marginBottom: 0 }, function (offset) {
+        if (offset > 0) {
+            var page = $("#pageid").val();
+            var next=Number(page)+1;
+            $("#pageid").val(next);
+            var params = '["{pageNumber:'+next+',pageSize:10}"]';
+            getFansValList(params);
+        }
+    });
+
+
+
+    //获取消息列表
+    function getFansValList(params){
+        myHttp.ajax({
+            url: urls.getFansValList.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) {
+                if (res.statusCode == 200) {
+                    for(var i in res.data){
+                        var record = res.data[i];
+                        var contenthtml = '<div class="box">' +
+                            '     <div class="img">' +
+                            '      <img src="'+record['coverUrl']+'">' +
+                            '     </div>' +
+                            '     <div class="con">' +
+                            '      <h2>我的粉丝值<em>'+record['fansVal']+'</em></h2>' +
+                            '      <p>《'+record['bookName']+'》 '+record['authorPenName']+'</p>' +
+                            '      <h6>再获得'+record['nextFansVal']+'粉丝值上升至'+record['nextRank']+'名</h6>' +
+                            '     </div>' +
+                            '    </div>';
+                        $('.fans-val').append(contenthtml);
+                    }
+
+                } else if(res.statusCode == 110003) {
+                    //TODO 跳转到登录页面
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

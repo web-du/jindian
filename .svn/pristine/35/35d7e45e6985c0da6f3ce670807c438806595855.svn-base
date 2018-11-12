@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>每日签到</title>
+    <link rel="stylesheet" type="text/css" href="../css/ui-box.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .sign-in-page {
+            background-color: #fff;
+            background-image: url("../images/sign_in.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .myheader .account-mess {
+            justify-content: flex-end;
+        }
+
+        /* 抽奖样式 */
+        .myBox {
+            position: relative;
+        }
+
+        .myBox ul {
+            margin: 0 auto 0;
+            position: relative;
+            width: 500px;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .myBox li {
+            width: 2rem;
+            height: 2rem;
+            background-image: url("../images/lottery-img.png");
+            background-repeat: no-repeat;
+            background-size: 2rem 2rem;
+        }
+
+        .myBox li.on {
+            background-image: url("../images/lottery-imgd.png");
+        }
+
+        .myBox li.now {
+            animation: mymove 1s ease 1s 1 normal;
+            -moz-animation: mymove 1s ease 1s 1 normal; /* Firefox */
+            -webkit-animation: mymove 1s ease 1s 1 normal; /* Safari 和 Chrome */
+            -o-animation: mymove 1s ease 1s 1 normal; /* Opera */
+        }
+
+        .myBox li.over {
+            background-image: url("../images/your-right.png");
+        }
+
+        .text {
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            left: 50%;
+            top: 50%;
+            margin-left: -1rem;
+            margin-top: -1rem;
+        }
+
+        .bt img {
+            display: block;
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .jg, .zt {
+            float: left;
+            width: 200px;
+        }
+
+        .jg {
+            display: none;
+        }
+
+        em {
+            font-size: 30px;
+            font-style: normal;
+            color: red;
+        }
+
+        .lottery-box {
+            width: 7rem;
+            margin: 1rem auto 0;
+            background-image: url("../images/lottery.png");
+            background-size: 7rem 7.6rem;
+            background-position: left top;
+            background-repeat: no-repeat;
+            padding-top: 1.05rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="sign-in-page">
+    <div class="myheader">
+        <a class="Goback" href="javascript:NATIVE.closeWinView();" data-ajax="false">
+            <img src="../images/Goback.png"/>
+        </a>
+        <h2 class="title">每日签到</h2>
+        <a href="javascript:locationUrl('sign_help.html',false);" class="account-mess">
+            <img src="../images/installl-ques.png"/>
+        </a>
+    </div>
+    <div class="sign-in">
+        <button onclick="signToday()">
+            <img src="../images/sign-in-img.png">
+            <!--<img src="../images/sign-in-imgd.png">-->
+        </button>
+        <h2>已连续签到<span>0</span>天</h2>
+        <p>连续签到7天可抽奖哦~</p>
+    </div>
+    <div class="lottery-box">
+        <div class="myBox">
+            <ul class="cj1">
+                <li></li>
+            </ul>
+            <div class='text'>
+                <div class="bt bt1" onclick="getPrizeDrawResult()">
+                    <img src="../images/To-ticket.png">
+                </div>
+                <!--<div class='jg jg1'>中奖者为"<em></em>"号</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/public.js"></script>
+<script src="../js/config.js"></script>
+<script type="text/javascript" src="../js/luckDraw.js"></script>
+<script type="text/javascript">
+
+
+    $(function () {
+        //选择图像
+        $(".system-more-img .box").eq(1).addClass('now').siblings().removeClass('now');
+        $(".system-more-img .box").click(function () {
+            var Img = $(this).find("img").attr("src");
+            $(this).addClass('now').siblings().removeClass('now')
+            $(".system-page .system-img img").attr("src", Img);
+        })
+
+
+
+        //获取浏览器的高度
+        $(".sign-in-page").height($(window).height())
+    })
+
+</script>
+<script>
+
+
+    var prizeDrawTimes = 0;//抽奖次数
+    var prizeList = null;//奖品列表
+    var isGetPrizeDrawTimes = false;
+    var isSignToday = false;//是否签到
+
+
+    if(accessToken){
+        getSignState();
+        getPrizeDrawTimes();
+        getPrizeList();
+    }else{
+        NATIVE.toLogin();
+    }
+
+
+    //获取我的签到状态
+    function getSignState(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getSignState.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    var record = res.data;
+                    if(record['signToday']){
+                        $('.sign-in img').attr('src','../images/sign-in-imgd.png');
+                        isSignToday = true;
+                    }
+                    $('.sign-in span').text(record['signConstantDays']);
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    //签到
+    function signToday(){
+        if(isSignToday){
+            return false;
+        }
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.signToday.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    $('.sign-in img').attr('src','../images/sign-in-imgd.png');
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    //获取抽奖次数
+    function getPrizeDrawTimes(){
+        isGetPrizeDrawTimes = false;
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getPrizeDrawTimes.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    isGetPrizeDrawTimes = true;
+                    prizeDrawTimes = parseInt(res.data);
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    //获取抽奖列表
+    function getPrizeList(){
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getPrizeList.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+//                    var lis = $('.cj1 li');
+                    prizeList = res.data;
+//                    for(var i in prizeList){
+//                        var record = prizeList[i];
+//                        $(lis).eq(i).css('background-image','url('+record['iconUrl']+')');
+//                    }
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    var onRun = false;
+    //抽奖
+    function getPrizeDrawResult(){
+        if(onRun){
+            return false;
+        }
+        if(!isGetPrizeDrawTimes){
+            return false;
+        }
+        if(prizeDrawTimes < 1){
+            myAlert('抽奖次数不足'); return;
+        }
+
+        var params = '["{}"]';
+        $('.loading').show();        myHttp({
+            url: urls.getPrizeDrawResult.path,
+            headers:{'jd-token':accessToken},
+            params: params,
+            success: function (res) { $('.loading').hide();
+                if (res.statusCode == 200) {
+                    for(var i in prizeList) {
+                        var record = prizeList[i];
+                        if(record['id'] == res.data){
+                            setLuckDraw(parseInt(i)+1,record);
+                            getPrizeDrawTimes();
+                        }
+                    }
+
+                } else if(res.statusCode == 110003) {
+                    NATIVE.toLogin();
+                }
+            }
+        });
+    }
+
+    function setLuckDraw(value,prize){
+        onRun = true;
+        var option = {
+            width:100, //宽
+            height:100, //高
+            row : 3, //行
+            column : 3, //列
+            spacing: 5, //空隙
+            click : 'now', //点击触发
+            time: 3 ,//匀速运动的时间
+            end:function(e){
+                //抽奖执行完毕的回调函数,参数e为获奖编号
+                //因为这里是指定的，所以e == 12
+                if(e == value){
+                    $(".myBox li").eq(e-1).addClass("now");
+                    $(".myBox").on("webkitAnimationEnd","li",function(){
+                        $(this).css('background-image',"url("+prize['iconUrl']+")");
+                        myAlert('恭喜您，获得'+prize['name']);
+                        setTimeout(function(){
+                            window.location.reload();
+                        },1000);
+                    })
+
+
+                }
+            }
+        };
+
+        $('.cj1').myLuckDraw(option,value);
+
+    }
+
+
+</script>
+</body>
+</html>
